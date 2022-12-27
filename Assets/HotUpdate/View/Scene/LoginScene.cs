@@ -19,9 +19,14 @@ public class LoginScene : MonoBehaviour
 
         Addressables.LoadAssetAsync<GameObject>("Assets/Prefab/HotUpdate.prefab");
 
-        EventManager.Instance().On("test", onEvent);
-        //EventManager.Instance().Off("test", onEvent);
-        EventManager.Instance().Emit("test","ƒ„∫√∞°");
+        EventManager.Instance.On("test", onEvent);
+        //EventManager.Instance.Off("test", onEvent);
+        EventManager.Instance.Emit("test","ƒ„∫√∞°");
+        Timers.Instance.Add(1, 3, (dt) =>
+        {
+            Debug.Log("¥Ú”°");
+            Debug.Log(dt);
+        });
     }
 
     public void onEvent(object param)

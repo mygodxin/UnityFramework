@@ -4,11 +4,14 @@ public class EventManager
     private EventTarget eventTarget = new EventTarget();
 
     private static EventManager instance = null;
-    public static EventManager Instance()
+    public static EventManager Instance
     {
-        if(instance == null)
-            instance = new EventManager();
-        return instance;
+        get
+        {
+            if (instance == null)
+                instance = new EventManager();
+            return instance;
+        }
     }
 
    public void Emit(string name, Object data)

@@ -5,11 +5,14 @@ using UnityEngine.AddressableAssets;
 public class AudioManager
 {
     private static AudioManager instance = null;
-    public static AudioManager Instance()
+    public static AudioManager Instance
     {
-        if (instance == null)
-            instance = new AudioManager();
-        return instance;
+        get
+        {
+            if (instance == null)
+                instance = new AudioManager();
+            return instance;
+        }
     }
 
     public void Init()
