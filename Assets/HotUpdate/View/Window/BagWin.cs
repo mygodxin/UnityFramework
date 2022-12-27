@@ -8,7 +8,7 @@ public class BagWin : Window
 {
     public BagWin():base()
     {
-
+        path = "Assets/Prefab/BagWindow.prefab";
     }
 
     public override void OnInit()

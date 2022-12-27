@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Button text="Button" display-tooltip-when-elided="true" name="btnClose" style="height: 21px;" />
+    <ui:Label text="Label" display-tooltip-when-elided="true" name="txtName" style="height: 25px; width: 54px; -unity-text-align: middle-left; white-space: normal;" />
+</ui:UXML>

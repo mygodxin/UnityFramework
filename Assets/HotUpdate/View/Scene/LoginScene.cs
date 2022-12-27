@@ -22,11 +22,18 @@ public class LoginScene : MonoBehaviour
         EventManager.Instance.On("test", onEvent);
         //EventManager.Instance.Off("test", onEvent);
         EventManager.Instance.Emit("test","ƒ„∫√∞°");
-        Timers.Instance.Add(1, 3, (dt) =>
+        Timers.Instance.Add(1, 2, (dt) =>
         {
-            Debug.Log("¥Ú”°");
-            Debug.Log(dt);
+            Debug.Log("timers");
         });
+
+        var player = new Player();
+        player.Name = "HelloWorld";
+        player.Age = 11;
+        LocalStorage.Save("player", player);
+        var p = LocalStorage.Read<Player>("player");
+        Debug.Log(p.Name);
+        Debug.Log(p.Age);
     }
 
     public void onEvent(object param)

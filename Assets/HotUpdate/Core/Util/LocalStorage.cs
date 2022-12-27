@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -7,8 +5,17 @@ using UnityEngine;
 /// </summary>
 public class LocalStorage
 {
-    public static void Save()
+    public static void Save<T>(string key, T data)
     {
+        var json = JsonUtility.ToJson(data, true);
+        PlayerPrefs.SetString(key, json);
+        PlayerPrefs.Save();
+    }
 
+    public static T Read<T>(string key)
+    {
+        var json =  PlayerPrefs.GetString(key, null);
+        var data = JsonUtility.FromJson<T>(json);
+        return data;
     }
 }

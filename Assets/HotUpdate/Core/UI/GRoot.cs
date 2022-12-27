@@ -15,7 +15,7 @@ public class GRoot : GComponent
 
     public void ShowWindow(Window win)
     {
-
+       // win.onAddToStage();
     }
 
     public void HideWindow(Window win)
