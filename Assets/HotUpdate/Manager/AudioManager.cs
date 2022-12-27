@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-public class ResManager
+public class AudioManager
 {
-    private static ResManager instance = null;
-    public static ResManager Instance()
+    private static AudioManager instance = null;
+    public static AudioManager Instance()
     {
         if (instance == null)
-            instance = new ResManager();
+            instance = new AudioManager();
         return instance;
     }
 

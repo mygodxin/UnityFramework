@@ -18,6 +18,16 @@ public class LoginScene : MonoBehaviour
         gameObject.AddComponent<GameScene>();
 
         Addressables.LoadAssetAsync<GameObject>("Assets/Prefab/HotUpdate.prefab");
+
+        EventManager.Instance().On("test", onEvent);
+        //EventManager.Instance().Off("test", onEvent);
+        EventManager.Instance().Emit("test","ÄãºÃ°¡");
+    }
+
+    public void onEvent(object param)
+    {
+        Debug.Log("²âÊÔÊÂ¼ş");
+        Debug.Log(param);
     }
 
     private void OnClick()

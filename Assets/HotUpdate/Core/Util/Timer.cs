@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// ¼ÆÊ±Æ÷
+/// </summary>
 public class Timer
 {
     // Start is called before the first frame update
