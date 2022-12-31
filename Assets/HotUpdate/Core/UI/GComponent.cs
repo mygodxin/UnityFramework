@@ -13,31 +13,60 @@ public class GComponent : EventTarget
     GameObject gameObject;
     public string Path;
     public object Param;
+    bool inited = false;
+    bool loading = false;
 
     public GComponent()
     {
         //AddToStage += onAddToStage;
     }
 
-    private void createGameObject()
+    public void Show()
     {
+        if (!inited)
+        {
+            init();
+        }
+        else
+        {
+            DoShowAnimation();
+        }
+    }
+
+    virtual protected void DoShowAnimation()
+    {
+        OnShow();
+    }
+
+    void init()
+    {
+        if (loading)
+            return;
         gameObject = Addressables.LoadAssetAsync<GameObject>(Path).WaitForCompletion();
         Object.Instantiate(gameObject);
         gameObject.SetActive(true);
-        this.AddToStage(1);
+
+        OnInit();
+
+        DoShowAnimation();
     }
 
-    public virtual void onInit()
+    public void Hide()
     {
 
     }
 
-    public virtual void OnShow()
+    public virtual void OnInit()
     {
 
     }
 
-    public virtual void OnHide()
+    protected virtual void OnShow()
+    {
+
+    }
+
+    protected virtual void OnHide()
     {
 
     }

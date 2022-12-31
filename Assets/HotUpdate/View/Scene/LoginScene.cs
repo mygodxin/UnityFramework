@@ -34,6 +34,8 @@ public class LoginScene : MonoBehaviour
         var p = LocalStorage.Read<Player>("player");
         Debug.Log(p.Name);
         Debug.Log(p.Age);
+
+        GRoot.Instance.ShowWindow(BagWin.Name);
     }
 
     public void onEvent(object param)

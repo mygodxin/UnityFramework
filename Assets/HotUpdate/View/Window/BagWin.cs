@@ -4,28 +4,28 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class BagWin : MonoBehaviour
+public class BagWin : Window
 {
-    //public BagWin():base()
-    //{
-    //    path = "Assets/Prefab/BagWindow.prefab";
-    //}
+    public static string Name = "BagWin";
+    public BagWin() : base()
+    {
+        Path = "Assets/Prefab/BagWindow.prefab";
+    }
     public Button btnClose;
     public TextField txtName;
 
-    private void Awake()
+    public override void OnInit()
     {
+        Debug.Log("BagWin OnInit");
     }
 
-    public void OnInit()
+    protected override void OnShow()
     {
+        Debug.Log("BagWin OnShow");
     }
 
-    public void OnShow()
+    protected override void OnHide()
     {
-    }
-
-    public void OnHide()
-    {
+        Debug.Log("BagWin OnHide");
     }
 }
