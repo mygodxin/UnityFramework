@@ -41,10 +41,6 @@ MonoBehaviour:
     m_Address: Assets/HotFixDll/Assembly-CSharp.dll.bytes
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 8a6a360df4a6c074397142fcf7271dae
-    m_Address: Assets/Prefab/New Panel Settings.asset
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 95964872e98743645a858741454839e1
     m_Address: Assets/Prefab/BagWindow.prefab
     m_ReadOnly: 0

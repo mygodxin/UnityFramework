@@ -1,4 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Button text="Button" display-tooltip-when-elided="true" name="btnClose" style="height: 21px;" />
-    <ui:Label text="Label" display-tooltip-when-elided="true" name="txtName" style="height: 25px; width: 54px; -unity-text-align: middle-left; white-space: normal;" />
+    <ui:VisualElement name="VisualElement" style="align-items: auto; flex-direction: column-reverse; justify-content: center; height: 349px; width: 304px; position: absolute; top: 8px; left: 10px; background-color: rgb(224, 0, 0);" />
+    <ui:Button text="测试按钮" display-tooltip-when-elided="true" name="btnClose" style="height: 21px; transition-property: all; transition-duration: 0s; transition-timing-function: ease; transition-delay: 0s; position: absolute; top: 22px; left: 144px;" />
+    <ui:Label text="测试文本" display-tooltip-when-elided="true" name="txtName" style="height: 41px; width: 53px; -unity-text-align: middle-left; white-space: normal; position: absolute; top: 60px; left: 68px;" />
+    <ui:ListView focusable="true" style="position: absolute; height: 328px; width: 210px; top: 107px; left: 16px;" />
 </ui:UXML>

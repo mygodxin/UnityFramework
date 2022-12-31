@@ -2,24 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
-public class BagWin : Window
+public class BagWin : MonoBehaviour
 {
-    public BagWin():base()
-    {
-        path = "Assets/Prefab/BagWindow.prefab";
-    }
+    //public BagWin():base()
+    //{
+    //    path = "Assets/Prefab/BagWindow.prefab";
+    //}
+    public Button btnClose;
+    public TextField txtName;
 
-    public override void OnInit()
-    {
-    }
-
-    public override void OnShow()
+    private void Awake()
     {
     }
 
-    public override void OnHide()
+    public void OnInit()
+    {
+    }
+
+    public void OnShow()
+    {
+    }
+
+    public void OnHide()
     {
     }
 }
