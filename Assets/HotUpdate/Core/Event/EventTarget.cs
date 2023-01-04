@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using static UnityEditor.Progress;
 
 /// <summary>
 /// 事件
@@ -57,6 +60,21 @@ public class EventTarget
     public void Once(string name, EventCallback eventCallback)
     {
     }
+
+    public void Clear()
+    {
+        if(observerMap.Count > 0)
+        {
+            var iter = observerMap.GetEnumerator();
+            while (iter.MoveNext())
+            {
+                var observer = iter.Current.Value;
+                while (observer.eventcallback != null)
+                {
+                    observer.eventcallback -= observer.eventcallback;
+                }
+            }
+        }
 
     /// <summary>
     /// 是否存在事件

@@ -1,20 +1,25 @@
 using System;
-public class EventManager
+public class Facade
 {
     private EventTarget eventTarget = new EventTarget();
 
-    private static EventManager instance = null;
-    public static EventManager Instance
+    private static Facade inst = null;
+    public static Facade Inst
     {
         get
         {
-            if (instance == null)
-                instance = new EventManager();
-            return instance;
+            if (inst == null)
+                inst = new Facade();
+            return inst;
         }
     }
 
-   public void Emit(string name, Object data)
+    public void init()
+    {
+
+    }
+
+    public void Emit(string name, Object data)
     {
         eventTarget.Emit(name, data);
     }

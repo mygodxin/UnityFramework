@@ -5,14 +5,14 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 public class ConfigManager
 {
-    private static ConfigManager instance = null;
-    public static ConfigManager Instance
+    private static ConfigManager inst = null;
+    public static ConfigManager Inst
     {
         get
         {
-        if(instance == null)
-            instance = new ConfigManager();
-        return instance;
+        if(inst == null)
+            inst = new ConfigManager();
+        return inst;
         }
     }
 

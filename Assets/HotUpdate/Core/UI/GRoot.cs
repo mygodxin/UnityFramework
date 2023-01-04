@@ -8,7 +8,9 @@ using UnityEngine;
 /// </summary>
 public class GRoot : GComponent
 {
-    public Dictionary<Window, Window> winDic;
+    public readonly int DesignWidth = 1920;
+    public readonly int DesignHeight = 1080;
+    public Dictionary<string, Window> winDic;
 
     private static GRoot instance = null;
     public static GRoot Instance
@@ -22,13 +24,20 @@ public class GRoot : GComponent
     }
     public GRoot()
     {
-        winDic = new Dictionary<Window, Window>();
+        winDic = new Dictionary<string, Window>();
     }
 
-    public void ShowWindow(string type)
+    public void ShowWindow(string winName, object data = null)
     {
-        Window win = Activator.CreateInstance(Type.GetType(type)) as Window;
-        win.Show();
+        winDic.TryGetValue(winName, out var win);
+        if (win == null)
+        {
+            Type classType = Type.GetType(winName, true);
+            var inst = Activator.CreateInstance(classType);
+            // instHistory.push({ type: type, inst: inst });
+            winDic.Add(winName, inst as Window);
+        }
+        win?.Emit("onAddedToStage", data);
     }
 
     public void HideWindow(Window win)
@@ -38,7 +47,7 @@ public class GRoot : GComponent
 
     public void ScreenUISelfAdptation(Transform scaleUI)
     {
-        float widthrate = UnityEngine.Screen.width / 1920.0f; 
+        float widthrate = UnityEngine.Screen.width / 1920.0f;
         float heightrate = UnityEngine.Screen.height / 1080.0f;
         float postion_x = scaleUI.GetComponent<RectTransform>().anchoredPosition.x * widthrate;
     }

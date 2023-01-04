@@ -15,14 +15,14 @@ public class Timers
     Dictionary<TimerCallback, TimerNode> waitAdd;
     List<TimerNode> waitRemove;
 
-    private static Timers instance = null;
-    public static Timers Instance
+    private static Timers inst = null;
+    public static Timers Inst
     {
         get
         {
-            if (instance == null)
-                instance = new Timers();
-            return instance;
+            if (inst == null)
+                inst = new Timers();
+            return inst;
         }
     }
 
@@ -204,6 +204,6 @@ class TimerMono : MonoBehaviour
 {
     private void Update()
     {
-        Timers.Instance.Update();
+        Timers.Inst.Update();
     }
 }

@@ -19,10 +19,10 @@ public class LoginScene : MonoBehaviour
 
         Addressables.LoadAssetAsync<GameObject>("Assets/Prefab/HotUpdate.prefab");
 
-        EventManager.Instance.On("test", onEvent);
+        Facade.Inst.On("test", onEvent);
         //EventManager.Instance.Off("test", onEvent);
-        EventManager.Instance.Emit("test","ÄãºÃ°¡");
-        Timers.Instance.Add(1, 2, (dt) =>
+        Facade.Inst.Emit("test","ÄãºÃ°¡");
+        Timers.Inst.Add(1, 2, (dt) =>
         {
             Debug.Log("timers");
         });
@@ -35,7 +35,7 @@ public class LoginScene : MonoBehaviour
         Debug.Log(p.Name);
         Debug.Log(p.Age);
 
-        GRoot.Instance.ShowWindow(BagWin.Name);
+        GRoot.Instance.ShowWindow(BagWin.Name, 123);
     }
 
     public void onEvent(object param)

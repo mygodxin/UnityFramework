@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 public class ResManager
 {
-    private static ResManager instance = null;
-    public static ResManager Instance
+    private static ResManager inst = null;
+    public static ResManager Inst
     {
         get
         {
-            if (instance == null)
-                instance = new ResManager();
-            return instance;
+            if (inst == null)
+                inst = new ResManager();
+            return inst;
         }
     }
 

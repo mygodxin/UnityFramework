@@ -7,12 +7,29 @@ using UnityEngine.UIElements;
 public class BagWin : Window
 {
     public static string Name = "BagWin";
-    public BagWin() : base()
+    
+    protected override string path()
     {
-        Path = "Assets/Prefab/BagWindow.prefab";
+        return "Assets/Prefab/BagWindow.prefab"; 
     }
+
     public Button btnClose;
     public TextField txtName;
+
+    protected override string[] eventList()
+    {
+        return new string[]{
+
+        };
+    }
+    protected override void onEvent(string eventName, object data)
+    {
+        switch (eventName)
+        {
+            case "1":
+                break;
+        }
+    }
 
     public override void OnInit()
     {

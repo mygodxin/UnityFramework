@@ -4,7 +4,7 @@ using System.Collections.Generic;
 /// 事件回调
 /// </summary>
 /// <param name="param"></param>
-public delegate void EventCallback(object param);
+public delegate void EventCallback(object param = null);
 
 /// <summary>
 /// 事件桥接

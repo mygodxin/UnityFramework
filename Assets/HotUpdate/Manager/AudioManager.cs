@@ -17,12 +17,12 @@ public class AudioManager : MonoBehaviour
 
     Dictionary<string, AudioClip> audioClipDic;
 
-    public static AudioManager Instance = null;
+    public static AudioManager Inst = null;
 
     private void Awake()
     {
-        if (Instance == null)
-            Instance = new AudioManager();
+        if (Inst == null)
+            Inst = new AudioManager();
         if (audioClipDic == null)
             audioClipDic = new Dictionary<string, AudioClip>();
 

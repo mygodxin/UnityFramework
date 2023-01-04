@@ -4,14 +4,14 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 public class SpineManager
 {
-    private static SpineManager instance = null;
-    public static SpineManager Instance
+    private static SpineManager inst = null;
+    public static SpineManager Inst
     {
         get
         {
-            if (instance == null)
-                instance = new SpineManager();
-            return instance;
+            if (inst == null)
+                inst = new SpineManager();
+            return inst;
         }
     }
 
