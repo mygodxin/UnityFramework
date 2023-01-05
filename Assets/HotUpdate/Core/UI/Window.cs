@@ -11,7 +11,7 @@ public abstract class Window : GComponent
     /// <summary>
     /// 窗口显示对象
     /// </summary>
-    GameObject view;
+    protected GameObject view;
     /// <summary>
     /// 资源路径
     /// </summary>
@@ -30,10 +30,9 @@ public abstract class Window : GComponent
 
     public Window()
     {
-        On("onAddedToStage", onAddedToStage);
     }
 
-    public void onAddedToStage(object data)
+    protected override void onAddedToStage(object data)
     {
         Data = data;
         if (!inited)
@@ -42,8 +41,16 @@ public abstract class Window : GComponent
         }
         else
         {
+            registerEvent();
+
             DoShowAnimation();
         }
+    }
+
+    protected override void onRemovedFromStage(object data)
+    {
+        OnHide();
+        DoHideAnimation();
     }
 
     public void Show(object data = null)
@@ -60,8 +67,11 @@ public abstract class Window : GComponent
     {
         if (loading)
             return;
-        view = Addressables.LoadAssetAsync<GameObject>(path()).WaitForCompletion();
-        Object.Instantiate(view);
+        if (view == null)
+        {
+            var gameObject = Addressables.LoadAssetAsync<GameObject>(path()).WaitForCompletion();
+            view = Object.Instantiate(gameObject);
+        }
         view.SetActive(true);
 
         OnInit();
@@ -73,8 +83,23 @@ public abstract class Window : GComponent
 
     public void Hide()
     {
-        removeEvent();
+        GRoot.Instance.HideWindow(this);
     }
+
+    protected virtual void DoHideAnimation()
+    {
+
+        HideImmediately();
+    }
+
+    public void HideImmediately()
+    {
+        removeEvent();
+        //view.transform.parent = null;
+        //Object.Destroy(view);
+        view.SetActive(false);
+    }
+
 
     Dictionary<string, EventCallback> callbackDic;
     protected virtual string[] eventList()
@@ -84,7 +109,7 @@ public abstract class Window : GComponent
     protected void registerEvent()
     {
         string[] eventList = this.eventList();
-        if(eventList != null)
+        if (eventList != null)
         {
             callbackDic = new Dictionary<string, EventCallback>();
             foreach (var str in eventList)

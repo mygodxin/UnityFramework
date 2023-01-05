@@ -15,7 +15,7 @@ public class EventTarget
     /// </summary>
     /// <param name="name"></param>
     /// <param name="data"></param>
-    public void Emit(string name, object  data)
+    public void Emit(string name, object  data = null)
     {
         if(observerMap.TryGetValue(name, out var observerRef))
         {
@@ -63,7 +63,7 @@ public class EventTarget
 
     public void Clear()
     {
-        if(observerMap.Count > 0)
+        if (observerMap.Count > 0)
         {
             var iter = observerMap.GetEnumerator();
             while (iter.MoveNext())
@@ -75,6 +75,7 @@ public class EventTarget
                 }
             }
         }
+    }
 
     /// <summary>
     /// 是否存在事件

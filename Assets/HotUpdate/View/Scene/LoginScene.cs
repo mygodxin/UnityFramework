@@ -35,7 +35,7 @@ public class LoginScene : MonoBehaviour
         Debug.Log(p.Name);
         Debug.Log(p.Age);
 
-        GRoot.Instance.ShowWindow(BagWin.Name, 123);
+        GRoot.Instance.ShowWindow(new BagWin(), 123);
     }
 
     public void onEvent(object param)

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,7 +26,7 @@ public class GRoot : GComponent
         winDic = new Dictionary<string, Window>();
     }
 
-    public void ShowWindow(string winName, object data = null)
+    public Window getWindow(string winName)
     {
         winDic.TryGetValue(winName, out var win);
         if (win == null)
@@ -37,12 +36,17 @@ public class GRoot : GComponent
             // instHistory.push({ type: type, inst: inst });
             winDic.Add(winName, inst as Window);
         }
+        return win;
+    }
+
+    public void ShowWindow(Window win, object data = null)
+    {
         win?.Emit("onAddedToStage", data);
     }
 
     public void HideWindow(Window win)
     {
-        win.Hide();
+        win?.Emit("onRemovedFromStage");
     }
 
     public void ScreenUISelfAdptation(Transform scaleUI)
