@@ -45,6 +45,14 @@ MonoBehaviour:
     m_Address: Assets/Prefab/BagWin.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 1536f775b0804a5409342188a1936823
+    m_Address: Assets/Prefab/SettingWin.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 6fbdfb22791014f4cb73ce7b3d08074f
+    m_Address: Assets/Prefab/UserWin.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c8f0f3caeb6c03b43b7db062977b5cf3, type: 2}
   m_SchemaSet:

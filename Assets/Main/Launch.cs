@@ -46,11 +46,7 @@ public class Launch : MonoBehaviour
 
     private  void LoadDllAsset()
     {
-
-        var assets = new List<string> { };
-        assets.Concat(HOTAssemblyNames);
-        assets.Concat(AOTMetaAssemblyNames);
-
+        var assets = HOTAssemblyNames.Concat(AOTMetaAssemblyNames);
         foreach (var asset in assets)
         {
             var handle = Addressables.LoadAssetAsync<TextAsset>(AssemblyFile + asset + ".bytes");
