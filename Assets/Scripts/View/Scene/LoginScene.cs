@@ -42,10 +42,28 @@ public class LoginScene : MonoBehaviour
             { EState.walk, new WalkState() },
             { EState.run, new RunState() }
         };
-        var fsm = new FSM(EState.walk, states);
-        while (true)
+        //var fsm = new FSM(EState.walk, states);
+        //while (true)
+        //{
+        //    fsm.Update();
+        //}
+
+        var aStar = new AStar();
+        Grid[,] map = new Grid[10, 10];
+        for (int i = 0; i < 100; i++)
         {
-            fsm.Update();
+            var grid = new Grid();
+            grid.x = i % 10;
+            grid.y = Mathf.FloorToInt(i / 10);
+            grid.type = GridType.normal;
+            map[i % 10, Mathf.FloorToInt(i / 10)] = grid;
+        }
+        aStar.CreateMap(map);
+        var path = aStar.FindPath(map[0, 0], map[9, 9]);
+        Debug.Log("ÕÒµ½Â·¾¶");
+        for (int i = 0; i < path.Count; i++)
+        {
+            Debug.Log("[x=" + path[i].x + ",y=" + path[i].y + "]");
         }
     }
 
