@@ -1,10 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition.Primitives;
+using System.Drawing.Drawing2D;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UI;
 
+public enum LayoutType
+{
+    Horizontal,
+    Vertical,
+    Grid
+}
 /// <summary>
 /// 列表(支持虚拟化)
 /// </summary>
@@ -29,9 +37,15 @@ public class GList : MonoBehaviour
     private List<GameObject> _children;
     public object data;
     private int _curLineItemCount = 1;
-    private LayoutGroup _layout;
 
+    [Tooltip("行距")]
+    public int lineGap;
+    [Tooltip("列距")]
+    public int columnGap;
+    [Tooltip("布局方式")]
+    public LayoutType layout;
     public ScrollRect scrollRect;
+    [Tooltip("默认Item")]
     public GameObject defaultItem;
     class ItemInfo
     {
@@ -53,11 +67,14 @@ public class GList : MonoBehaviour
         {
             throw new Exception("[GList]defaultItem is null");
         }
-        //获取布局容器
-        _layout = scrollRect.content.GetComponent<LayoutGroup>();
+
         //监听滚动
         scrollRect.onValueChanged.AddListener(OnScroll);
 
+        defaultItem.SetActive(false);
+        var itemRect = defaultItem.GetComponent<RectTransform>().rect;
+        _itemSize.Set(itemRect.width, itemRect.height);
+        Debug.Log("item宽=" + itemRect.width + ",高=" + itemRect.height);
         _pool = new ObjectPool<GameObject>(() =>
         {
             return Instantiate(defaultItem);
@@ -171,39 +188,102 @@ public class GList : MonoBehaviour
                         itemRenderer(i, _children[i]);
                 }
             }
+            refreshContentSize();
         }
+    }
+
+    private void refreshContentSize()
+    {
+        //计算横向item数量
+        if (layout == LayoutType.Vertical)
+        {
+            _curLineItemCount = 1;
+        }
+        else if (layout == LayoutType.Horizontal || layout == LayoutType.Grid)
+        {
+            _curLineItemCount = Mathf.FloorToInt(scrollRect.content.rect.width / (_itemSize.x + lineGap));
+            if (_curLineItemCount <= 0)
+            {
+                _curLineItemCount = 1;
+            }
+        }
+
+        float cw = 0, ch = 0;
+        int len = Mathf.CeilToInt((float)_realNumItems / _curLineItemCount) * _curLineItemCount;
+        int len2 = Math.Min(_curLineItemCount, _realNumItems);
+        if (layout == LayoutType.Horizontal || layout == LayoutType.Grid)
+        {
+            for (int i = 0; i < len; i += _curLineItemCount)
+                ch += _virtualItems[i].size.y + lineGap;
+            if (ch > 0)
+                ch -= lineGap;
+
+
+            for (int i = 0; i < len2; i++)
+                cw += _virtualItems[i].size.x + columnGap;
+            if (cw > 0)
+                cw -= columnGap;
+        }
+        else if (layout == LayoutType.Vertical)
+        {
+            for (int i = 0; i < len; i += _curLineItemCount)
+                cw += _virtualItems[i].size.x + columnGap;
+            if (cw > 0)
+                cw -= columnGap;
+
+            for (int i = 0; i < len2; i++)
+                ch += _virtualItems[i].size.y + lineGap;
+            if (ch > 0)
+                ch -= lineGap;
+        }
+
+        scrollRect.content.sizeDelta = new Vector2(cw, ch);
+        //Debug.Log("滚动视图宽高cw=" + cw + ",ch=" + ch);
+        //Debug.Log("查看滚动视图宽高cw=" + scrollRect.content.rect.width + ",ch=" + scrollRect.content.rect.height);
     }
 
     private void RefreshVirtualList()
     {
         if (_realNumItems <= 0) return;
 
-        int len = Mathf.CeilToInt(_realNumItems / _curLineItemCount * _curLineItemCount);
-        int len2 = Math.Min(_curLineItemCount, _realNumItems);
-        float cw = 0, ch = 0;
-        if (_layout is VerticalLayoutGroup)
-        {
-            _curLineItemCount = 1;
-        }
-        else if (_layout is HorizontalLayoutGroup || _layout is GridLayoutGroup)
-        {
-            _curLineItemCount = Mathf.FloorToInt(scrollRect.content.rect.width);
-            if (_curLineItemCount <= 0)
-            {
-                _curLineItemCount = 1;
-            }
-        }
         float itemHeight = _itemSize.y;
         float contentY = scrollRect.content.anchoredPosition.y;
         int index = Mathf.FloorToInt(contentY / itemHeight);
         index = index < 0 ? 0 : index;
-        float startY = -index * itemHeight;
+        float startY = -index * itemHeight - lineGap * (index - 1);
         int curIndex = 0;
-        for (int i = curIndex; i < _numItems; i++)
+        float curX = 0, curY = startY;
+        Debug.Log("contentY=" + contentY + ",index=" + index);
+        //多加一个防止穿帮
+        float maxY = curY - scrollRect.GetComponent<RectTransform>().rect.height - itemHeight;
+
+        while (curIndex < _realNumItems && (curY > maxY))
         {
             var item = _virtualItems[curIndex];
-            item.rect.anchoredPosition = new Vector2(item.rect.anchoredPosition.x, startY);
-            itemRenderer(curIndex % _numItems, item.obj);
+
+            if (item.obj == null)
+            {
+                var obj = AddItemFromPool();
+                item.obj = obj;
+                item.rect = obj.GetComponent<RectTransform>();
+            }
+
+            item.rect.anchoredPosition = new Vector2(curX, curY);
+            item.obj.transform.localScale = Vector3.one;
+            //Debug.Log("查看宽高" + item.obj.transform.localScale.x + ",y=" + item.obj.transform.localScale.y);
+            //item.obj.transform.position.Set(curX, curY, 0);
+            Debug.Log("curIndex=" + curIndex + ",curX=" + curX + ",curY=" + curY);
+
+            itemRenderer(index + curIndex, item.obj);
+
+            curX += item.size.x + columnGap;
+
+            if (curIndex % _curLineItemCount == _curLineItemCount - 1)
+            {
+                curX = 0;
+                curY -= item.size.y + lineGap;
+            }
+
             curIndex++;
         }
     }
@@ -211,6 +291,8 @@ public class GList : MonoBehaviour
     public GameObject AddItemFromPool(GameObject item = null)
     {
         GameObject obj = _pool.Get();
+        obj.SetActive(true);
+        obj.transform.SetParent(scrollRect.content);
         _children.Add(obj);
         return obj;
     }

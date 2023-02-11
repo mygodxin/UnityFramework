@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using UnityEngine;
 
 /// <summary>
 /// 格子类型
@@ -9,7 +10,7 @@ using System.Runtime.InteropServices;
 public enum GridType
 {
     normal,
-
+    obstacle
 }
 /// <summary>
 /// 地图格子
@@ -23,8 +24,6 @@ public class Grid
     public float g;
     public float h;
     public Grid parent;
-
-    public Vector2 pos;
 }
 /// <summary>
 /// A星寻路
@@ -64,18 +63,21 @@ public class AStar
 
     private int GetGridH(Grid grid, Grid end)
     {
+        //曼哈顿算法
         var disX = Math.Abs(grid.x - end.x);
         var disY = Math.Abs(grid.y - end.y);
         return disX + disY;
     }
-
+    
     private float GetGridG(Grid grid, Grid parent)
     {
-        return (float)Math.Abs(Math.Sqrt(Math.Pow(grid.x - parent.x, 2) + Math.Pow(grid.y - parent.y, 2))) + parent.g;
+        if (parent == null)
+            return 0;
+        return (float)Math.Abs(Math.Sqrt(Math.Pow(grid.x-parent.x,2) + Math.Pow(grid.y - parent.y,2))) + parent.g;
     }
 
     private int[,] _rounds = new int[8, 2] { { 0, -1 }, { 1, -1 }, { 1, 0 }, { 1, 1 }, { 0, 1 }, { -1, -1 }, { -1, 0 }, { -1, 1 } };
-    private List<Grid> GetRoundGrids(Grid grid)
+    private List<Grid> GetRoundGrids(Grid grid, List<Grid> closeList)
     {
         var roundGrids = new List<Grid>();
         int row = _rounds.GetLength(0);
@@ -89,7 +91,7 @@ public class AStar
             if (x >= 0 && x < _mapWidth && y >= 0 && y < _mapHeight)
             {
                 var point = _map[x, y];
-                if (point != null && point.type == GridType.normal)
+                if (point != null && point.type == GridType.normal && closeList.IndexOf(point) < 0)
                 {
                     roundGrids.Add(point);
                 }
@@ -119,24 +121,26 @@ public class AStar
             }
 
             //遍历当前格子周围节点,默认8方向
-            var roundGrids = GetRoundGrids(minGrid);
+            var roundGrids = GetRoundGrids(minGrid, closeList);
             for (int i = 0; i < roundGrids.Count; i++)
             {
                 var grid = roundGrids[i];
                 if (openList.IndexOf(grid) >= 0)
                 {
-                    var gg = GetGridG(grid, grid.parent);
-                    if (gg < grid.g)
+                    var newG = GetGridG(grid, minGrid);
+                    //Debug.Log("计算新的g="+newG +",老的g="+grid.g+ ",格子x=" + grid.x + ",y=" + grid.y + ",当前格子x=" + minGrid.x + ",y=" + minGrid.y);
+                    if (newG < grid.g)
                     {
+                        //Debug.Log("设置为新的");
                         grid.parent = minGrid;
-                        grid.g =gg;
-                        grid.f = minGrid.g + minGrid.h;
+                        grid.g = newG;
+                        grid.f = grid.g + grid.h;
                     }
                 }
                 else
                 {
                     grid.parent = minGrid;
-                    grid.g = GetGridG(grid, minGrid);
+                    grid.g = GetGridG(grid, grid.parent);
                     grid.h = GetGridH(grid, end);
                     grid.f = grid.g + grid.h;
                     openList.Add(grid);
@@ -149,7 +153,7 @@ public class AStar
 
         //构建路径
         var g = end;
-        while (g.parent != start)
+        while (g != start)
         {
             pathList.Add(g);
             g = g.parent;

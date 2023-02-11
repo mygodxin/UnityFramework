@@ -103,11 +103,13 @@ public class GRoot : GComponent
             CreateModalLayer();
 
         int cnt = winOpen.Count;
+        var use = false;
         for (int i = cnt - 1; i >= 0; i--)
         {
             var win = winOpen[i];
             if (win.modal)
             {
+                use = true;
                 if (_modalLayer.transform == null)
                     _modalLayer.SetActive(true);
 
@@ -115,6 +117,10 @@ public class GRoot : GComponent
                 _modalLayer.transform.SetParent(canvas);
                     _modalLayer.transform.SetSiblingIndex(0);
             }
+        }
+        if (!use)
+        {
+            _modalLayer.SetActive(false);
         }
     }
 }

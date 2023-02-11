@@ -9,7 +9,7 @@ public class SocketManager
     private Socket _socket;
 
     private static SocketManager _inst = null;
-    public static SocketManager Inst
+    public static SocketManager inst
     {
         get
         {
