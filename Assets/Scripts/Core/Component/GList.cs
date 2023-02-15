@@ -253,9 +253,9 @@ public class GList : MonoBehaviour
         float startY = -index * itemHeight - lineGap * (index - 1);
         int curIndex = 0;
         float curX = 0, curY = startY;
-        Debug.Log("contentY=" + contentY + ",index=" + index);
-        //多加一个防止穿帮
-        float maxY = curY - scrollRect.GetComponent<RectTransform>().rect.height - itemHeight;
+        //Debug.Log("contentY=" + contentY + ",index=" + index);
+        //没到最后一行时多加一列防止滚动穿帮
+        float maxY = Math.Max(curY - scrollRect.GetComponent<RectTransform>().rect.height - itemHeight, -scrollRect.content.sizeDelta.y);
 
         while (curIndex < _realNumItems && (curY > maxY))
         {
@@ -272,12 +272,11 @@ public class GList : MonoBehaviour
             item.obj.transform.localScale = Vector3.one;
             //Debug.Log("查看宽高" + item.obj.transform.localScale.x + ",y=" + item.obj.transform.localScale.y);
             //item.obj.transform.position.Set(curX, curY, 0);
-            Debug.Log("curIndex=" + curIndex + ",curX=" + curX + ",curY=" + curY);
+            //Debug.Log("curIndex=" + curIndex + ",curX=" + curX + ",curY=" + curY);
 
-            itemRenderer(index + curIndex, item.obj);
+            itemRenderer(index * _curLineItemCount + curIndex, item.obj);
 
             curX += item.size.x + columnGap;
-
             if (curIndex % _curLineItemCount == _curLineItemCount - 1)
             {
                 curX = 0;
