@@ -178,7 +178,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineGap: 0
   columnGap: 0
-  layout: 2
+  layout: 0
   scrollRect: {fileID: 43222827}
   defaultItem: {fileID: 151435258}
 --- !u!114 &43222827
@@ -194,8 +194,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Content: {fileID: 1700089855}
-  m_Horizontal: 0
-  m_Vertical: 1
+  m_Horizontal: 1
+  m_Vertical: 0
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
@@ -657,7 +657,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.0004090768, y: 1}
   m_SizeDelta: {x: 600, y: 1000}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1925205989

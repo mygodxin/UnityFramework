@@ -1,12 +1,18 @@
+
 using System;
 using System.Collections;
-using System.ComponentModel;
-using UnityEditor.Build.Pipeline.Tasks;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.Networking;
 
+/// <summary>
+/// http请求封装
+/// </summary>
 public class HttpRequest
 {
-
+    private GameObject _gameObject;
+    private HttpRequestMono _mono;
     private static HttpRequest _inst = null;
     public static HttpRequest inst
     {
@@ -17,33 +23,114 @@ public class HttpRequest
             return _inst;
         }
     }
-
-    //public async void Request()
-    //{
-    //    //return await Post();
-    //}
-
-    IEnumerator Post()
+    public HttpRequest()
     {
-        UnityWebRequest wr = new UnityWebRequest(); // 完全为空
-        UnityWebRequest wr2 = new UnityWebRequest("https://www.mysite.com"); // 设置目标 URL
+        _gameObject = new GameObject();
+        _gameObject.hideFlags = HideFlags.HideInHierarchy;
+        _gameObject.SetActive(true);
+        UnityEngine.Object.DontDestroyOnLoad(_gameObject);
+        _mono = _gameObject.AddComponent<HttpRequestMono>();
+    }
 
-        // 必须提供以下两项才能让 Web 请求正常工作
-        wr.url = "https://www.mysite.com";
-        wr.method = UnityWebRequest.kHttpVerbGET;   // 可设置为任何自定义方法，提供了公共常量
-        wr.SetRequestHeader("Content-Type", "application/octet-stream");
-        wr.useHttpContinue = false;
-        wr.redirectLimit = 0;  // 禁用重定向
-        wr.timeout = 60;       // 此设置不要太小，Web 请求需要一些时间
-           
-        yield return wr.SendWebRequest();
-        //var handler = wr.SendWebRequest();
-        //handler.completed += (a) =>
-        //{
-        //    if (wr.result == UnityWebRequest.Result.Success)
-        //    {
-        //        wr.downloadHandler.text;
-        //    }
-        //};
+    public void Get(string url, Action<string> callback)
+    {
+        _mono.Get(url, callback);
+    }
+    public void Post(string url, List<IMultipartFormSection> formData, Action<string> callback)
+    {
+        _mono.Post(url, formData, callback);
+    }
+    public void Upload(string url, List<IMultipartFormSection> formData)
+    {
+        _mono.Upload(url, formData);
+    }
+    public void Put(string url, byte[] bodyData)
+    {
+        _mono.Put(url, bodyData);
     }
 }
+class HttpRequestMono : MonoBehaviour
+{
+    public void Get(string url, Action<string> callback)
+    {
+        StartCoroutine(_Get(url, callback));
+    }
+    IEnumerator _Get(string url, Action<string> callback)
+    {
+        UnityWebRequest wr = UnityWebRequest.Get(url);
+        yield return wr.SendWebRequest();
+        if (wr.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(wr.error);
+        }
+        else
+        {
+            // 以文本形式显示结果
+            Debug.Log(wr.downloadHandler.text);
+
+            // 或者获取二进制数据形式的结果
+            byte[] results = wr.downloadHandler.data;
+            callback.Invoke(wr.downloadHandler.text);
+        }
+    }
+
+    public void Post(string url, List<IMultipartFormSection> formData, Action<string> callback)
+    {
+        StartCoroutine(_Post(url, formData, callback));
+    }
+    IEnumerator _Post(string url, List<IMultipartFormSection> formData, Action<string> callback)
+    {
+        UnityWebRequest wr = UnityWebRequest.Post(url, formData);
+        yield return wr.SendWebRequest();
+        if (wr.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(wr.error);
+        }
+        else
+        {
+            // 以文本形式显示结果
+            Debug.Log(wr.downloadHandler.text);
+
+            // 或者获取二进制数据形式的结果
+            byte[] results = wr.downloadHandler.data;
+            callback.Invoke(wr.downloadHandler.text);
+        }
+    }
+
+    public void Upload(string url, List<IMultipartFormSection> formData)
+    {
+        StartCoroutine(_Upload(url, formData));
+    }
+    IEnumerator _Upload(string url, List<IMultipartFormSection> formData)
+    {
+        UnityWebRequest wr = UnityWebRequest.Post(url, formData);
+        yield return wr.SendWebRequest();
+        if (wr.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(wr.error);
+        }
+        else
+        {
+            Debug.Log("Form upload complete!");
+        }
+    }
+
+    public void Put(string url, byte[] bodyData)
+    {
+        StartCoroutine(_Put(url, bodyData));
+    }
+    IEnumerator _Put(string url, byte[] bodyData)
+    {
+        UnityWebRequest wr = UnityWebRequest.Put(url, bodyData);
+        yield return wr.SendWebRequest();
+        if (wr.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(wr.error);
+        }
+        else
+        {
+            Debug.Log("upload complete!");
+        }
+    }
+}
+

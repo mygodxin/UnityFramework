@@ -8,7 +8,7 @@ public delegate void TimerCallback(object param);
 /// </summary>
 public class Timers
 {
-    GameObject gameObject;
+    GameObject _gameObject;
     TimerMono timerMono;
 
     Dictionary<TimerCallback, TimerNode> curTimers;
@@ -32,12 +32,12 @@ public class Timers
         waitAdd = new Dictionary<TimerCallback, TimerNode>();
         waitRemove = new List<TimerNode>();
 
-        gameObject = new GameObject();
-        gameObject.hideFlags = HideFlags.HideInHierarchy;
-        gameObject.SetActive(true);
-        Object.DontDestroyOnLoad(gameObject);
+        _gameObject = new GameObject();
+        _gameObject.hideFlags = HideFlags.HideInHierarchy;
+        _gameObject.SetActive(true);
+        Object.DontDestroyOnLoad(_gameObject);
 
-        timerMono = gameObject.AddComponent<TimerMono>();
+        timerMono = _gameObject.AddComponent<TimerMono>();
     }
     /// <summary>
     /// Ìí¼Ó
