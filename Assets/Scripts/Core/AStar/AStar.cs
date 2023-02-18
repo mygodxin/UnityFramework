@@ -153,7 +153,7 @@ public class AStar
 
         //¹¹½¨Â·¾¶
         var g = end;
-        while (g != start)
+        while (g != start && g.parent != null)
         {
             pathList.Add(g);
             g = g.parent;

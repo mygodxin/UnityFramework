@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameScene : MonoBehaviour
 {
@@ -13,7 +15,7 @@ public class GameScene : MonoBehaviour
 
         var aStar = new AStar();
         Grid[,] map = new Grid[10, 10];
-        var obstacles = new List<int> { 2, 4, 6, 8, 10 };
+        var obstacles = new List<int> { 2, 4, 6, 8, 10,22,32,44 };
         for (int i = 0; i < 100; i++)
         {
             var grid = new Grid();
@@ -27,18 +29,23 @@ public class GameScene : MonoBehaviour
         list.data = map;
         list.numItems = map.Length;
         aStar.CreateMap(map);
-        var path = aStar.FindPath(map[0, 0], map[9, 5]);
-        //Debug.Log("找到路径");
-        //for (int i = 0; i < path.Count; i++)
-        //{
-        //    Debug.Log("[x=" + path[i].x + ",y=" + path[i].y + "]");
-        //}
+        var path = aStar.FindPath(map[0, 0], map[2, 0]);
+        Debug.Log("找到路径");
+        for (int i = 0; i < path.Count; i++)
+        {
+            Debug.Log("[x=" + path[i].x + ",y=" + path[i].y + "]");
+            var img = list.children[path[i].x + path[i].y * 10].transform.Find("Image").GetComponent<Image>();
+            img.color = Color.blue;
+        }
     }
-    private void OnItemRenderer(int index,GameObject gameObject)
+    private void OnItemRenderer(int index, GameObject gameObject)
     {
         //Debug.Log("绘制" + index);
         var text = gameObject.transform.Find("Text (TMP)");
         var t = text.GetComponentInChildren<TMP_Text>();
+        var data = list.data as Grid[,];
+        var img = gameObject.transform.Find("Image").GetComponent<Image>();
+        img.color = data[index%10, Mathf.FloorToInt(index / 10)].type == GridType.obstacle ? Color.red : Color.white;
         t.text = index + "";
     }
     // Update is called once per frame

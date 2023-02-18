@@ -38,6 +38,13 @@ public class GList : MonoBehaviour
     private int _realNumItems;
     private Vector2 _itemSize;
     private List<GameObject> _children;
+    public List<GameObject> children
+    {
+        get
+        {
+            return _children;
+        }
+    }
     public object data;
     int _firstIndex; //the top left index
     int _curLineItemCount; //item count in one line
