@@ -37,6 +37,12 @@ public class GameScene : MonoBehaviour
             var img = list.children[path[i].x + path[i].y * 10].transform.Find("Image").GetComponent<Image>();
             img.color = Color.blue;
         }
+        HttpRequest.inst.GetTexture("http://192.168.1.17:82/web-desktop/splash.85cfd.png", (Texture tex) =>
+        {
+            var img = GameObject.Find("Canvas/Tex").GetComponent<Image>();
+            Debug.Log("ÏÂÔØÍê³É" + tex.name);
+            img.sprite = Sprite.Create(tex as Texture2D, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+        });
     }
     private void OnItemRenderer(int index, GameObject gameObject)
     {

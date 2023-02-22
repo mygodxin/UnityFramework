@@ -31,7 +31,13 @@ public class HttpRequest
         UnityEngine.Object.DontDestroyOnLoad(_gameObject);
         _mono = _gameObject.AddComponent<HttpRequestMono>();
     }
-
+    /// <summary>
+    /// 下载图片
+    /// </summary>
+    public void GetTexture(string url, Action<Texture> callback)
+    {
+        _mono.GetTexture(url, callback);
+    }
     public void Get(string url, Action<string> callback)
     {
         _mono.Get(url, callback);
@@ -71,6 +77,25 @@ class HttpRequestMono : MonoBehaviour
             // 或者获取二进制数据形式的结果
             byte[] results = wr.downloadHandler.data;
             callback.Invoke(wr.downloadHandler.text);
+        }
+    }
+
+    public void GetTexture(string url, Action<Texture> callback)
+    {
+        StartCoroutine(_GetTexture(url, callback));
+    }
+    IEnumerator _GetTexture(string url, Action<Texture> callback)
+    {
+        UnityWebRequest wr = UnityWebRequestTexture.GetTexture(url);
+        yield return wr.SendWebRequest();
+        if (wr.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(wr.error);
+        }
+        else
+        {
+            Texture myTexture = DownloadHandlerTexture.GetContent(wr);
+            callback.Invoke(myTexture);
         }
     }
 

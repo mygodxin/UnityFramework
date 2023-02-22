@@ -1,7 +1,10 @@
 using System;
+using UnityWebSocket;
+
 public class Facade
 {
-    private EventTarget eventTarget = new EventTarget();
+    private EventTarget _eventTarget = new EventTarget();
+    private ServerCommond _serverCommond = new ServerCommond();
 
     private static Facade _inst = null;
     public static Facade inst
@@ -19,18 +22,23 @@ public class Facade
 
     }
 
+    public void ExcuteServerCommond(object sender, MessageEventArgs e)
+    {
+        _serverCommond.OnMessage(sender, e);
+    }
+
     public void Emit(string name, Object data = null)
     {
-        eventTarget.Emit(name, data);
+        _eventTarget.Emit(name, data);
     }
 
     public void On(string name, EventCallback eventCallback)
     {
-        eventTarget.On(name, eventCallback);
+        _eventTarget.On(name, eventCallback);
     }
 
     public void Off(string name, EventCallback eventCallback)
     {
-        eventTarget.Off(name, eventCallback);
+        _eventTarget.Off(name, eventCallback);
     }
 }
