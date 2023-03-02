@@ -1,11 +1,10 @@
-﻿using KHCore.Stream;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityWebSocket;
 
-public class WSClient : MonoBehaviour
+public class WSClient
 {
     private WebSocket _webSocket;
-    private int _receiveCount = 0;
+    //private int _receiveCount = 0;
 
     private static WSClient _inst = null;
     public static WSClient inst
@@ -17,18 +16,19 @@ public class WSClient : MonoBehaviour
             return _inst;
         }
     }
-    public void Connect(string url)
+    public void Connect(string address)
     {
         if (_webSocket == null)
-            _webSocket = new WebSocket(url);
+            _webSocket = new WebSocket(address);
         _webSocket.OnOpen += OnOpen;
         _webSocket.OnClose += OnClose;
         _webSocket.OnMessage += OnMessage;
         _webSocket.OnError += OnError;
+        _webSocket.ConnectAsync();
     }
     private void OnOpen(object sender, OpenEventArgs e)
     {
-
+        Debug.Log("websocket open");
     }
     private void OnClose(object sender, CloseEventArgs e)
     {
@@ -53,5 +53,13 @@ public class WSClient : MonoBehaviour
     private void OnError(object sender, ErrorEventArgs e)
     {
 
+    }
+    public void Close()
+    {
+        if(_webSocket.ReadyState == WebSocketState.Closed || _webSocket.ReadyState == WebSocketState.Closing)
+        {
+            Debug.LogError("web socket is Closed or Closing");
+        }
+        _webSocket.CloseAsync();
     }
 }

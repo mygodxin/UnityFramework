@@ -58,7 +58,7 @@ public class LoginScene : MonoBehaviour
 
     public void onEmit()
     {
-        Facade.inst.Emit(Notification.UpdateItem, "UpdateItem消息");
+        Facade.inst.Emit(Notifications.UpdateItem, "UpdateItem消息");
     }
 
     private void OnClickStart()

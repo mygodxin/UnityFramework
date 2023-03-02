@@ -68,12 +68,12 @@ public class AStar
         var disY = Math.Abs(grid.y - end.y);
         return disX + disY;
     }
-    
+
     private float GetGridG(Grid grid, Grid parent)
     {
         if (parent == null)
             return 0;
-        return (float)Math.Abs(Math.Sqrt(Math.Pow(grid.x-parent.x,2) + Math.Pow(grid.y - parent.y,2))) + parent.g;
+        return (float)Math.Abs(Math.Sqrt(Math.Pow(grid.x - parent.x, 2) + Math.Pow(grid.y - parent.y, 2))) + parent.g;
     }
 
     private int[,] _rounds = new int[8, 2] { { 0, -1 }, { 1, -1 }, { 1, 0 }, { 1, 1 }, { 0, 1 }, { -1, -1 }, { -1, 0 }, { -1, 1 } };

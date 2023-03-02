@@ -18,19 +18,19 @@ public class BagWin : Window
     protected override string[] eventList()
     {
         return new string[]{
-            Notification.UpdateItem,
-            Notification.OpenBag
+            Notifications.UpdateItem,
+            Notifications.OpenBag
         };
     }
     protected override void onEvent(string eventName, object data)
     {
         switch (eventName)
         {
-            case Notification.UpdateItem:
+            case Notifications.UpdateItem:
                 Debug.Log("�յ���Ϣ");
                 Debug.Log(data);
                 break;
-            case Notification.OpenBag:
+            case Notifications.OpenBag:
                 Debug.Log("�յ���Ϣ");
                 Debug.Log(data);
                 break;

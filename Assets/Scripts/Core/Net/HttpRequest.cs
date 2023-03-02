@@ -1,18 +1,20 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Net.Http;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.TestTools;
 
 /// <summary>
-/// http请求封装
+/// http请求
 /// </summary>
 public class HttpRequest
 {
-    private GameObject _gameObject;
-    private HttpRequestMono _mono;
     private static HttpRequest _inst = null;
     public static HttpRequest inst
     {
@@ -25,137 +27,120 @@ public class HttpRequest
     }
     public HttpRequest()
     {
-        _gameObject = new GameObject();
-        _gameObject.hideFlags = HideFlags.HideInHierarchy;
-        _gameObject.SetActive(true);
-        UnityEngine.Object.DontDestroyOnLoad(_gameObject);
-        _mono = _gameObject.AddComponent<HttpRequestMono>();
     }
     /// <summary>
     /// 下载图片
     /// </summary>
-    public void GetTexture(string url, Action<Texture> callback)
+    public async Task<Texture> GetTexture(string url)
     {
-        _mono.GetTexture(url, callback);
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
+        await www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+            return null;
+        }
+        else
+        {
+            return ((DownloadHandlerTexture)www.downloadHandler).texture;
+        }
     }
-    public void Get(string url, Action<string> callback)
+    public async Task<string> Get(string url)
     {
-        _mono.Get(url, callback);
+        UnityWebRequest www = UnityWebRequest.Get(url);
+        await www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+            return null;
+        }
+        else
+        {
+            // 以文本形式显示结果
+            return www.downloadHandler.text;
+        }
     }
-    public void Post(string url, List<IMultipartFormSection> formData, Action<string> callback)
+    public async Task<byte[]> Post(string url, string data)
     {
-        _mono.Post(url, formData, callback);
+        //.net版http请求
+        using var client = new HttpClient
+        {
+            Timeout = TimeSpan.FromMilliseconds(3000),
+        };
+        var content = new StringContent(data, Encoding.UTF8);
+        var rep = await client.PostAsync(url, content);
+        var repData = await rep.Content.ReadAsStringAsync();
+        return Convert.FromBase64String(repData);
+
+        //unity原版http请求
+        //var formData = new List<IMultipartFormSection>
+        //{
+        //    new MultipartFormDataSection(data)
+        //};
+        //UnityWebRequest wr = UnityWebRequest.Post(url, data);
+        //await wr.SendWebRequest();
+        //if (wr.result != UnityWebRequest.Result.Success)
+        //{
+        //    Debug.Log(wr.error);
+        //    return null;
+        //}
+        //else
+        //{
+        //    // 以文本形式显示结果
+        //    return wr.downloadHandler.data;
+        //}
     }
-    public void Upload(string url, List<IMultipartFormSection> formData)
+    public async Task<bool> Put(string url, byte[] bodyData)
     {
-        _mono.Upload(url, formData);
-    }
-    public void Put(string url, byte[] bodyData)
-    {
-        _mono.Put(url, bodyData);
+        UnityWebRequest www = UnityWebRequest.Put(url, bodyData);
+        await www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+            return false;
+        }
+        else
+        {
+            Debug.Log("Upload complete!");
+            return true;
+        }
     }
 }
-class HttpRequestMono : MonoBehaviour
+
+public class UnityWebRequestAwaiter : INotifyCompletion
 {
-    public void Get(string url, Action<string> callback)
-    {
-        StartCoroutine(_Get(url, callback));
-    }
-    IEnumerator _Get(string url, Action<string> callback)
-    {
-        UnityWebRequest wr = UnityWebRequest.Get(url);
-        yield return wr.SendWebRequest();
-        if (wr.result != UnityWebRequest.Result.Success)
-        {
-            Debug.Log(wr.error);
-        }
-        else
-        {
-            // 以文本形式显示结果
-            Debug.Log(wr.downloadHandler.text);
+    private UnityWebRequestAsyncOperation asyncOp;
+    private Action continuation;
 
-            // 或者获取二进制数据形式的结果
-            byte[] results = wr.downloadHandler.data;
-            callback.Invoke(wr.downloadHandler.text);
-        }
+    public UnityWebRequestAwaiter(UnityWebRequestAsyncOperation asyncOp)
+    {
+        this.asyncOp = asyncOp;
+        asyncOp.completed += OnRequestCompleted;
     }
 
-    public void GetTexture(string url, Action<Texture> callback)
+    public bool IsCompleted { get { return asyncOp.isDone; } }
+
+    public void GetResult() { }
+
+    public void OnCompleted(Action continuation)
     {
-        StartCoroutine(_GetTexture(url, callback));
-    }
-    IEnumerator _GetTexture(string url, Action<Texture> callback)
-    {
-        UnityWebRequest wr = UnityWebRequestTexture.GetTexture(url);
-        yield return wr.SendWebRequest();
-        if (wr.result != UnityWebRequest.Result.Success)
-        {
-            Debug.Log(wr.error);
-        }
-        else
-        {
-            Texture myTexture = DownloadHandlerTexture.GetContent(wr);
-            callback.Invoke(myTexture);
-        }
+        this.continuation = continuation;
     }
 
-    public void Post(string url, List<IMultipartFormSection> formData, Action<string> callback)
+    private void OnRequestCompleted(AsyncOperation obj)
     {
-        StartCoroutine(_Post(url, formData, callback));
+        continuation();
     }
-    IEnumerator _Post(string url, List<IMultipartFormSection> formData, Action<string> callback)
-    {
-        UnityWebRequest wr = UnityWebRequest.Post(url, formData);
-        yield return wr.SendWebRequest();
-        if (wr.result != UnityWebRequest.Result.Success)
-        {
-            Debug.Log(wr.error);
-        }
-        else
-        {
-            // 以文本形式显示结果
-            Debug.Log(wr.downloadHandler.text);
+}
 
-            // 或者获取二进制数据形式的结果
-            byte[] results = wr.downloadHandler.data;
-            callback.Invoke(wr.downloadHandler.text);
-        }
-    }
-
-    public void Upload(string url, List<IMultipartFormSection> formData)
+public static class ExtensionMethods
+{
+    public static UnityWebRequestAwaiter GetAwaiter(this UnityWebRequestAsyncOperation asyncOp)
     {
-        StartCoroutine(_Upload(url, formData));
-    }
-    IEnumerator _Upload(string url, List<IMultipartFormSection> formData)
-    {
-        UnityWebRequest wr = UnityWebRequest.Post(url, formData);
-        yield return wr.SendWebRequest();
-        if (wr.result != UnityWebRequest.Result.Success)
-        {
-            Debug.Log(wr.error);
-        }
-        else
-        {
-            Debug.Log("Form upload complete!");
-        }
-    }
-
-    public void Put(string url, byte[] bodyData)
-    {
-        StartCoroutine(_Put(url, bodyData));
-    }
-    IEnumerator _Put(string url, byte[] bodyData)
-    {
-        UnityWebRequest wr = UnityWebRequest.Put(url, bodyData);
-        yield return wr.SendWebRequest();
-        if (wr.result != UnityWebRequest.Result.Success)
-        {
-            Debug.Log(wr.error);
-        }
-        else
-        {
-            Debug.Log("upload complete!");
-        }
+        return new UnityWebRequestAwaiter(asyncOp);
     }
 }
 
