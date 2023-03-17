@@ -9,7 +9,7 @@ public class SettingWin : Window
     
     protected override string path()
     {
-        return "Assets/UI/SettingWin.prefab"; 
+        return "SettingWin"; 
     }
 
     public Button btnClose;
@@ -45,7 +45,8 @@ public class SettingWin : Window
         btnClose.onClick.AddListener(onClick);
         openBag.onClick.AddListener(() =>
         {
-            UIManager.inst.ShowWindow<BagWin>();
+            //UIManager.inst.ShowWindow<BagWin>();
+            UIManager.inst.ShowTip("Hello!!!");
         });
         this.txtName.text = "78910";
     }

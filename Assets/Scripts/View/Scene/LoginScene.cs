@@ -65,6 +65,8 @@ public class LoginScene : MonoBehaviour
 
     private void OnClickStart()
     {
+        UIManager.inst.ShowAlert("HelloWorld");
+        return;
         var login = new LoginAccount();
         login.Account = "ceshi11";
         login.Password = "12345678";

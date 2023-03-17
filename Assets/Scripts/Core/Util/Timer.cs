@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnityFramework
 {
-    public delegate void TimerCallback(object param);
+    public delegate void TimerCallback();
     /// <summary>
     /// ¼ÆÊ±Æ÷
     /// </summary>
@@ -150,7 +150,8 @@ namespace UnityFramework
 
                     if (i.callback != null)
                     {
-                        i.callback(i.param);
+                        //i.callback(i.param);
+                        i.callback.Invoke();
                     }
                 }
                 iter.Dispose();

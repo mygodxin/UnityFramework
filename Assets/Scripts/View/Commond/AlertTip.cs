@@ -1,6 +1,4 @@
 using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
 using UnityFramework;
 
 public class AlertTip : Window
@@ -9,66 +7,23 @@ public class AlertTip : Window
     
     protected override string path()
     {
-        return "Assets/Prefab/AlertTip.prefab"; 
+        return "AlertTip"; 
     }
 
-    public Button btnClose;
-    public Button btnLeft;
-    public Button btnRight;
-
-    protected override string[] eventList()
-    {
-        return new string[]{
-            Notifications.UpdateItem,
-            Notifications.OpenBag
-        };
-    }
-    protected override void onEvent(string eventName, object data)
-    {
-        switch (eventName)
-        {
-            case Notifications.UpdateItem:
-                Debug.Log("�յ���Ϣ");
-                Debug.Log(data);
-                break;
-            case Notifications.OpenBag:
-                Debug.Log("�յ���Ϣ");
-                Debug.Log(data);
-                break;
-        }
-    }
+    public TMP_Text txtContent;
 
     public override void OnInit()
     {
-        btnClose = this.GetButton("btnClose");
-        btnClose.onClick.AddListener(OnClickClose);
-
-        btnLeft = this.GetButton("btnLeft");
-        btnLeft.onClick.AddListener(OnClickLeft);
-
-        btnRight = this.GetButton("btnRight");
-        btnRight.onClick.AddListener(OnClickRight);
-    }
-    public void OnClickClose()
-    {
-        Hide();
-    }
-    public void OnClickLeft()
-    {
-        Debug.Log("点击左按钮");
-    }
-    public void OnClickRight()
-    {
-        Debug.Log("点击右按钮");
+        this.modal = false;
     }
 
     protected override void OnShow()
     {
-        Debug.Log("BagWin OnShow");
+        this.txtContent.text = (string)this.data;
+        Timer.inst.Add(2, 1, this.Hide);
     }
 
     protected override void OnHide()
     {
-        Debug.Log("BagWin OnHide");
     }
 }

@@ -74,7 +74,7 @@ namespace UnityFramework
             this._inited = true;
             if (view == null)
             {
-                var gameObject = Addressables.LoadAssetAsync<GameObject>(path()).WaitForCompletion();
+                var gameObject = Addressables.LoadAssetAsync<GameObject>(ResManager.UIPath + path() + ".Prefab").WaitForCompletion();
                 view = UnityEngine.Object.Instantiate(gameObject);
                 view.transform.SetParent(GameObject.Find("Canvas").transform, false);
             }
@@ -153,8 +153,9 @@ namespace UnityFramework
                     rectTran.sizeDelta = new Vector2(Screen.width, Screen.height);
                     _clickCloseLayer.transform.SetParent(view.transform);
                     _clickCloseLayer.transform.SetSiblingIndex(0);
-                    btn.onClick.AddListener(() => { 
-                        Hide(); 
+                    btn.onClick.AddListener(() =>
+                    {
+                        Hide();
                     });
                 }
                 _clickCloseLayer.transform.localPosition = Vector3.zero;

@@ -31,13 +31,19 @@ public class UIManager
         GRoot.inst.ShowWindow(win, data);
     }
 
-    public void ShowAlert()
+    public void ShowAlert(AlertParam param)
     {
-
+        this.ShowWindow<AlertWin>(param);
+    }
+    public void ShowAlert(string content)
+    {
+        var alertParam = new AlertParam();
+        alertParam.content = content;
+        this.ShowWindow<AlertWin>(alertParam);
     }
 
-    public void ShowTip()
+    public void ShowTip(string content)
     {
-
+        this.ShowWindow<AlertTip>(content);
     }
 }

@@ -14,7 +14,7 @@ public class ServerWin : Window
 
     protected override string path()
     {
-        return "Assets/Prefab/ServerWin.prefab";
+        return "ServerWin";
     }
 
     public Button btnClose;

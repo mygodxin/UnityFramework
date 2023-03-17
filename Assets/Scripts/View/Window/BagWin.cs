@@ -9,7 +9,7 @@ public class BagWin : Window
     
     protected override string path()
     {
-        return "Assets/UI/BagWin.prefab"; 
+        return "BagWin"; 
     }
 
     public Button btnClose;

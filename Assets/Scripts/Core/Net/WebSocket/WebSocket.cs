@@ -90,7 +90,7 @@ public class WSClient
         _webSocket.CloseAsync();
     }
 
-    private void SendMessage(object param)
+    private void SendMessage()
     {
         if (this._webSocket != null && this._webSocket.ReadyState == WebSocketState.Open)
         {

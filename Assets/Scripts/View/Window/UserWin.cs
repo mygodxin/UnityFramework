@@ -8,7 +8,7 @@ public class UserWin : Window
     
     protected override string path()
     {
-        return "Assets/Prefab/UserWin.prefab"; 
+        return "UserWin"; 
     }
 
     public Button btnClose;

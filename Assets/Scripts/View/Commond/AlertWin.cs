@@ -1,7 +1,16 @@
+using System;
 using TMPro;
-using UnityEngine;
 using UnityEngine.UI;
 using UnityFramework;
+
+public class AlertParam
+{
+    public string title;
+    public string content;
+    public Action leftCallback;
+    public Action rightCallback;
+    public Action closeCallback;
+}
 
 public class AlertWin : Window
 {
@@ -9,66 +18,51 @@ public class AlertWin : Window
 
     protected override string path()
     {
-        return "Assets/Prefab/AlertWin.prefab";
+        return "AlertWin";
     }
 
     public Button btnClose;
     public Button btnLeft;
     public Button btnRight;
-
-    protected override string[] eventList()
-    {
-        return new string[]{
-            Notifications.UpdateItem,
-            Notifications.OpenBag
-        };
-    }
-    protected override void onEvent(string eventName, object data)
-    {
-        switch (eventName)
-        {
-            case Notifications.UpdateItem:
-                Debug.Log("�յ���Ϣ");
-                Debug.Log(data);
-                break;
-            case Notifications.OpenBag:
-                Debug.Log("�յ���Ϣ");
-                Debug.Log(data);
-                break;
-        }
-    }
+    public TMP_Text txtContent;
+    public TMP_Text txtTitle;
 
     public override void OnInit()
     {
-        btnClose = this.GetButton("btnClose");
         btnClose.onClick.AddListener(OnClickClose);
-
-        btnLeft = this.GetButton("btnLeft");
         btnLeft.onClick.AddListener(OnClickLeft);
-
-        btnRight = this.GetButton("btnRight");
         btnRight.onClick.AddListener(OnClickRight);
     }
     public void OnClickClose()
     {
         Hide();
+        var param = (AlertParam)this.data;
+        if (param.closeCallback != null)
+            param.closeCallback.Invoke();
     }
     public void OnClickLeft()
     {
-        Debug.Log("点击左按钮");
+        Hide();
+        var param = (AlertParam)this.data;
+        if (param.leftCallback != null)
+            param.leftCallback.Invoke();
     }
     public void OnClickRight()
     {
-        Debug.Log("点击右按钮");
+        Hide();
+        var param = (AlertParam)this.data;
+        if (param.rightCallback != null)
+            param.rightCallback.Invoke();
     }
 
     protected override void OnShow()
     {
-        Debug.Log("BagWin OnShow");
+        var param = (AlertParam)this.data;
+        this.txtContent.text = param.content;
+        this.txtTitle.text = param.title;
     }
 
     protected override void OnHide()
     {
-        Debug.Log("BagWin OnHide");
     }
 }
