@@ -1,36 +1,39 @@
 using System.Collections.Generic;
 
-/// <summary>
-/// 事件回调
-/// </summary>
-/// <param name="param"></param>
-public delegate void EventCallback(object param = null);
-
-/// <summary>
-/// 事件桥接
-/// </summary>
-public class EventBridge
+namespace UnityFramework
 {
     /// <summary>
-    /// 回调函数
+    /// 事件回调
     /// </summary>
-    public EventCallback eventcallback;
+    /// <param name="param"></param>
+    public delegate void EventCallback(object param = null);
 
-    private static Stack<EventBridge> _pool = new Stack<EventBridge>();
-    internal static EventBridge Get()
+    /// <summary>
+    /// 事件桥接
+    /// </summary>
+    public class EventBridge
     {
-        if(_pool.Count > 0)
+        /// <summary>
+        /// 回调函数
+        /// </summary>
+        public EventCallback eventcallback;
+
+        private static Stack<EventBridge> _pool = new Stack<EventBridge>();
+        internal static EventBridge Get()
         {
-            EventBridge eventCallback = _pool.Pop();
-            return eventCallback;
+            if (_pool.Count > 0)
+            {
+                EventBridge eventCallback = _pool.Pop();
+                return eventCallback;
+            }
+            else
+            {
+                return new EventBridge();
+            }
         }
-        else
+        internal static void Put(EventBridge eventCallback)
         {
-            return new EventBridge();
+            _pool.Push(eventCallback);
         }
-    }
-    internal static void Put(EventBridge eventCallback)
-    {
-        _pool.Push(eventCallback);
     }
 }

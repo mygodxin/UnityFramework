@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityFramework;
 
 public class UserWin : Window
 {
@@ -37,7 +38,7 @@ public class UserWin : Window
 
     public override void OnInit()
     {
-        btnClose = view.transform.Find("Canvas/btnClose").GetComponent<Button>();
+        btnClose = this.GetButton("btnClose");
         btnClose.onClick.AddListener(onClick);
     }
 

@@ -1,5 +1,7 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityFramework;
 
 public class SettingWin : Window
 {
@@ -7,11 +9,13 @@ public class SettingWin : Window
     
     protected override string path()
     {
-        return "Assets/Prefab/SettingWin.prefab"; 
+        return "Assets/UI/SettingWin.prefab"; 
     }
 
     public Button btnClose;
     public Button btnOpen;
+    public Button openBag;
+    public TMP_Text txtName;
 
     protected override string[] eventList()
     {
@@ -37,8 +41,13 @@ public class SettingWin : Window
 
     public override void OnInit()
     {
-        btnClose = view.transform.Find("Canvas/btnClose").GetComponent<Button>();
+        //btnClose = this.GetButton("btnClose");
         btnClose.onClick.AddListener(onClick);
+        openBag.onClick.AddListener(() =>
+        {
+            UIManager.inst.ShowWindow<BagWin>();
+        });
+        this.txtName.text = "78910";
     }
 
     public void onClick()

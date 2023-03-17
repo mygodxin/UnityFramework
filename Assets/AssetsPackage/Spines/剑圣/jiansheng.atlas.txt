@@ -1,0 +1,279 @@
+
+jiansheng.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+biyan
+  rotate: false
+  xy: 781, 676
+  size: 123, 43
+  orig: 123, 43
+  offset: 0, 0
+  index: -1
+dy
+  rotate: false
+  xy: 184, 642
+  size: 77, 29
+  orig: 82, 33
+  offset: 1, 2
+  index: -1
+gongji/0_001
+  rotate: false
+  xy: 448, 266
+  size: 64, 64
+  orig: 175, 226
+  offset: 65, 80
+  index: -1
+gongji/0_002
+  rotate: false
+  xy: 179, 168
+  size: 65, 101
+  orig: 175, 226
+  offset: 64, 80
+  index: -1
+gongji/0_003
+  rotate: false
+  xy: 184, 673
+  size: 87, 102
+  orig: 175, 226
+  offset: 42, 80
+  index: -1
+gongji/0_004
+  rotate: false
+  xy: 794, 150
+  size: 109, 115
+  orig: 175, 226
+  offset: 36, 65
+  index: -1
+gongji/0_005
+  rotate: false
+  xy: 2, 2
+  size: 124, 111
+  orig: 175, 226
+  offset: 32, 63
+  index: -1
+gongji/0_006
+  rotate: false
+  xy: 128, 3
+  size: 131, 110
+  orig: 175, 226
+  offset: 31, 63
+  index: -1
+gongji/0_007
+  rotate: false
+  xy: 794, 42
+  size: 131, 106
+  orig: 175, 226
+  offset: 32, 64
+  index: -1
+gongji/0_008
+  rotate: true
+  xy: 905, 244
+  size: 118, 106
+  orig: 175, 226
+  offset: 40, 64
+  index: -1
+gongji/0_009
+  rotate: false
+  xy: 718, 267
+  size: 111, 95
+  orig: 175, 226
+  offset: 41, 64
+  index: -1
+gongji/0_010
+  rotate: true
+  xy: 179, 271
+  size: 110, 90
+  orig: 175, 226
+  offset: 43, 65
+  index: -1
+qizhi
+  rotate: false
+  xy: 2, 638
+  size: 180, 378
+  orig: 180, 378
+  offset: 0, 0
+  index: -1
+shenti
+  rotate: false
+  xy: 680, 541
+  size: 128, 121
+  orig: 128, 121
+  offset: 0, 0
+  index: -1
+tou
+  rotate: false
+  xy: 184, 777
+  size: 254, 239
+  orig: 254, 239
+  offset: 0, 0
+  index: -1
+toufa1
+  rotate: true
+  xy: 906, 559
+  size: 160, 109
+  orig: 160, 109
+  offset: 0, 0
+  index: -1
+toufa2
+  rotate: false
+  xy: 450, 591
+  size: 55, 123
+  orig: 55, 123
+  offset: 0, 0
+  index: -1
+toufa3
+  rotate: false
+  xy: 493, 169
+  size: 31, 95
+  orig: 31, 95
+  offset: 0, 0
+  index: -1
+xiaba
+  rotate: false
+  xy: 507, 527
+  size: 171, 135
+  orig: 171, 135
+  offset: 0, 0
+  index: -1
+youjiao
+  rotate: false
+  xy: 220, 131
+  size: 28, 35
+  orig: 28, 35
+  offset: 0, 0
+  index: -1
+youshou
+  rotate: false
+  xy: 2, 383
+  size: 269, 253
+  orig: 269, 253
+  offset: 0, 0
+  index: -1
+youtui
+  rotate: false
+  xy: 450, 532
+  size: 50, 57
+  orig: 50, 57
+  offset: 0, 0
+  index: -1
+youtuijia
+  rotate: false
+  xy: 942, 774
+  size: 26, 29
+  orig: 26, 29
+  offset: 0, 0
+  index: -1
+zhengyan
+  rotate: true
+  xy: 448, 141
+  size: 123, 43
+  orig: 123, 43
+  offset: 0, 0
+  index: -1
+zhuzi
+  rotate: false
+  xy: 781, 721
+  size: 159, 118
+  orig: 159, 118
+  offset: 0, 0
+  index: -1
+zuojiao
+  rotate: false
+  xy: 942, 805
+  size: 27, 34
+  orig: 27, 34
+  offset: 0, 0
+  index: -1
+zuoshou
+  rotate: false
+  xy: 440, 777
+  size: 71, 62
+  orig: 71, 62
+  offset: 0, 0
+  index: -1
+zuotui
+  rotate: false
+  xy: 450, 716
+  size: 56, 59
+  orig: 56, 59
+  offset: 0, 0
+  index: -1
+zuotuijia
+  rotate: false
+  xy: 179, 129
+  size: 39, 37
+  orig: 39, 37
+  offset: 0, 0
+  index: -1
+红/00000
+  rotate: false
+  xy: 273, 509
+  size: 175, 266
+  orig: 175, 266
+  offset: 0, 0
+  index: -1
+红/00001
+  rotate: true
+  xy: 440, 841
+  size: 175, 266
+  orig: 175, 266
+  offset: 0, 0
+  index: -1
+红/00002
+  rotate: true
+  xy: 273, 332
+  size: 175, 266
+  orig: 175, 266
+  offset: 0, 0
+  index: -1
+红/00003
+  rotate: false
+  xy: 2, 115
+  size: 175, 266
+  orig: 175, 266
+  offset: 0, 0
+  index: -1
+红/00004
+  rotate: true
+  xy: 513, 664
+  size: 175, 266
+  orig: 175, 266
+  offset: 0, 0
+  index: -1
+红/00005
+  rotate: true
+  xy: 708, 841
+  size: 175, 266
+  orig: 175, 266
+  offset: 0, 0
+  index: -1
+红/00006
+  rotate: false
+  xy: 541, 259
+  size: 175, 266
+  orig: 175, 266
+  offset: 0, 0
+  index: -1
+红/00007
+  rotate: false
+  xy: 271, 64
+  size: 175, 266
+  orig: 175, 266
+  offset: 0, 0
+  index: -1
+红/00008
+  rotate: true
+  xy: 526, 82
+  size: 175, 266
+  orig: 175, 266
+  offset: 0, 0
+  index: -1
+红/00009
+  rotate: true
+  xy: 718, 364
+  size: 175, 266
+  orig: 175, 266
+  offset: 0, 0
+  index: -1

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 public class RequestData
 {
     public static Dictionary<RequestCode, int> sign;
+    public static int[] keys;
 
     private RequestCode _code;
     public RequestCode code
@@ -20,13 +21,13 @@ public class RequestData
     private IKHSerializable _serializxable;
     private BufferWriter _bufferWrite;
     private int _encrypt = -1;
-    public RequestData(RequestCode code, IKHSerializable serializable)
+    public RequestData(RequestCode code, IKHSerializable serializable = null)
     {
 
         int encrypt = -1;
         if (sign != null)
             sign.TryGetValue(code, out encrypt);
-        var len = encrypt == -1 ? 4 : 1;
+        var len = encrypt == -1 ? 1 : 4;
         _bufferWrite = new BufferWriter(128 + len);
         _encrypt = encrypt;
         _code = code;
@@ -38,34 +39,31 @@ public class RequestData
             {
                 sign = int.MaxValue;
             }
-            RequestData.sign.Add(_code, sign);
+            RequestData.sign[_code] = sign;
         }
         else
         {
             _bufferWrite.Write((byte)_code);
         }
-        _bufferWrite.Write(serializable);
-
-        var buffer = EncryptTool.EncryptBinary(_bufferWrite.GetBuffer, ConfigManager.inst.encryptKeys);
-        var writer = new BufferWriter(buffer.Length + 1);
-        writer.Write((byte)_code);
-        writer.Joint(buffer);
-        _bufferWrite = writer;
+        if (serializable != null)
+        {
+            _bufferWrite.Write(serializable);
+        }
     }
 
     public byte[] buffer
     {
         get
         {
-            return _bufferWrite.GetBuffer;
+           return this._bufferWrite.GetBuffer;
         }
     }
 
-    public string data
+    public BufferWriter bufferWriter
     {
         get
         {
-            return Convert.ToBase64String(_bufferWrite.GetBuffer);
+            return _bufferWrite;
         }
     }
 }

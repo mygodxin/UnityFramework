@@ -17,40 +17,20 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 314a7338015c6ac478c783c06b27a99d
   m_SerializeEntries:
-  - m_GUID: 3b71da1b0f05c8e4d93d2af3bcb5c197
-    m_Address: Assets/Prefab/HotUpdate.prefab
+  - m_GUID: 49f508627ab9ea344ba99870cc29f6a1
+    m_Address: Assets/AssetsPackage
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 0719879ff8040984f842b11c809f48c6
-    m_Address: Assets/Scenes/LoginScene.unity
+  - m_GUID: 91007953bc7bb7840900181b116df711
+    m_Address: Assets/Hotfix
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 4e2e0483569b0274a94ecdfcd64bbea5
-    m_Address: Assets/HotFixDll/mscorlib.dll.bytes
+  - m_GUID: 6ea315d0fd7389c41b19996891e99ae3
+    m_Address: Assets/Scenes
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 753687f3e9f2e4643b88f7b1218cc642
-    m_Address: Assets/HotFixDll/System.dll.bytes
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: c8475ead2de0d4c41b7ff3b26eedb17e
-    m_Address: Assets/HotFixDll/System.Core.dll.bytes
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 4446fd47a8bbdda489a7ef6c26c95c27
-    m_Address: Assets/HotFixDll/Assembly-CSharp.dll.bytes
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 95964872e98743645a858741454839e1
-    m_Address: Assets/Prefab/BagWin.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 1536f775b0804a5409342188a1936823
-    m_Address: Assets/Prefab/SettingWin.prefab
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 6fbdfb22791014f4cb73ce7b3d08074f
-    m_Address: Assets/Prefab/UserWin.prefab
+  - m_GUID: ae1542ad8e6b75d4aac3904d76980673
+    m_Address: Assets/UI
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

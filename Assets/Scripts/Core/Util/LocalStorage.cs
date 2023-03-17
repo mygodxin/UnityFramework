@@ -1,21 +1,32 @@
 using UnityEngine;
 
-/// <summary>
-/// 本地存储
-/// </summary>
-public class LocalStorage
+namespace UnityFramework
 {
-    public static void Save<T>(string key, T data)
+    /// <summary>
+    /// 本地存储
+    /// </summary>
+    public class LocalStorage
     {
-        var json = JsonUtility.ToJson(data, true);
-        PlayerPrefs.SetString(key, json);
-        PlayerPrefs.Save();
-    }
+        public static void Save<T>(string key, T data)
+        {
+            var json = JsonUtility.ToJson(data, true);
+            PlayerPrefs.SetString(key, json);
+            PlayerPrefs.Save();
+        }
 
-    public static T Read<T>(string key)
-    {
-        var json =  PlayerPrefs.GetString(key, null);
-        var data = JsonUtility.FromJson<T>(json);
-        return data;
+        public static T Read<T>(string key,T defaultValue)
+        {
+            var str = JsonUtility.ToJson(defaultValue, true);
+            var json = PlayerPrefs.GetString(key, str);
+            var data = JsonUtility.FromJson<T>(json);
+            return data;
+        }
+
+        public static T Read<T>(string key)
+        {
+            var json = PlayerPrefs.GetString(key);
+            var data = JsonUtility.FromJson<T>(json);
+            return data;
+        }
     }
 }

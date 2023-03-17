@@ -26,7 +26,7 @@ public class Launch : MonoBehaviour
         Debug.Log("添加到场景中");
     }
 
-    private static readonly string AssemblyFile = "Assets/HotFixDll/";
+    private static readonly string AssemblyFile = "Assets/Hotfix/";
     private static List<string> HOTAssemblyNames { get; } = new List<string>()
     {
         "Assembly-CSharp.dll"

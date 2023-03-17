@@ -1,0 +1,237 @@
+
+wushi.png
+size: 4096,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dy
+  rotate: false
+  xy: 106, 15
+  size: 31, 11
+  orig: 33, 13
+  offset: 1, 1
+  index: -1
+wushi_0
+  rotate: false
+  xy: 2036, 221
+  size: 47, 55
+  orig: 47, 55
+  offset: 0, 0
+  index: -1
+wushi_1
+  rotate: true
+  xy: 2090, 194
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+wushi_10
+  rotate: false
+  xy: 94, 12
+  size: 10, 14
+  orig: 10, 14
+  offset: 0, 0
+  index: -1
+wushi_11
+  rotate: false
+  xy: 26, 3
+  size: 20, 23
+  orig: 20, 23
+  offset: 0, 0
+  index: -1
+wushi_12
+  rotate: false
+  xy: 81, 12
+  size: 11, 14
+  orig: 11, 14
+  offset: 0, 0
+  index: -1
+wushi_15
+  rotate: false
+  xy: 2067, 127
+  size: 36, 42
+  orig: 36, 42
+  offset: 0, 0
+  index: -1
+wushi_16
+  rotate: false
+  xy: 1938, 339
+  size: 110, 171
+  orig: 110, 171
+  offset: 0, 0
+  index: -1
+wushi_17
+  rotate: false
+  xy: 1938, 170
+  size: 96, 167
+  orig: 96, 167
+  offset: 0, 0
+  index: -1
+wushi_2
+  rotate: false
+  xy: 1938, 22
+  size: 127, 146
+  orig: 127, 146
+  offset: 0, 0
+  index: -1
+wushi_3
+  rotate: true
+  xy: 2036, 278
+  size: 59, 48
+  orig: 59, 48
+  offset: 0, 0
+  index: -1
+wushi_4
+  rotate: false
+  xy: 2085, 226
+  size: 32, 50
+  orig: 32, 50
+  offset: 0, 0
+  index: -1
+wushi_5
+  rotate: false
+  xy: 2036, 171
+  size: 52, 48
+  orig: 52, 48
+  offset: 0, 0
+  index: -1
+wushi_6
+  rotate: false
+  xy: 48, 5
+  size: 14, 21
+  orig: 14, 21
+  offset: 0, 0
+  index: -1
+wushi_7
+  rotate: false
+  xy: 64, 11
+  size: 15, 15
+  orig: 15, 15
+  offset: 0, 0
+  index: -1
+wushi_8
+  rotate: false
+  xy: 106, 2
+  size: 10, 11
+  orig: 10, 11
+  offset: 0, 0
+  index: -1
+wushi_9
+  rotate: false
+  xy: 2, 3
+  size: 22, 23
+  orig: 22, 23
+  offset: 0, 0
+  index: -1
+武器(1)/001
+  rotate: false
+  xy: 2, 270
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/002
+  rotate: false
+  xy: 2, 28
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/003
+  rotate: false
+  xy: 244, 270
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/004
+  rotate: false
+  xy: 244, 28
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/005
+  rotate: false
+  xy: 486, 270
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/006
+  rotate: false
+  xy: 486, 28
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/007
+  rotate: false
+  xy: 728, 270
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/008
+  rotate: false
+  xy: 728, 28
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/009
+  rotate: false
+  xy: 970, 270
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/010
+  rotate: false
+  xy: 970, 28
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/011
+  rotate: false
+  xy: 1212, 270
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/012
+  rotate: false
+  xy: 1212, 28
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/013
+  rotate: false
+  xy: 1454, 270
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/014
+  rotate: false
+  xy: 1454, 28
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/015
+  rotate: false
+  xy: 1696, 270
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1
+武器(1)/016
+  rotate: false
+  xy: 1696, 28
+  size: 240, 240
+  orig: 240, 240
+  offset: 0, 0
+  index: -1

@@ -1,16 +1,20 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityFramework;
 
 public class ServerWin : Window
 {
     public static string Name = "ServerWin";
 
     private Action<ClientServerInfo> _action;
-    
+    private TMP_Text _txtAccount;
+    private TMP_Text _txtPassword;
+
     protected override string path()
     {
-        return "Assets/Prefab/ServerWin.prefab"; 
+        return "Assets/Prefab/ServerWin.prefab";
     }
 
     public Button btnClose;
@@ -40,13 +44,11 @@ public class ServerWin : Window
 
     public override void OnInit()
     {
-        btnClose = view.transform.Find("Canvas/btnClose").GetComponent<Button>();
-        btnClose.onClick.AddListener(onClick);
-    }
+        _txtAccount = this.GetTextTMP("txtAccount");
+        _txtPassword = this.GetTextTMP("txtPassword");
 
-    public void onClick()
-    {
-        Hide();
+        btnClose = this.GetButton("btnClose");
+        btnClose.onClick.AddListener(OnClickClose);
     }
 
     protected override void OnShow()

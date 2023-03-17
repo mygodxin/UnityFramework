@@ -1,8 +1,3 @@
-using Newtonsoft.Json;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.AddressableAssets;
 public class ConfigManager
 {
     public string connectURL = "http://192.168.1.184:88";

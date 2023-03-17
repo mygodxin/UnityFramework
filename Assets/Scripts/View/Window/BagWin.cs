@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityFramework;
 
 public class BagWin : Window
 {
@@ -8,7 +9,7 @@ public class BagWin : Window
     
     protected override string path()
     {
-        return "Assets/Prefab/BagWin.prefab"; 
+        return "Assets/UI/BagWin.prefab"; 
     }
 
     public Button btnClose;
@@ -39,10 +40,8 @@ public class BagWin : Window
 
     public override void OnInit()
     {
-        btnClose = view.transform.Find("Canvas/btnClose").GetComponent<Button>();
         btnClose.onClick.AddListener(onClick);
-        list = view.transform.Find("Canvas/Scroll View").GetComponent<GList>();
-        list.itemRenderer = ItemRenderer;
+        //list.itemRenderer = ItemRenderer;
     }
 
     private void ItemRenderer(int index, GameObject item)

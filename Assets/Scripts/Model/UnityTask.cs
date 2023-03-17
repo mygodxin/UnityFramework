@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.Model
@@ -53,7 +50,7 @@ namespace Assets.Scripts.Model
             TaskRunner.Instance.all.Add(this);
         }
         public abstract bool OnRuningFrame();
-        Action? Action;
+        Action Action;
         public bool IsCompleted { get; private set; } = false;
         public  bool Alive => !IsCompleted;
         public void OnCompleted(Action continuation)

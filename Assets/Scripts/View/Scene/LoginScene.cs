@@ -1,3 +1,4 @@
+using DuiChongServerCommon.ClientProtocol;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -5,6 +6,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityFramework;
 
 public class LoginScene : MonoBehaviour
 {
@@ -21,7 +23,7 @@ public class LoginScene : MonoBehaviour
 
         //gameObject.AddComponent<GameScene>();
 
-        Addressables.LoadAssetAsync<GameObject>("Assets/Prefab/HotUpdate.prefab");
+        //Addressables.LoadAssetAsync<GameObject>("Assets/Prefab/HotUpdate.prefab");
 
         Facade.inst.On("test", onEvent);
         //EventManager.Instance.Off("test", onEvent);
@@ -63,8 +65,17 @@ public class LoginScene : MonoBehaviour
 
     private void OnClickStart()
     {
-        SceneManager.LoadScene("GameScene");
-        return;
+        var login = new LoginAccount();
+        login.Account = "ceshi11";
+        login.Password = "12345678";
+        login.Platform = Platform.Web;
+        // login.Platform = GameManager.Instance.Platform;
+        login.Name = "";
+        login.AvatarUrl = "";
+        login.InvitationCode = "";
+        LoginManager.inst.Login(login);
+
+        //SceneManager.LoadScene("GameScene");
         //var win = GRoot.inst.GetWindow<BagWin>();
         //GRoot.inst.ShowWindow(win, 123);
 
@@ -73,8 +84,7 @@ public class LoginScene : MonoBehaviour
 
     private void OnClickSetting()
     {
-        var win = GRoot.inst.GetWindow<SettingWin>();
-        GRoot.inst.ShowWindow(win, 123);
+        UIManager.inst.ShowWindow<SettingWin>(123);
     }
 
     private void OnClickExit()

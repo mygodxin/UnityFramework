@@ -19,17 +19,16 @@ public class SpineManager
     {
     }
 
-    public void PlaySpine(string name, string skinName, string _animationName, bool _loop, bool _playing, int _frame)
+    public void PlaySpine(SkeletonGraphic skeletonGraphic,string name, string skinName, string _animationName, bool _loop, bool _playing, int _frame)
     {
-        SkeletonDataAsset asset = Addressables.LoadAssetAsync<SkeletonDataAsset>(name + "_SkeletonData").WaitForCompletion();
+        SkeletonDataAsset asset = Addressables.LoadAssetAsync<SkeletonDataAsset>(name + "_SkeletonData.asset").WaitForCompletion();
         if (asset == null) return;
-        var _spineAnimation = SkeletonRenderer.NewSpineGameObject<SkeletonAnimation>(asset);
-        _spineAnimation.gameObject.name = asset.name;
+        var _spineAnimation = skeletonGraphic;
+        skeletonGraphic.skeletonDataAsset = asset;
+
         Spine.SkeletonData dat = asset.GetSkeletonData(false);
-        _spineAnimation.gameObject.transform.localScale = new Vector3(1 / asset.scale, 1 / asset.scale, 1);
-        //_spineAnimation.gameObject.transform.localPosition = new Vector3(anchor.x, -anchor.y, 0);
-        //SetWrapTarget(_spineAnimation.gameObject, cloneMaterial, width, height);
-        var skeletonData = _spineAnimation.skeleton.Data;
+
+        var skeletonData = dat;
 
         var state = _spineAnimation.AnimationState;
         Spine.Animation animationToUse = !string.IsNullOrEmpty(_animationName) ? skeletonData.FindAnimation(_animationName) : null;
@@ -55,10 +54,10 @@ public class SpineManager
         var skin = !string.IsNullOrEmpty(skinName) ? skeletonData.FindSkin(skinName) : skeletonData.DefaultSkin;
         if (skin == null && skeletonData.Skins.Count > 0)
             skin = skeletonData.Skins.Items[0];
-        if (_spineAnimation.skeleton.Skin != skin)
+        if (_spineAnimation.Skeleton.Skin != skin)
         {
-            _spineAnimation.skeleton.SetSkin(skin);
-            _spineAnimation.skeleton.SetSlotsToSetupPose();
+            _spineAnimation.Skeleton.SetSkin(skin);
+            _spineAnimation.Skeleton.SetSlotsToSetupPose();
         }
     }
 }
