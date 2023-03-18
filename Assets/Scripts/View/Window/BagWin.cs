@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,7 @@ public class BagWin : Window
             Notifications.UpdateItem,
             Notifications.OpenBag
         };
+
     }
     protected override void onEvent(string eventName, object data)
     {

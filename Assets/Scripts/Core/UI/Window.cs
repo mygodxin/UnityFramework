@@ -74,7 +74,8 @@ namespace UnityFramework
             this._inited = true;
             if (view == null)
             {
-                var gameObject = Addressables.LoadAssetAsync<GameObject>(ResManager.UIPath + path() + ".Prefab").WaitForCompletion();
+                var gameObject = Addressables.LoadAssetAsync<GameObject>(ResManager.UIPath + path() + ".prefab").WaitForCompletion();
+                Debug.Log(ResManager.UIPath + path() + ".prefab");
                 view = UnityEngine.Object.Instantiate(gameObject);
                 view.transform.SetParent(GameObject.Find("Canvas").transform, false);
             }

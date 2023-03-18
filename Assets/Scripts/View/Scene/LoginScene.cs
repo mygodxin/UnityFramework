@@ -1,6 +1,8 @@
 using DuiChongServerCommon.ClientProtocol;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -8,15 +10,42 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityFramework;
 
+
+
+public class UnityItem : Attribute
+{
+    public string Path;
+    public UnityItem(string path)
+    {
+        this.Path = path;
+    }
+
+}
 public class LoginScene : MonoBehaviour
 {
+    [UnityItem("xx/xxx")]
     public Button btnStart;
     public Button btnSetting;
     public Button btnExit;
+    public TMP_Text txtStart;
     //private int i = 0;
     // Start is called before the first frame update
     void Start()
     {
+
+        foreach (var item in this.GetType().GetFields(BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic))
+        {
+            var att = item.GetCustomAttribute<UnityItem>();
+            if (att != null)
+            {
+                var path = att.Path;
+
+
+            }
+
+
+        }
+
         btnStart.onClick.AddListener(this.OnClickStart);
         btnSetting.onClick.AddListener(OnClickSetting);
         btnExit.onClick.AddListener(OnClickExit);
@@ -65,19 +94,22 @@ public class LoginScene : MonoBehaviour
 
     private void OnClickStart()
     {
-        UIManager.inst.ShowAlert("HelloWorld");
-        return;
-        var login = new LoginAccount();
-        login.Account = "ceshi11";
-        login.Password = "12345678";
-        login.Platform = Platform.Web;
-        // login.Platform = GameManager.Instance.Platform;
-        login.Name = "";
-        login.AvatarUrl = "";
-        login.InvitationCode = "";
-        LoginManager.inst.Login(login);
+        //UIManager.inst.ShowAlert("HelloWorld");
+        //var go = Addressables.LoadAssetAsync<GameObject>("Assets/AssetsPackage/UI/SettingWin.prefab").WaitForCompletion();
+        //Instantiate(go);
+        this.txtStart.text = "click2";
 
-        //SceneManager.LoadScene("GameScene");
+        //var login = new LoginAccount();
+        //login.Account = "ceshi11";
+        //login.Password = "12345678";
+        //login.Platform = Platform.Web;
+        //// login.Platform = GameManager.Instance.Platform;
+        //login.Name = "";
+        //login.AvatarUrl = "";
+        //login.InvitationCode = "";
+        //LoginManager.inst.Login(login);
+
+        Addressables.LoadSceneAsync("GameScene");
         //var win = GRoot.inst.GetWindow<BagWin>();
         //GRoot.inst.ShowWindow(win, 123);
 
@@ -86,7 +118,8 @@ public class LoginScene : MonoBehaviour
 
     private void OnClickSetting()
     {
-        UIManager.inst.ShowWindow<SettingWin>(123);
+        UIManager.inst.ShowWindow<SettingWin>();
+        Debug.Log("µ„ª˜…Ë÷√1");
     }
 
     private void OnClickExit()

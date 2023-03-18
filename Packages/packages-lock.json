@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "00cedc166f7ca58cfb9a9ad645bd4a0ffc9b8fc9"
+      "hash": "c84f575a2ee4d26ac65028463b437604570dcc74"
     },
     "com.unity.addressables": {
       "version": "1.19.19",
@@ -27,15 +27,6 @@
       "source": "registry",
       "dependencies": {
         "com.unity.modules.ai": "1.0.0"
-      },
-      "url": "https://packages.unity.cn"
-    },
-    "com.unity.collab-proxy": {
-      "version": "1.17.7",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.services.core": "1.0.1"
       },
       "url": "https://packages.unity.cn"
     },
@@ -69,7 +60,7 @@
     },
     "com.unity.ide.rider": {
       "version": "3.0.16",
-      "depth": 0,
+      "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.ext.nunit": "1.0.6"
@@ -77,7 +68,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.16",
+      "version": "2.0.17",
       "depth": 0,
       "source": "registry",
       "dependencies": {
@@ -88,13 +79,6 @@
     "com.unity.ide.vscode": {
       "version": "1.2.5",
       "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.cn"
-    },
-    "com.unity.nuget.newtonsoft-json": {
-      "version": "3.0.2",
-      "depth": 2,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.cn"
@@ -111,17 +95,6 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {},
-      "url": "https://packages.unity.cn"
-    },
-    "com.unity.services.core": {
-      "version": "1.6.0",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.unitywebrequest": "1.0.0",
-        "com.unity.nuget.newtonsoft-json": "3.0.2",
-        "com.unity.modules.androidjni": "1.0.0"
-      },
       "url": "https://packages.unity.cn"
     },
     "com.unity.settings-manager": {

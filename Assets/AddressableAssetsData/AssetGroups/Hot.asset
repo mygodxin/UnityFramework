@@ -29,8 +29,8 @@ MonoBehaviour:
     m_Address: Assets/Scenes
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: ae1542ad8e6b75d4aac3904d76980673
-    m_Address: Assets/UI
+  - m_GUID: 9f24f9d2d99506d4c953c77a6271f3d7
+    m_Address: Assets/Main
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

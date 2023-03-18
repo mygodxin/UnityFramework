@@ -6,9 +6,11 @@ using System.Reflection;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.UI;
 
 public class Launch : MonoBehaviour
 {
+    public Text text;
     void Start()
     {
         LoadDllAsset();
@@ -24,10 +26,11 @@ public class Launch : MonoBehaviour
         Addressables.LoadSceneAsync("Assets/Scenes/LoginScene.unity");
        //Addressables.InstantiateAsync("Assets/Prefab/HotUpdate.prefab");
         Debug.Log("添加到场景中");
+        this.text.text = "加载完成";
     }
 
     private static readonly string AssemblyFile = "Assets/Hotfix/";
-    private static List<string> HOTAssemblyNames { get; } = new List<string>()
+    public static List<string> HOTAssemblyNames { get; } = new List<string>()
     {
         "Assembly-CSharp.dll"
     };
