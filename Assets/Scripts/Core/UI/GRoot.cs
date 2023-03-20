@@ -10,8 +10,8 @@ namespace UnityFramework
     /// </summary>
     public class GRoot
     {
-        public readonly int designWidth = 1920;
-        public readonly int designHeight = 1080;
+        public readonly float designWidth = 1280;
+        public readonly float designHeight = 720;
         public Dictionary<string, Window> winCache;
         public List<Window> winOpen;
         private GameObject _modalLayer;
@@ -65,9 +65,13 @@ namespace UnityFramework
 
         public void ScreenUISelfAdptation(Transform scaleUI)
         {
-            float widthrate = Screen.width / 1920.0f;
-            float heightrate = Screen.height / 1080.0f;
+            float widthrate = this.designWidth / Screen.width;
+            float heightrate = this.designHeight / Screen.height;
             float postion_x = scaleUI.GetComponent<RectTransform>().anchoredPosition.x * widthrate;
+            float postion_y = scaleUI.GetComponent<RectTransform>().anchoredPosition.y * heightrate;
+            scaleUI.localScale = new Vector3(widthrate, heightrate, 1);
+
+            scaleUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(postion_x, postion_y);
         }
 
         public GameObject modalLayer
@@ -89,10 +93,10 @@ namespace UnityFramework
             img.color = new Color(0f, 0f, 0f, 0.5f);
             var rectTran = _modalLayer.GetComponent<RectTransform>();
             rectTran.sizeDelta = new Vector2(Screen.width, Screen.height);
-            _modalLayer.transform.SetParent(canvas,false);
+            _modalLayer.transform.SetParent(canvas, false);
             _modalLayer.transform.SetAsFirstSibling();
             _modalLayer.transform.localPosition = Vector3.zero;
-
+            this.ScreenUISelfAdptation(_modalLayer.transform);
             //GameObject.Instantiate
         }
 

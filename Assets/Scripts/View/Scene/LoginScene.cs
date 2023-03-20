@@ -109,7 +109,7 @@ public class LoginScene : MonoBehaviour
         //login.InvitationCode = "";
         //LoginManager.inst.Login(login);
 
-        Addressables.LoadSceneAsync("GameScene");
+        Addressables.LoadSceneAsync("Assets/Scenes/GameScene.unity");
         //var win = GRoot.inst.GetWindow<BagWin>();
         //GRoot.inst.ShowWindow(win, 123);
 

@@ -38,7 +38,8 @@ namespace UnityFramework
         protected override void onAddedToStage(object data)
         {
             this.data = data;
-            if (!_inited)
+            //场景切换时view会被清空，重新进行初始化
+            if (!_inited || view == null)
             {
                 init();
             }

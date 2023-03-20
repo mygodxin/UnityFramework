@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityFramework;
@@ -14,6 +15,7 @@ public class GameScene : MonoBehaviour
     public GList list;
     public GameObject gameObject1;
     public SkeletonGraphic skeletonGraphic;
+    public Button btnReturn;
     // Start is called before the first frame update
     async void Start()
     {
@@ -26,8 +28,8 @@ public class GameScene : MonoBehaviour
         //animator.StartPlayback();
         //animator.transform.position = new Vector3(0, 0, 1);
         //go.transform.SetParent(GameObject.Find("Canvas/Tex").GetComponent<Image>().transform);
-        SpineManager.inst.PlaySpine(skeletonGraphic, "Assets/AssetsPackage/Spines/ÈøÂú1/tangsanzang", "", "attack", true, true,0);
-
+        SpineManager.inst.PlaySpine(skeletonGraphic, "Assets/Textures/Spines/ÈøÂú1/tangsanzang", "", "attack", true, true,0);
+        this.btnReturn.onClick.AddListener(() => { Addressables.LoadSceneAsync("Assets/Scenes/LoginScene.unity"); });
         var evt = skeletonGraphic.gameObject.AddComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.callback.AddListener((a) =>
