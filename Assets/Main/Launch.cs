@@ -1,5 +1,6 @@
 
 using HybridCLR;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -13,6 +14,79 @@ public class Launch : MonoBehaviour
     public Text text;
     void Start()
     {
+        //执行更新操作
+        //Addressable Asset Setting中Disable Catalog Update on Startup说明
+        //未勾选时，调用Addressables.LoadAssetAsync会自动执行无感更新
+        //勾选时，必须执行以下内容后，调用Addressables.LoadAssetAsync才能正常加载到需要更新的内容
+        StartCoroutine(DoUpdateAddressables());
+    }
+   
+    IEnumerator DoUpdateAddressables()
+    {
+        //初始化addressables
+        var initHandle = Addressables.InitializeAsync();
+        yield return initHandle;
+
+        //检查是否需要更新
+        var checkHandle = Addressables.CheckForCatalogUpdates(false);
+        yield return checkHandle;
+        if (checkHandle.Status != AsyncOperationStatus.Succeeded)
+        {
+            yield break;
+        }
+
+        if (checkHandle.Result.Count > 0)
+        {
+            //获取更新目录
+            var updateHandle = Addressables.UpdateCatalogs(checkHandle.Result, false);
+            yield return updateHandle;
+
+            if (updateHandle.Status != AsyncOperationStatus.Succeeded)
+            {
+                yield break;
+            }
+
+            var locators = updateHandle.Result;
+            foreach (var locator in locators)
+            {
+                var keys = new List<object>();
+                keys.AddRange(locator.Keys);
+                //获取size信息
+                var sizeHandle = Addressables.GetDownloadSizeAsync(keys.GetEnumerator());
+                yield return sizeHandle;
+                if (sizeHandle.Status != AsyncOperationStatus.Succeeded)
+                {
+                    yield break;
+                }
+                var downloadSize = sizeHandle.Result;
+                this.text.text = "downloadSize:" + downloadSize;
+                if (downloadSize > 0)
+                {
+                    //下载
+                    var downloadHandle = Addressables.DownloadDependenciesAsync(keys);
+                    while (!downloadHandle.IsDone)
+                    {
+                        if (downloadHandle.Status == AsyncOperationStatus.Failed)
+                        {
+                            yield break;
+                        }
+
+                        var percentage = downloadHandle.PercentComplete;
+                        this.text.text += "已下载:" + percentage;
+                        yield return null;
+                    }
+                    if (downloadHandle.Status == AsyncOperationStatus.Succeeded)
+                    {
+                        this.text.text += "下载完成";
+                    }
+                }
+            }
+        }
+        else
+        {
+            this.text.text = "当前已经是最新版本";
+        }
+
         LoadDllAsset();
     }
 
@@ -23,7 +97,7 @@ public class Launch : MonoBehaviour
         //AssetBundle prefabAb = AssetBundle.LoadFromMemory(GetAssetData("defaultlocalgroup_assets_all_d1990ef8fedf9fe10470645fc4b5d879.bundle"));
         //GameObject testPrefab = Instantiate(prefabAb.LoadAsset<GameObject>("HotUpdatePrefab.prefab"));
         Addressables.LoadSceneAsync("Assets/Scenes/LoginScene.unity");
-       //Addressables.InstantiateAsync("Assets/Prefab/HotUpdate.prefab");
+        //Addressables.InstantiateAsync("Assets/Prefab/HotUpdate.prefab");
         Debug.Log("添加到场景中");
         this.text.text = "加载完成";
     }
@@ -46,7 +120,7 @@ public class Launch : MonoBehaviour
         return s_assetDatas[dllName];
     }
 
-    private  void LoadDllAsset()
+    private void LoadDllAsset()
     {
         var assets = HOTAssemblyNames.Concat(AOTMetaAssemblyNames);
         foreach (var asset in assets)
