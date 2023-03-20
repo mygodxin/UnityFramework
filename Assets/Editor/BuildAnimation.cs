@@ -9,13 +9,13 @@ using UnityEngine.UI;
 public class BuildAnimation : Editor
 {
     //生成出的Prefab的路径
-    private static string PrefabPath = "Assets/AssetsPackage/Effects/Prefabs";
+    private static string PrefabPath = "Assets/Textures/Effects/Prefabs";
     //生成出的AnimationController的路径
-    private static string AnimationControllerPath = "Assets/AssetsPackage/Effects/AnimationController";
+    private static string AnimationControllerPath = "Assets/Textures/Effects/AnimationController";
     //生成出的Animation的路径
-    private static string AnimationPath = "Assets/AssetsPackage/Effects/Animation";
+    private static string AnimationPath = "Assets/Textures/Effects/Animation";
     //原始图片路径
-    private static string ImagePath = "Assets/AssetsPackage/Textures/Effects";
+    private static string ImagePath = "Assets/Textures/EffectTextures";
     //Application.dataPath
     [MenuItem("Build/BuildAnimaiton")]
     static void BuildAniamtion()

@@ -1,6 +1,9 @@
 
+using System;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace UnityFramework
@@ -37,6 +40,47 @@ namespace UnityFramework
         }
         protected virtual void onRemovedFromStage(object data)
         {
+        }
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        public virtual void OnInit()
+        {
+
+        }
+        /// <summary>
+        /// 打开
+        /// </summary>
+        protected virtual void OnShow()
+        {
+
+        }
+        /// <summary>
+        /// 关闭
+        /// </summary>
+        protected virtual void OnHide()
+        {
+
+        }
+        protected void BindComponent()
+        {
+            Type type = this.GetType();
+            FieldInfo[] properties = type.GetFields();
+            foreach (var prop in properties)
+            {
+                if (prop.FieldType.IsSubclassOf(typeof(UIBehaviour)))
+                {
+                    var a = this.view.transform.GetComponentsInChildren(prop.FieldType, true);
+                    foreach (var item in a)
+                    {
+                        if (item.transform.name == prop.Name)
+                        {
+                            prop.SetValue(this, item);
+                            break;
+                        }
+                    }
+                }
+            }
         }
         protected Transform GetTransform(string path)
         {

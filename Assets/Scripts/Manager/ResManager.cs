@@ -1,8 +1,8 @@
 
 public class ResManager
 {
-    public static string AssetsPath = "Assets/AssetsPackage";
-    public static string UIPath = "Assets/AssetsPackage/UI/";
+    public static string AssetsPath = "Assets/";
+    public static string UIPath = "Assets/Prefabs/UI/";
 
     private static ResManager _inst = null;
     public static ResManager inst

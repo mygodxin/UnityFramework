@@ -22,7 +22,6 @@ public class Launch : MonoBehaviour
         Assembly.Load(assemblyData);
         //AssetBundle prefabAb = AssetBundle.LoadFromMemory(GetAssetData("defaultlocalgroup_assets_all_d1990ef8fedf9fe10470645fc4b5d879.bundle"));
         //GameObject testPrefab = Instantiate(prefabAb.LoadAsset<GameObject>("HotUpdatePrefab.prefab"));
-
         Addressables.LoadSceneAsync("Assets/Scenes/LoginScene.unity");
        //Addressables.InstantiateAsync("Assets/Prefab/HotUpdate.prefab");
         Debug.Log("添加到场景中");

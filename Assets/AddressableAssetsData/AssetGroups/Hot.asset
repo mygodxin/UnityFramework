@@ -17,10 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 314a7338015c6ac478c783c06b27a99d
   m_SerializeEntries:
-  - m_GUID: 49f508627ab9ea344ba99870cc29f6a1
-    m_Address: Assets/AssetsPackage
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: 91007953bc7bb7840900181b116df711
     m_Address: Assets/Hotfix
     m_ReadOnly: 0
@@ -31,6 +27,26 @@ MonoBehaviour:
     m_SerializedLabels: []
   - m_GUID: 9f24f9d2d99506d4c953c77a6271f3d7
     m_Address: Assets/Main
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: e2cdc3d6c360d93489c73110e91cd3c4
+    m_Address: Assets/Audios
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ffc1dcaa4ad3d294a839ff2238f24616
+    m_Address: Assets/Fonts
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 8b7d93a9946e9724db2970158634705a
+    m_Address: Assets/Prefabs
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 016799ab7e881954ab1b3ba5f0e82320
+    m_Address: Assets/Shaders
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 766d1f95473966941896d9a079172a62
+    m_Address: Assets/Textures
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

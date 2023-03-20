@@ -38,6 +38,9 @@ MonoBehaviour:
   m_LoadPath:
     m_Id: 4bbe9284e57af8d449ac854bd8c5bf83
   m_BundleMode: 0
+  m_DataStreamProcessorType:
+    m_AssemblyName: Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    m_ClassName: UnityEngine.ResourceManagement.ResourceProviders.MyAESStreamProcessor
   m_AssetBundleProviderType:
     m_AssemblyName: Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     m_ClassName: UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider
