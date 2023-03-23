@@ -1,7 +1,4 @@
-using DuiChongServerCommon.ClientProtocol;
 using Spine.Unity;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -16,6 +13,10 @@ public class GameScene : MonoBehaviour
     public GameObject gameObject1;
     public SkeletonGraphic skeletonGraphic;
     public Button btnReturn;
+    private QuadTree quadTree;
+    public GameObject go;
+    private List<GameObject> enemys;
+    public GameObject player;
     // Start is called before the first frame update
     async void Start()
     {
@@ -28,7 +29,7 @@ public class GameScene : MonoBehaviour
         //animator.StartPlayback();
         //animator.transform.position = new Vector3(0, 0, 1);
         //go.transform.SetParent(GameObject.Find("Canvas/Tex").GetComponent<Image>().transform);
-        SpineManager.inst.PlaySpine(skeletonGraphic, "Assets/Textures/Spines/萨满1/tangsanzang", "", "attack", true, true,0);
+        SpineManager.inst.PlaySpine(skeletonGraphic, "Assets/Textures/Spines/萨满1/tangsanzang", "", "attack", true, true, 0);
         this.btnReturn.onClick.AddListener(() => { Addressables.LoadSceneAsync("Assets/Scenes/LoginScene.unity"); });
         var evt = skeletonGraphic.gameObject.AddComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
@@ -66,7 +67,23 @@ public class GameScene : MonoBehaviour
         var tex = await HttpRequest.inst.GetTexture("http://192.168.1.17:82/web-desktop/splash.85cfd.png");
         var img = GameObject.Find("Canvas/Tex").GetComponent<Image>();
         Debug.Log("下载完成" + tex.name);
-        img.sprite = Sprite.Create(tex as Texture2D, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+        img.sprite = Sprite.Create(tex as Texture2D, new UnityEngine.Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+
+        var canvas = GameObject.Find("Canvas").transform;
+        var rect = GameObject.Find("Canvas/Image").transform.GetComponent<RectTransform>();
+        var r = new Rect((rect.position.x + rect.rect.x) * canvas.localScale.x, (rect.position.y + rect.rect.y) * canvas.localScale.y, rect.rect.width * canvas.localScale.x, rect.rect.height * canvas.localScale.y);
+        quadTree = new QuadTree(r, 0);
+        enemys = new List<GameObject>();
+        for (var i = 0; i < 10; i++)
+        {
+            var g = Instantiate(go);
+            g.transform.Find("Text (TMP)").GetComponent<TMP_Text>().text = "" + i;
+            g.name = "敌人" + i;
+            g.transform.SetParent(canvas);
+            g.transform.position = new Vector3(UnityEngine.Random.Range(50, rect.rect.width / 2), UnityEngine.Random.Range(50, rect.rect.height / 2));
+            enemys.Add(g);
+        }
+
     }
     private void OnItemRenderer(int index, GameObject gameObject)
     {
@@ -81,5 +98,45 @@ public class GameScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButtonDown(0))
+        {
+            player.transform.position = Input.mousePosition;
+            //Debug.Log("点击位置" + mouseSToW);        //foreach(var k in result)
+            //{
+            //    Debug.Log(k.name);
+            //}
+            var result = quadTree.Retrieve(player.transform.GetComponent<RectTransform>());
+            Debug.Log("本次点击---------------------------------");
+            foreach(var k in result)
+            {
+                Debug.Log("敌人" + k.name);
+            }
+        }
+    }
+    public void OnDrawGizmos()
+    {
+        var canvas = GameObject.Find("Canvas").transform;
+        var rect = GameObject.Find("Canvas/Image").transform.GetComponent<RectTransform>();
+        var x = (rect.position.x + rect.rect.x) * canvas.localScale.x;
+        var y = (rect.position.y + rect.rect.y) * canvas.localScale.y;
+        var r = new Rect(0, 0, rect.rect.width * canvas.localScale.x, rect.rect.height * canvas.localScale.y);
+        quadTree = new QuadTree(r, 0);
+        //if (quadTree == null) return;
+        quadTree.Clear();
+
+        if (enemys != null)
+        {
+            for (var i = 0; i < 10; i++)
+            {
+                quadTree.Insert(enemys[i].transform.GetComponent<RectTransform>());
+            }
+        }
+
+        Gizmos.color = Color.blue;
+        var tr = player.transform.GetComponent<RectTransform>();
+        var r1 = new Rect(tr.position.x + tr.rect.x, tr.position.y + tr.rect.y, tr.rect.width, tr.rect.height);
+        Gizmos.DrawWireCube(r1.center, r1.size);
+        Gizmos.color = Color.red;
+        quadTree.DrawLine();
     }
 }

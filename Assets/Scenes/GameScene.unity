@@ -474,6 +474,8 @@ MonoBehaviour:
   gameObject1: {fileID: 1237726395313899331, guid: ba2ebaceaec16744198bfbe162a0fddb, type: 3}
   skeletonGraphic: {fileID: 1260558439}
   btnReturn: {fileID: 650636657}
+  go: {fileID: 7728684152913460751, guid: a7ed4742208c69346984a575960d5ff1, type: 3}
+  player: {fileID: 1217712684}
 --- !u!1 &643786007
 GameObject:
   m_ObjectHideFlags: 0
@@ -883,6 +885,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875675220}
   m_CullTransparentMesh: 1
+--- !u!1 &1217712684 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6418885101566622598, guid: ba2ebaceaec16744198bfbe162a0fddb, type: 3}
+  m_PrefabInstance: {fileID: 1271571922}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1260558437
 GameObject:
   m_ObjectHideFlags: 0
