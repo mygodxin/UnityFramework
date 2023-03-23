@@ -13,7 +13,7 @@ namespace UnityFramework
         //最大层级
         private readonly int MAX_LEVEL = 5;
         //层级
-        private int level;
+        public int level;
         //当前节点内的对象
         public List<RectTransform> objList;
         //当前节点的范围

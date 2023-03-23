@@ -1,4 +1,5 @@
 
+using DuiChongServerCommon.ClientProtocol;
 using System;
 using System.Reflection;
 using TMPro;
@@ -20,7 +21,7 @@ namespace UnityFramework
         /// <summary>
         /// 资源路径
         /// </summary>
-        protected abstract string path();
+        protected virtual string path() { return ""; }
         /// <summary>
         /// 窗口数据
         /// </summary>

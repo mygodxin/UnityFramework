@@ -1,6 +1,7 @@
 using Spine.Unity;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
@@ -10,16 +11,17 @@ using UnityFramework;
 public class GameScene : MonoBehaviour
 {
     public GList list;
-    public GameObject gameObject1;
     public SkeletonGraphic skeletonGraphic;
     public Button btnReturn;
     private QuadTree quadTree;
     public GameObject go;
     private List<GameObject> enemys;
     public GameObject player;
-    // Start is called before the first frame update
+    public Joystick joystick;
+    public float speed = 5;
     async void Start()
     {
+
         AudioManager.inst.PlayMusic("bg");
 
         Debug.Log("这个脚本是通过代码AddComponent直接创建的");
@@ -84,6 +86,27 @@ public class GameScene : MonoBehaviour
             enemys.Add(g);
         }
 
+        //摇杆
+        this.joystick.onPointerDown = this.OnPointerDown;
+        this.joystick.onPointerUp = this.OnPointerUp;
+        this.joystick.onPointerMove = this.OnPointerMove;
+    }
+    private void OnPointerDown(Vector2 position)
+    {
+        this.player.transform.localPosition = position;
+    }
+    private void OnPointerUp(Vector2 position)
+    {
+        this.player.transform.localPosition = position;
+    }
+    private void OnPointerMove(Vector2 vector)
+    {
+        if (vector.magnitude != 0)
+        {
+            this.player .transform.Translate(vector.x * speed * Time.deltaTime, vector.y * speed * Time.deltaTime, 0, Space.World);
+            this.player. transform.rotation = Quaternion.LookRotation(new Vector3(vector.x, vector.y, 0));
+        }
+        //this.player.transform.localPosition = position;
     }
     private void OnItemRenderer(int index, GameObject gameObject)
     {
@@ -121,10 +144,9 @@ public class GameScene : MonoBehaviour
         var y = (rect.position.y + rect.rect.y) * canvas.localScale.y;
         var r = new Rect(0, 0, rect.rect.width * canvas.localScale.x, rect.rect.height * canvas.localScale.y);
         quadTree = new QuadTree(r, 0);
-        //if (quadTree == null) return;
         quadTree.Clear();
 
-        if (enemys != null)
+        if (enemys != null && enemys.Count >0)
         {
             for (var i = 0; i < 10; i++)
             {
