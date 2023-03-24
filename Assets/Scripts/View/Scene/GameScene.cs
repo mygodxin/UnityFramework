@@ -1,7 +1,6 @@
 using Spine.Unity;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
@@ -18,8 +17,8 @@ public class GameScene : MonoBehaviour
     private List<GameObject> enemys;
     public GameObject player;
     public Joystick joystick;
-    public float speed = 5;
-    async void Start()
+    public float speed = 200;
+    void Start()
     {
 
         AudioManager.inst.PlayMusic("bg");
@@ -66,10 +65,10 @@ public class GameScene : MonoBehaviour
             var ig = list.children[path[i].x + path[i].y * 10].transform.Find("Image").GetComponent<Image>();
             ig.color = Color.blue;
         }
-        var tex = await HttpRequest.inst.GetTexture("http://192.168.1.17:82/web-desktop/splash.85cfd.png");
-        var img = GameObject.Find("Canvas/Tex").GetComponent<Image>();
-        Debug.Log("下载完成" + tex.name);
-        img.sprite = Sprite.Create(tex as Texture2D, new UnityEngine.Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
+        //var tex = await HttpRequest.inst.GetTexture("http://192.168.1.17:82/web-desktop/splash.85cfd.png");
+        //var img = GameObject.Find("Canvas/Tex").GetComponent<Image>();
+        //Debug.Log("下载完成" + tex.name);
+        //img.sprite = Sprite.Create(tex as Texture2D, new UnityEngine.Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f));
 
         var canvas = GameObject.Find("Canvas").transform;
         var rect = GameObject.Find("Canvas/Image").transform.GetComponent<RectTransform>();
@@ -93,18 +92,19 @@ public class GameScene : MonoBehaviour
     }
     private void OnPointerDown(Vector2 position)
     {
-        this.player.transform.localPosition = position;
+        //this.player.transform.localPosition = position;
     }
     private void OnPointerUp(Vector2 position)
     {
-        this.player.transform.localPosition = position;
+        //this.player.transform.localPosition = position;
     }
     private void OnPointerMove(Vector2 vector)
     {
         if (vector.magnitude != 0)
         {
-            this.player .transform.Translate(vector.x * speed * Time.deltaTime, vector.y * speed * Time.deltaTime, 0, Space.World);
-            this.player. transform.rotation = Quaternion.LookRotation(new Vector3(vector.x, vector.y, 0));
+            player.transform.localPosition += new Vector3(vector.x, vector.y) * this.speed * Time.deltaTime;
+            //this.player .transform.Translate(vector * this.speed * Time.deltaTime);
+            //this.player. transform.rotation = Quaternion.LookRotation(new Vector3(vector.x, vector.y, 0));
         }
         //this.player.transform.localPosition = position;
     }
@@ -121,20 +121,21 @@ public class GameScene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            player.transform.position = Input.mousePosition;
-            //Debug.Log("点击位置" + mouseSToW);        //foreach(var k in result)
-            //{
-            //    Debug.Log(k.name);
-            //}
-            var result = quadTree.Retrieve(player.transform.GetComponent<RectTransform>());
-            Debug.Log("本次点击---------------------------------");
-            foreach(var k in result)
-            {
-                Debug.Log("敌人" + k.name);
-            }
-        }
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    player.transform.position = Input.mousePosition;
+        //    //Debug.Log("点击位置" + mouseSToW);        //foreach(var k in result)
+        //    //{
+        //    //    Debug.Log(k.name);
+        //    //}
+        //    if (quadTree == null) return;
+        //    var result = quadTree.Retrieve(player.transform.GetComponent<RectTransform>());
+        //    Debug.Log("本次点击---------------------------------");
+        //    foreach(var k in result)
+        //    {
+        //        Debug.Log("敌人" + k.name);
+        //    }
+        //}
     }
     public void OnDrawGizmos()
     {
