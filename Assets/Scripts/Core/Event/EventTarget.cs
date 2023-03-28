@@ -60,6 +60,11 @@ namespace UnityFramework
             }
         }
 
+        /// <summary>
+        /// 响应一次[未实现]
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="eventCallback"></param>
         public void Once(string name, EventCallback eventCallback)
         {
         }

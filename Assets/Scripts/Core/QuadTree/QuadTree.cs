@@ -75,6 +75,7 @@ namespace UnityFramework
         //获取所在象限
         private List<int> GetIndex(RectTransform rectTran)
         {
+            //左下角(0,0)
             var indexList = new List<int>();
             var cx = this.bound.center.x;
             var cy = this.bound.center.y;

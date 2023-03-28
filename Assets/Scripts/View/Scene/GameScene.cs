@@ -18,6 +18,8 @@ public class GameScene : MonoBehaviour
     public GameObject player;
     public Joystick joystick;
     public float speed = 200;
+    public Button btnA;
+    public Button btnB;
     void Start()
     {
 

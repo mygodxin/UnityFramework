@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityFramework;
 
-public class UserWin : Window
+public class UserWin : BaseWindow
 {
     public static string Name = "UserWin";
     

@@ -1,7 +1,7 @@
 using UnityFramework;
 
 /// <summary>
-/// 登录管理
+/// UI管理类
 /// </summary>
 public class UIManager
 {
@@ -23,8 +23,8 @@ public class UIManager
 
     public void ShowWindow<T>(object data = null)
     {
-        var win = GRoot.inst.GetWindow<T>();
-        GRoot.inst.ShowWindow(win, data);
+        var win = UIRoot.inst.GetWindow<T>();
+        UIRoot.inst.ShowWindow(win, data);
     }
 
     public void ShowAlert(AlertParam param)

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityFramework;
 
-public class SettingWin : Window
+public class SettingWin : BaseWindow
 {
     public static string Name = "SettingWin";
     

@@ -54,9 +54,9 @@ public class LoginScene : MonoBehaviour
 
         //Addressables.LoadAssetAsync<GameObject>("Assets/Prefab/HotUpdate.prefab");
 
-        Facade.inst.On("test", onEvent);
+        EventManager.inst.On("test", onEvent);
         //EventManager.Instance.Off("test", onEvent);
-        Facade.inst.Emit("test", "你好啊");
+        EventManager.inst.Emit("test", "你好啊");
         //Timers.inst.Add(1, 2, (dt) =>
         //{
         //    Debug.Log("timers");
@@ -89,7 +89,7 @@ public class LoginScene : MonoBehaviour
 
     public void onEmit()
     {
-        Facade.inst.Emit(Notifications.UpdateItem, "UpdateItem消息");
+        EventManager.inst.Emit(Notifications.UpdateItem, "UpdateItem消息");
     }
 
     private void OnClickStart()

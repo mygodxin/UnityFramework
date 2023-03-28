@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityFramework;
 
-public class BagWin : Window
+public class BagWin : BaseWindow
 {
     public static string Name = "BagWin";
     

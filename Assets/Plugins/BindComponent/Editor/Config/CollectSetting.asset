@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e3e46a0b33f424c898c3d2b5ece5c98, type: 3}
+  m_Name: CollectSetting
+  m_EditorClassIdentifier: 
+  m_CollectorTypeName: Collect
+  m_ComponentMaps:
+  - typeKey: Tran
+    typeName: Transform
+  - typeKey: Rect
+    typeName: RectTransform
+  - typeKey: Anim
+    typeName: Animation
+  - typeKey: Animator
+    typeName: Animator
+  - typeKey: Text
+    typeName: Text
+  - typeKey: Image
+    typeName: Image
+  - typeKey: RawImage
+    typeName: RawImage
+  - typeKey: Button
+    typeName: Button
+  - typeKey: Toggle
+    typeName: Toggle
+  - typeKey: TGroup
+    typeName: ToggleGroup
+  - typeKey: Slider
+    typeName: Slider
+  - typeKey: Scrollbar
+    typeName: Scrollbar
+  - typeKey: Dropdown
+    typeName: Dropdown
+  - typeKey: InputField
+    typeName: InputField
+  - typeKey: Canvas
+    typeName: Canvas
+  - typeKey: ScrollView
+    typeName: ScrollRect
+  - typeKey: CGroup
+    typeName: CanvasGroup
+  - typeKey: GLGroup
+    typeName: GridLayoutGroup
+  - typeKey: VLGroup
+    typeName: VerticalLayoutGroup
+  - typeKey: HLGroup
+    typeName: HorizontalLayoutGroup
+  - typeKey: Mask
+    typeName: Mask
+  - typeKey: RectMask
+    typeName: RectMask2D
+  m_DefaultFieldNamePrefix: m_
+  m_DefaultFieldNameByType: 0
+  m_GeneratorTypeName: Generate
+  m_DefaultNameSpace: UnityFramework
+  m_DefaultCodeSavePath: Assets/UICode
+  m_ComponentsCodeTemplate: {fileID: 4900000, guid: 968fd7c800fec3d4baf9160f97e61dc1, type: 3}
+  m_BehaviourCodeTemplate: {fileID: 4900000, guid: 87d428d27da5eb9468fb96d62a01ca10, type: 3}
+  m_CollectionExtensionCodeTemplate: {fileID: 4900000, guid: c6f0d32e04aad824d8dc966bc6d7aa10, type: 3}

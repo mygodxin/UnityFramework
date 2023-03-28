@@ -44,11 +44,15 @@ namespace DuiChongServerCommon.ClientProtocol
     //[CodeAnnotation("随机卡牌")]
     public class RandomCard : IKHSerializable
     {
+
+        
         public RandomCard()
         {
+            
         }
         public RandomCard(Range value, 品质 pinhi, 兵种职业 zhiye, 种族 zhongzu, ushort pid)
         {
+            
             this.Value = value;
             this.PinZhi = pinhi;
             this.ZhongZu = zhongzu;

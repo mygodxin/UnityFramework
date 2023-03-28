@@ -1,5 +1,3 @@
-
-using DuiChongServerCommon.ClientProtocol;
 using System;
 using System.Reflection;
 using TMPro;
@@ -10,38 +8,27 @@ using UnityEngine.UI;
 namespace UnityFramework
 {
     /// <summary>
-    /// UI基类
+    /// 组件
     /// </summary>
-    public abstract class GComponent : EventTarget
+    public abstract class GComponent: EventTarget
     {
         /// <summary>
-        /// 窗口显示对象
+        /// 显示对象
         /// </summary>
         public GameObject view;
+
         /// <summary>
-        /// 资源路径
-        /// </summary>
-        protected virtual string path() { return ""; }
-        /// <summary>
-        /// 窗口数据
+        /// 数据
         /// </summary>
         public object data;
 
-        protected bool _inited = false;
-        protected bool _loading = false;
         public GComponent(GameObject view = null)
         {
             this.view = view;
-            On("onAddedToStage", onAddedToStage);
-            On("onRemovedFromStage", onRemovedFromStage);
+            this.BindComponent();
+            this.OnInit();
         }
 
-        protected virtual void onAddedToStage(object data)
-        {
-        }
-        protected virtual void onRemovedFromStage(object data)
-        {
-        }
         /// <summary>
         /// 初始化
         /// </summary>
@@ -172,5 +159,4 @@ namespace UnityFramework
             return this.GetTransform(path).GetComponent<GList>();
         }
     }
-
 }

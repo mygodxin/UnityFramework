@@ -1,14 +1,6 @@
-
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using System.Collections.Generic;
 using UnityEngine.UI;
-using DG.Tweening;
-using System;
-using Unity.VisualScripting;
-using System.Reflection;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 
 namespace UnityFramework
 {
@@ -17,10 +9,12 @@ namespace UnityFramework
     /// </summary>
     public class Window : GComponent
     {
-        protected override string path()
+        protected virtual string path()
         {
             throw new System.NotImplementedException();
         }
+        protected bool _inited = false;
+        protected bool _loading = false;
         /// <summary>
         /// 是否展示模态窗
         /// </summary>
@@ -33,9 +27,11 @@ namespace UnityFramework
 
         public Window()
         {
+            On("onAddedToStage", onAddedToStage);
+            On("onRemovedFromStage", OnRemovedFromStage);
         }
 
-        protected override void onAddedToStage(object data)
+        protected void onAddedToStage(object data)
         {
             this.data = data;
             //场景切换时view会被清空，重新进行初始化
@@ -49,7 +45,7 @@ namespace UnityFramework
             }
         }
 
-        protected override void onRemovedFromStage(object data)
+        protected void OnRemovedFromStage(object data)
         {
             OnHide();
             DoHideAnimation();
@@ -57,18 +53,15 @@ namespace UnityFramework
 
         public void Show(object data = null)
         {
-            GRoot.inst.ShowWindow(this, data);
+            UIRoot.inst.ShowWindow(this, data);
         }
 
         virtual protected void DoShowAnimation()
         {
-            view.transform.localScale.Set(.1f, .1f, .1f);
-            var tween = view.transform.DOScale(Vector3.one, 0.25f);
-            tween.SetEase(Ease.OutBack);
-            tween.onComplete += OnShow;
+            this.OnShow();
         }
 
-        void init()
+        protected void init()
         {
             if (_loading)
                 return;
@@ -76,7 +69,11 @@ namespace UnityFramework
             if (view == null)
             {
                 var gameObject = Addressables.LoadAssetAsync<GameObject>(ResManager.UIPath + path() + ".prefab").WaitForCompletion();
-                Debug.Log(ResManager.UIPath + path() + ".prefab");
+                if (gameObject == null)
+                {
+                    Debug.LogError("the path not find window:" + ResManager.UIPath + path() + ".prefab");
+                    return;
+                }
                 view = UnityEngine.Object.Instantiate(gameObject);
                 view.transform.SetParent(GameObject.Find("Canvas").transform, false);
             }
@@ -89,31 +86,27 @@ namespace UnityFramework
             OnInited();
         }
 
-        private void OnInited()
+        protected virtual void OnInited()
         {
             view.SetActive(true);
-            registerEvent();
             AddClickCloseLayer();
             DoShowAnimation();
         }
 
         public void Hide()
         {
-            GRoot.inst.HideWindow(this);
+            UIRoot.inst.HideWindow(this);
         }
 
         protected virtual void DoHideAnimation()
         {
-            var tween = view.transform.DOScale(new Vector3(.1f, .1f, .1f), 0.25f);
-            tween.SetEase(Ease.InBack);
-            tween.onComplete += HideImmediately;
+            this.HideImmediately();
         }
 
-        public void HideImmediately()
+        public virtual void HideImmediately()
         {
-            removeEvent();
             view.SetActive(false);
-            GRoot.inst.HideWindowImmediately(this);
+            UIRoot.inst.HideWindowImmediately(this);
         }
 
         private void AddClickCloseLayer()
@@ -147,43 +140,6 @@ namespace UnityFramework
                 if (_clickCloseLayer != null)
                     _clickCloseLayer.SetActive(false);
             }
-        }
-
-        Dictionary<string, EventCallback> callbackDic;
-        protected virtual string[] eventList()
-        {
-            return null;
-        }
-        protected void registerEvent()
-        {
-            string[] eventList = this.eventList();
-            if (eventList != null)
-            {
-                callbackDic = new Dictionary<string, EventCallback>();
-                foreach (var str in eventList)
-                {
-                    EventCallback callback = delegate (object data)
-                    {
-                        onEvent(str, data);
-                    };
-                    Facade.inst.On(str, callback);
-                    callbackDic.Add(str, callback);
-                }
-            }
-        }
-        protected void removeEvent()
-        {
-            string[] eventList = this.eventList();
-            if (eventList != null)
-            {
-                foreach (var str in callbackDic)
-                {
-                    Facade.inst.Off(str.Key, str.Value);
-                }
-            }
-        }
-        protected virtual void onEvent(string eventName, object data)
-        {
         }
     }
 

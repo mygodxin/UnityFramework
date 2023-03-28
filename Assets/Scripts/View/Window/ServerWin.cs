@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityFramework;
 
-public class ServerWin : Window
+public class ServerWin : BaseWindow
 {
     public static string Name = "ServerWin";
 

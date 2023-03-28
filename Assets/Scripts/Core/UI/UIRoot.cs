@@ -8,25 +8,24 @@ namespace UnityFramework
     /// <summary>
     /// UI¸ù½Úµã
     /// </summary>
-    public class GRoot
+    public class UIRoot
     {
         public readonly float designWidth = 1280;
         public readonly float designHeight = 720;
         public Dictionary<string, Window> winCache;
         public List<Window> winOpen;
         private GameObject _modalLayer;
-
-        private static GRoot _inst = null;
-        public static GRoot inst
+        private static UIRoot _inst = null;
+        public static UIRoot inst
         {
             get
             {
                 if (_inst == null)
-                    _inst = new GRoot();
+                    _inst = new UIRoot();
                 return _inst;
             }
         }
-        public GRoot()
+        public UIRoot()
         {
             winCache = new Dictionary<string, Window>();
             winOpen = new List<Window>();
@@ -48,14 +47,14 @@ namespace UnityFramework
 
         public void ShowWindow(Window win, object data = null)
         {
-            win?.Emit("onAddedToStage", data);
+            win.Emit("onAddedToStage", data);
             winOpen.Add(win);
             AdjustModalLayer();
         }
 
         public void HideWindow(Window win)
         {
-            win?.Emit("onRemovedFromStage");
+            win.Emit("onRemovedFromStage");
             winOpen.Remove(win);
         }
         public void HideWindowImmediately(Window win, bool dispose = false)
