@@ -1,4 +1,5 @@
-using UnityFramework;
+using System;
+using UFO;
 
 /// <summary>
 /// UIπ‹¿Ì¿‡
@@ -23,23 +24,27 @@ public class UIManager
 
     public void ShowWindow<T>(object data = null)
     {
-        var win = UIRoot.inst.GetWindow<T>();
-        UIRoot.inst.ShowWindow(win, data);
+        this.ShowWindow(typeof(T));
     }
 
-    public void ShowAlert(AlertParam param)
+    public void ShowWindow(Type type,object data = null)
     {
-        this.ShowWindow<AlertWin>(param);
-    }
-    public void ShowAlert(string content)
-    {
-        var alertParam = new AlertParam();
-        alertParam.content = content;
-        this.ShowWindow<AlertWin>(alertParam);
+        UIRoot.inst.ShowWindow(type, data);
     }
 
-    public void ShowTip(string content)
-    {
-        this.ShowWindow<AlertTip>(content);
-    }
+    //public void ShowAlert(AlertParam param)
+    //{
+    //    this.ShowWindow<AlertWin>(param);
+    //}
+    //public void ShowAlert(string content)
+    //{
+    //    var alertParam = new AlertParam();
+    //    alertParam.content = content;
+    //    this.ShowWindow<AlertWin>(alertParam);
+    //}
+
+    //public void ShowTip(string content)
+    //{
+    //    this.ShowWindow<AlertTip>(content);
+    //}
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityFramework;
+using UFO;
 
 /// <summary>
 /// “Ù∆µπ‹¿Ì¿‡

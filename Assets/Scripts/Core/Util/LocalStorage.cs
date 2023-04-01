@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace UnityFramework
+namespace UFO
 {
     /// <summary>
     /// ±¾µØ´æ´¢

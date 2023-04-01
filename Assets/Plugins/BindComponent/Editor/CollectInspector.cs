@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using UIBind;
+using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 [CustomEditor(typeof(BindComponent))]
@@ -14,36 +15,36 @@ public class CollectInspector : Editor
     private int _exitsSettingsCount;
     private CollectSetting _settings;
 
-    private SerializedProperty _collectorTypeName;
+    private SerializedProperty _collectCodeName;
     private SerializedProperty _fieldNamePrefix;
-    private SerializedProperty _fieldNameByType;
+    private SerializedProperty _fieldNameUseType;
     private SerializedProperty _fieldNames;
     private SerializedProperty _fieldComponents;
-    private string[] _collectorTypeNames;
-    private int _collectorTypeNameIndex;
+    private string[] _collectTypeNames;
+    private int _collectTypeNameIndex;
     private ICollect _collector;
     private int _fieldNameRuleIndex;
     private bool _showComponentField;
 
-    private SerializedProperty _generatorTypeName;
+    private SerializedProperty _generateTypeName;
     private SerializedProperty _nameSpace;
     private SerializedProperty _className;
     private SerializedProperty _codeSavePath;
-    private string[] _generatorTypeNames;
-    private int _generatorTypeNameIndex;
-    private IGenerate _generator;
+    private string[] _generateTypeNames;
+    private int _generateTypeNameIndex;
+    private IGenerate _generate;
 
     private SerializedProperty _setup;
 
     private SerializedProperty _components;
 
-    private ICollect collector
+    private ICollect collect
     {
         get
         {
             if (_collector == null)
             {
-                string collectorTypeName = _collectorTypeName.stringValue;
+                string collectorTypeName = _collectCodeName.stringValue;
                 if (string.IsNullOrEmpty(collectorTypeName))
                 {
                     Debug.LogError("Collector is invalid.");
@@ -69,13 +70,13 @@ public class CollectInspector : Editor
         }
     }
 
-    private IGenerate generator
+    private IGenerate generate
     {
         get
         {
-            if (_generator == null)
+            if (_generate == null)
             {
-                string generatorTypeName = _generatorTypeName.stringValue;
+                string generatorTypeName = _generateTypeName.stringValue;
                 if (string.IsNullOrEmpty(generatorTypeName))
                 {
                     Debug.LogError("Generator is invalid.");
@@ -89,15 +90,15 @@ public class CollectInspector : Editor
                     return null;
                 }
 
-                _generator = (IGenerate)Activator.CreateInstance(generatorType);
-                if (_generator == null)
+                _generate = (IGenerate)Activator.CreateInstance(generatorType);
+                if (_generate == null)
                 {
                     Debug.LogErrorFormat("Can not create generator instance '{0}'.", generatorTypeName);
                     return null;
                 }
             }
 
-            return _generator;
+            return _generate;
         }
     }
 
@@ -138,102 +139,84 @@ public class CollectInspector : Editor
         serializedObject.ApplyModifiedProperties();
     }
 
-    /// <summary>
-    /// 初始化序列化数据
-    /// </summary>
     private void InitSerializeData()
     {
-        // Setup
         _setup = serializedObject.FindProperty("_setup");
 
-        // Collect settings
-        _collectorTypeName = serializedObject.FindProperty("_collectorTypeName");
+        _collectCodeName = serializedObject.FindProperty("_collectorTypeName");
         _fieldNamePrefix = serializedObject.FindProperty("_fieldNamePrefix");
-        _fieldNameByType = serializedObject.FindProperty("_fieldNameByType");
+        _fieldNameUseType = serializedObject.FindProperty("_fieldNameByType");
         _fieldNames = serializedObject.FindProperty("_fieldNames");
         _fieldComponents = serializedObject.FindProperty("_fieldComponents");
 
-        // CollectorTypeNames
         List<string> collectorTypeNames = new List<string> { NoneOptionName };
         collectorTypeNames.AddRange(TypeUtil.GetEditorTypeNames(typeof(ICollect)));
-        _collectorTypeNames = collectorTypeNames.ToArray();
+        _collectTypeNames = collectorTypeNames.ToArray();
 
-        // CollectorCollectorTypeNameIndex
-        _collectorTypeNameIndex = 0;
-        if (!string.IsNullOrEmpty(_collectorTypeName.stringValue))
+        _collectTypeNameIndex = 0;
+        if (!string.IsNullOrEmpty(_collectCodeName.stringValue))
         {
-            _collectorTypeNameIndex = collectorTypeNames.IndexOf(_collectorTypeName.stringValue);
-            if (_collectorTypeNameIndex <= 0)
+            _collectTypeNameIndex = collectorTypeNames.IndexOf(_collectCodeName.stringValue);
+            if (_collectTypeNameIndex <= 0)
             {
-                _collectorTypeNameIndex = 0;
-                _collectorTypeName.stringValue = null;
+                _collectTypeNameIndex = 0;
+                _collectCodeName.stringValue = null;
                 _collector = null;
             }
         }
         collectorTypeNames.Clear();
 
-        // Generate settings
-        _generatorTypeName = serializedObject.FindProperty("_generatorTypeName");
+        _generateTypeName = serializedObject.FindProperty("_generatorTypeName");
         _nameSpace = serializedObject.FindProperty("_nameSpace");
         _className = serializedObject.FindProperty("_className");
         _codeSavePath = serializedObject.FindProperty("_codeSavePath");
 
-        // GeneratorTypeNames
         List<string> generatorTypeNames = new List<string> { NoneOptionName };
         generatorTypeNames.AddRange(TypeUtil.GetEditorTypeNames(typeof(IGenerate)));
-        _generatorTypeNames = generatorTypeNames.ToArray();
+        _generateTypeNames = generatorTypeNames.ToArray();
 
-        // GeneratorTypeNameIndex
-        _generatorTypeNameIndex = 0;
-        if (!string.IsNullOrEmpty(_generatorTypeName.stringValue))
+        _generateTypeNameIndex = 0;
+        if (!string.IsNullOrEmpty(_generateTypeName.stringValue))
         {
-            _generatorTypeNameIndex = generatorTypeNames.IndexOf(_generatorTypeName.stringValue);
-            if (_generatorTypeNameIndex <= 0)
+            _generateTypeNameIndex = generatorTypeNames.IndexOf(_generateTypeName.stringValue);
+            if (_generateTypeNameIndex <= 0)
             {
-                _generatorTypeNameIndex = 0;
-                _generatorTypeName.stringValue = null;
-                _generator = null;
+                _generateTypeNameIndex = 0;
+                _generateTypeName.stringValue = null;
+                _generate = null;
             }
         }
         generatorTypeNames.Clear();
 
-        // m_FieldNameRuleIndex
-        _fieldNameRuleIndex = _fieldNameByType.boolValue ? 1 : 0;
+        _fieldNameRuleIndex = _fieldNameUseType.boolValue ? 1 : 0;
 
-        // Runtime Components
         _components = serializedObject.FindProperty("_components");
     }
 
-    /// <summary>
-    /// 设置默认值。
-    /// </summary>
     private void SetupDefaultValue()
     {
         _setup.boolValue = true;
 
-        _collectorTypeName.stringValue = _settings._collectorTypeName;
-        _fieldNamePrefix.stringValue = _settings.m_DefaultFieldNamePrefix;
-        _fieldNameByType.boolValue = _settings.m_DefaultFieldNameByType;
+        _collectCodeName.stringValue = _settings._collectorCodeName;
+        _fieldNamePrefix.stringValue = _settings._fieldNamePrefix;
+        _fieldNameUseType.boolValue = _settings._fieldNameUseType;
 
-        _generatorTypeName.stringValue = _settings._generatorTypeName;
-        _nameSpace.stringValue = _settings._defaultNameSpace;
+        _generateTypeName.stringValue = _settings._generatorCodeName;
+        _nameSpace.stringValue = _settings._namespace;
         _className.stringValue = serializedObject.targetObject.name;
-        _codeSavePath.stringValue = _settings._defaultCodeSavePath;
+        _codeSavePath.stringValue = _settings._codeSavePath;
 
-        List<string> temp = new List<string>(_collectorTypeNames);
-        int collectorIndex = temp.IndexOf(_settings._collectorTypeName);
-        _collectorTypeNameIndex = Mathf.Max(0, collectorIndex);
-        temp = new List<string>(_generatorTypeNames);
-        int generatorIndex = temp.IndexOf(_settings._generatorTypeName);
-        _generatorTypeNameIndex = Mathf.Max(0, generatorIndex);
+        List<string> temp = new List<string>(_collectTypeNames);
+        int collectorIndex = temp.IndexOf(_settings._collectorCodeName);
+        _collectTypeNameIndex = Mathf.Max(0, collectorIndex);
+        temp = new List<string>(_generateTypeNames);
+        int generatorIndex = temp.IndexOf(_settings._generatorCodeName);
+        _generateTypeNameIndex = Mathf.Max(0, generatorIndex);
         temp.Clear();
 
-        _fieldNameRuleIndex = _fieldNameByType.boolValue ? 1 : 0;
+        _fieldNameRuleIndex = _fieldNameUseType.boolValue ? 1 : 0;
     }
 
-    /// <summary>
-    /// 绘制 Settings GUI。
-    /// </summary>
     private void DrawSettingsGUI()
     {
         if (_exitsSettingsCount > 1)
@@ -253,20 +236,17 @@ public class CollectInspector : Editor
         }
     }
 
-    /// <summary>
-    /// 绘制收集设置 GUI。
-    /// </summary>
     private void DrawCollectGUI()
     {
         EditorGUILayout.BeginVertical("Box");
         {
             GUILayout.Label("Collect Settings", "BoldLabel");
 
-            int collectorTypeNameIndex = EditorGUILayout.Popup("Collector", _collectorTypeNameIndex, _collectorTypeNames);
-            if (collectorTypeNameIndex != _collectorTypeNameIndex)
+            int collectorTypeNameIndex = EditorGUILayout.Popup("Collector", _collectTypeNameIndex, _collectTypeNames);
+            if (collectorTypeNameIndex != _collectTypeNameIndex)
             {
-                _collectorTypeNameIndex = collectorTypeNameIndex;
-                _collectorTypeName.stringValue = _collectorTypeNameIndex <= 0 ? null : _collectorTypeNames[_collectorTypeNameIndex];
+                _collectTypeNameIndex = collectorTypeNameIndex;
+                _collectCodeName.stringValue = _collectTypeNameIndex <= 0 ? null : _collectTypeNames[_collectTypeNameIndex];
                 _collector = null;
             }
 
@@ -277,7 +257,7 @@ public class CollectInspector : Editor
                 if (_fieldNameRuleIndex != index)
                 {
                     _fieldNameRuleIndex = index;
-                    _fieldNameByType.boolValue = _fieldNameRuleIndex == 1;
+                    _fieldNameUseType.boolValue = _fieldNameRuleIndex == 1;
                 }
             }
             EditorGUILayout.EndHorizontal();
@@ -339,12 +319,12 @@ public class CollectInspector : Editor
         {
             GUILayout.Label("Generate Settings", "BoldLabel");
 
-            int generatorTypeNameIndex = EditorGUILayout.Popup("Generator", _generatorTypeNameIndex, _generatorTypeNames);
-            if (generatorTypeNameIndex != _generatorTypeNameIndex)
+            int generatorTypeNameIndex = EditorGUILayout.Popup("Generator", _generateTypeNameIndex, _generateTypeNames);
+            if (generatorTypeNameIndex != _generateTypeNameIndex)
             {
-                _generatorTypeNameIndex = generatorTypeNameIndex;
-                _generatorTypeName.stringValue = _generatorTypeNameIndex <= 0 ? null : _generatorTypeNames[_generatorTypeNameIndex];
-                _generator = null;
+                _generateTypeNameIndex = generatorTypeNameIndex;
+                _generateTypeName.stringValue = _generateTypeNameIndex <= 0 ? null : _generateTypeNames[_generateTypeNameIndex];
+                _generate = null;
             }
 
             EditorGUILayout.BeginHorizontal();
@@ -352,7 +332,7 @@ public class CollectInspector : Editor
                 _nameSpace.stringValue = EditorGUILayout.TextField("Name Space", _nameSpace.stringValue);
                 if (GUILayout.Button("Default", GUILayout.Width(60)))
                 {
-                    _nameSpace.stringValue = _settings._defaultNameSpace;
+                    _nameSpace.stringValue = _settings._namespace;
                 }
             }
             EditorGUILayout.EndHorizontal();
@@ -412,7 +392,7 @@ public class CollectInspector : Editor
 
     private void CollectComponentFieldsToUpdate()
     {
-        if (collector == null)
+        if (collect == null)
         {
             return;
         }
@@ -420,7 +400,7 @@ public class CollectInspector : Editor
         _fieldNames.ClearArray();
         _fieldComponents.ClearArray();
         Transform transform = ((Component)target).transform;
-        Dictionary<string, Component> fieldComponentDict = collector.CollectComponentFields(transform, _fieldNamePrefix.stringValue, _fieldNameByType.boolValue, _settings.componentMapDict);
+        Dictionary<string, Component> fieldComponentDict = collect.CollectComponentFields(transform, _fieldNamePrefix.stringValue, _fieldNameUseType.boolValue, _settings.componentMapDict);
         foreach (var pair in fieldComponentDict)
         {
             CollectComponentField(pair.Key, pair.Value);
@@ -429,13 +409,13 @@ public class CollectInspector : Editor
 
     private void CollectComponentFieldsToAdd()
     {
-        if (collector == null)
+        if (collect == null)
         {
             return;
         }
 
         Transform transform = ((Component)target).transform;
-        Dictionary<string, Component> fieldComponentDict = collector.CollectComponentFields(transform, _fieldNamePrefix.stringValue, _fieldNameByType.boolValue, _settings.componentMapDict);
+        Dictionary<string, Component> fieldComponentDict = collect.CollectComponentFields(transform, _fieldNamePrefix.stringValue, _fieldNameUseType.boolValue, _settings.componentMapDict);
         foreach (var pair in fieldComponentDict)
         {
             CollectComponentField(pair.Key, pair.Value);
@@ -559,7 +539,7 @@ public class CollectInspector : Editor
 
     private void GenerateComponentsCode()
     {
-        if (generator == null)
+        if (generate == null)
         {
             Debug.LogError("Generator is null.");
             return;
@@ -570,7 +550,7 @@ public class CollectInspector : Editor
             return;
         }
 
-        if (_settings._componentsCodeTemplate == null)
+        if (_settings._componentCodeTemp == null)
         {
             Debug.LogError("ComponentsCodeTemplate is null, Please check 'CollectSetting' asset.");
             return;
@@ -599,14 +579,14 @@ public class CollectInspector : Editor
             fieldTypeDict.Add(fieldName, componentTypeName);
         }
 
-        generator.GenerateComponentsCode(codeFileName, _settings._componentsCodeTemplate.text, _nameSpace.stringValue, _className.stringValue, fieldTypeDict);
+        generate.GenerateComponentsCode(codeFileName, _settings._componentCodeTemp.text, _nameSpace.stringValue, _className.stringValue, fieldTypeDict);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
 
     private void GenerateBehaviourCode()
     {
-        if (generator == null)
+        if (generate == null)
         {
             Debug.LogError("Generator is null.");
             return;
@@ -617,7 +597,7 @@ public class CollectInspector : Editor
             return;
         }
 
-        if (_settings._behaviourCodeTemplate == null)
+        if (_settings._behaviourCodeTemp == null)
         {
             Debug.LogError("BehaviourCodeTemplate is null, Please check 'CollectSetting' asset.");
             return;
@@ -629,7 +609,7 @@ public class CollectInspector : Editor
             return;
         }
 
-        generator.GenerateBehaviourCode(codeFileName, _settings._behaviourCodeTemplate.text, _nameSpace.stringValue, _className.stringValue);
+        generate.GenerateBehaviourCode(codeFileName, _settings._behaviourCodeTemp.text, _nameSpace.stringValue, _className.stringValue);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }
@@ -637,13 +617,20 @@ public class CollectInspector : Editor
     private void AddBehaviourComponent()
     {
         string typeName = string.Format("{0}.{1}", _nameSpace.stringValue, _className.stringValue);
+
         Type componentType = TypeUtil.GetRuntimeType(typeName);
         if (componentType == null)
         {
             Debug.LogWarningFormat("Can't load type '{0}'. Please check  whether 'TypeUtility.RuntimeAssemblyNames' contains the assembly name of this type? ", typeName);
             return;
         }
+
         ((Component)target).gameObject.AddComponent(componentType);
+
+        //标记为脏数据触发预制体保存
+        EditorUtility.SetDirty(target);
+        AssetDatabase.SaveAssets();
+        EditorUtility.ClearDirty(target);
     }
 
     #endregion

@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // 此文件由 BindComponent 自动生成，请勿直接修改。
-// 生成时间：__CREATE_TIME__
+// 生成时间：2023-03-31 18:29:23.67
 //------------------------------------------------------------
 
 using System;
@@ -9,16 +9,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace __NAME_SPACE__
+namespace UFO
 {
-    public partial class __CLASS_NAME__ 
+    public partial class btnStart 
     {
-__FIELD__
+
 
         public void BindComponent(GameObject target)
         {
             var collection = target.GetComponent<BindComponent>();
-__GET_FIELD__
+
         }
     }
 }

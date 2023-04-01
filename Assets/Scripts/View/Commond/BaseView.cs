@@ -3,40 +3,38 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityFramework
+namespace UFO
 {
     /// <summary>
     /// ´°¿Ú
     /// </summary>
-    public class BaseWindow : Window
+    public class BaseView : UIView
     {
         protected override void DoShowAnimation()
         {
-            view.transform.localScale.Set(.1f, .1f, .1f);
-            var tween = view.transform.DOScale(Vector3.one, 0.25f);
+            this.transform.localScale.Set(.1f, .1f, .1f);
+            var tween = this.transform.DOScale(Vector3.one, 0.25f);
             tween.SetEase(Ease.OutBack);
             tween.onComplete += OnShow;
         }
 
 
-        protected override void OnInited()
+        protected override void OnEnable()
         {
-            base.OnInited();
-            registerEvent();
+            this.RegisterEvent();
+            base.OnEnable();
         }
-
+        protected override void OnDisable()
+        {
+            this.RemoveEvent();
+            base.OnDisable();
+        }
 
         protected override void DoHideAnimation()
         {
-            var tween = view.transform.DOScale(new Vector3(.1f, .1f, .1f), 0.25f);
+            var tween = this.transform.DOScale(new Vector3(.1f, .1f, .1f), 0.25f);
             tween.SetEase(Ease.InBack);
             tween.onComplete += HideImmediately;
-        }
-
-        public override void HideImmediately()
-        {
-            removeEvent();
-            base.HideImmediately();
         }
 
         Dictionary<string, EventCallback> callbackDic;
@@ -44,7 +42,7 @@ namespace UnityFramework
         {
             return null;
         }
-        protected void registerEvent()
+        protected void RegisterEvent()
         {
             string[] eventList = this.eventList();
             if (eventList != null)
@@ -54,14 +52,14 @@ namespace UnityFramework
                 {
                     EventCallback callback = delegate (object data)
                     {
-                        onEvent(str, data);
+                        OnEvent(str, data);
                     };
                     EventManager.inst.On(str, callback);
                     callbackDic.Add(str, callback);
                 }
             }
         }
-        protected void removeEvent()
+        protected void RemoveEvent()
         {
             string[] eventList = this.eventList();
             if (eventList != null)
@@ -72,7 +70,7 @@ namespace UnityFramework
                 }
             }
         }
-        protected virtual void onEvent(string eventName, object data)
+        protected virtual void OnEvent(string eventName, object data)
         {
         }
     }

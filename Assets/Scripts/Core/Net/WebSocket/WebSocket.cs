@@ -2,7 +2,7 @@
 using KHCore.Utils;
 using System.Collections;
 using UnityEngine;
-using UnityFramework;
+using UFO;
 using UnityWebSocket;
 
 public class WSClient

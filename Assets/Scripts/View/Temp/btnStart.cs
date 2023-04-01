@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace __NAME_SPACE__
+namespace UFO
 {
-    public partial class __CLASS_NAME__ : BaseView
+    public partial class btnStart : BaseView
     {
-        public static string path = "__CLASS_NAME__";
+        public static string path = "btnStart";
 
         protected override string[] eventList()
         {

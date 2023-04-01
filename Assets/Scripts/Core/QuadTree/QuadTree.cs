@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityFramework
+namespace UFO
 {
     /// <summary>
     /// ËÄ²æÊ÷Åö×²¼ì²â

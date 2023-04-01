@@ -981,6 +981,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7966031208331486731}
+  - component: {fileID: 3443564005263207006}
+  - component: {fileID: 8713091139277580485}
   m_Layer: 0
   m_Name: BagWin
   m_TagString: Untagged
@@ -1004,3 +1006,40 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3443564005263207006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818096685537941812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0dceee2b7a437240b1ffcc9396af650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _setup: 1
+  _collectorTypeName: Collect
+  _fieldNamePrefix: _
+  _fieldNameByType: 0
+  _fieldNames: []
+  _fieldComponents: []
+  _generatorTypeName: Generate
+  _nameSpace: UFO
+  _className: BagWin
+  _codeSavePath: Assets/Scripts/View/Temp
+  _components: []
+--- !u!114 &8713091139277580485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8818096685537941812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c310027e4204d94c82bb8d11f40337a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isModal: 1
+  isClickVoidClose: 1

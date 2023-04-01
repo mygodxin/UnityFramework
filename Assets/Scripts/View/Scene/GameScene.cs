@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UnityFramework;
+using UFO;
 
 public class GameScene : MonoBehaviour
 {
@@ -44,11 +44,11 @@ public class GameScene : MonoBehaviour
         evt.triggers.Add(entry);
 
         var aStar = new AStar();
-        UnityFramework.Grid[,] map = new UnityFramework.Grid[10, 10];
+        UFO.Grid[,] map = new UFO.Grid[10, 10];
         var obstacles = new List<int> { 2, 4, 6, 8, 10, 22, 32, 44 };
         for (int i = 0; i < 100; i++)
         {
-            var grid = new UnityFramework.Grid();
+            var grid = new UFO.Grid();
             grid.x = i % 10;
             grid.y = Mathf.FloorToInt(i / 10);
             grid.type = obstacles.IndexOf(i) >= 0 ? GridType.obstacle : GridType.normal;
@@ -115,7 +115,7 @@ public class GameScene : MonoBehaviour
         //Debug.Log("»æÖÆ" + index);
         var text = gameObject.transform.Find("Text (TMP)");
         var t = text.GetComponentInChildren<TMP_Text>();
-        var data = list.data as UnityFramework.Grid[,];
+        var data = list.data as UFO.Grid[,];
         var img = gameObject.transform.Find("Image").GetComponent<Image>();
         img.color = data[index % 10, Mathf.FloorToInt(index / 10)].type == GridType.obstacle ? Color.red : Color.white;
         t.text = index + "";

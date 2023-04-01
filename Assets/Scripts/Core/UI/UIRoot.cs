@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
-namespace UnityFramework
+namespace UFO
 {
     /// <summary>
     /// UI根节点
@@ -12,8 +14,8 @@ namespace UnityFramework
     {
         public readonly float designWidth = 1280;
         public readonly float designHeight = 720;
-        public Dictionary<string, Window> winCache;
-        public List<Window> winOpen;
+        public Dictionary<string, UIView> cacheList;
+        public List<UIView> openList;
         private GameObject _modalLayer;
         private static UIRoot _inst = null;
         public static UIRoot inst
@@ -27,38 +29,57 @@ namespace UnityFramework
         }
         public UIRoot()
         {
-            winCache = new Dictionary<string, Window>();
-            winOpen = new List<Window>();
+            cacheList = new Dictionary<string, UIView>();
+            openList = new List<UIView>();
         }
 
-        public Window GetWindow<T>()
+        public void ShowWindow(Type type, object data = null)
         {
-            Type type = typeof(T);
-            winCache.TryGetValue(type.ToString(), out var win);
-            if (win == null)
+            cacheList.TryGetValue(type.Name, out var view);
+            if (view == null)
             {
-                var inst = Activator.CreateInstance(type);
-                // instHistory.push({ type: type, inst: inst });
-                winCache.Add(type.ToString(), inst as Window);
-                win = inst as Window;
-            }
-            return win;
-        }
+                //加载
+                //var act = Activator.CreateInstance(type);
+                var path = ResManager.UIPath + type.GetFields().FirstOrDefault(field => field.Name == "path").GetValue(null) + ".prefab";
+                var go = Addressables.LoadAssetAsync<GameObject>(path).WaitForCompletion();
+                if (go == null)
+                {
+                    Debug.LogError("the path not find window:" + path);
+                    return;
+                }
+                view = (UIView)UnityEngine.Object.Instantiate(go).GetComponent(type);
 
-        public void ShowWindow(Window win, object data = null)
-        {
-            win.Emit("onAddedToStage", data);
-            winOpen.Add(win);
+                var key = type.Name;
+                if (this.cacheList.ContainsKey(key))
+                {
+                    this.cacheList[key] = view;
+                }
+                else
+                {
+                    this.cacheList.Add(key, view);
+                }
+                view.data = data;
+
+                view.transform.SetParent(GameObject.Find("Canvas").transform, false);
+            }
+
+            view.gameObject.SetActive(true);
+
+            //新开启面板放最上面
+            view.transform.SetAsLastSibling();
+
+            openList.Add(view);
+
             AdjustModalLayer();
         }
 
-        public void HideWindow(Window win)
+        public void HideWindow(UIView view)
         {
-            win.Emit("onRemovedFromStage");
-            winOpen.Remove(win);
+            view.Hide();
         }
-        public void HideWindowImmediately(Window win, bool dispose = false)
+        public void HideWindowImmediately(UIView view, bool dispose = false)
         {
+            openList.Remove(view);
             AdjustModalLayer();
         }
 
@@ -84,7 +105,7 @@ namespace UnityFramework
             }
         }
 
-        void CreateModalLayer()
+        private void CreateModalLayer()
         {
             _modalLayer = new GameObject("modalLayer");
             var canvas = GameObject.Find("Canvas").transform;
@@ -95,8 +116,9 @@ namespace UnityFramework
             _modalLayer.transform.SetParent(canvas, false);
             _modalLayer.transform.SetAsFirstSibling();
             _modalLayer.transform.localPosition = Vector3.zero;
-            this.ScreenUISelfAdptation(_modalLayer.transform);
-            //GameObject.Instantiate
+            rectTran.anchorMin = new Vector2(0, 0);
+            rectTran.anchorMax = new Vector2(1, 1);
+            _modalLayer.AddComponent<Button>();
         }
 
         private void AdjustModalLayer()
@@ -106,13 +128,23 @@ namespace UnityFramework
             var canvas = GameObject.Find("Canvas").transform;
             int cnt = canvas.childCount;
             _modalLayer.transform.SetSiblingIndex(cnt - 1);
+            var btn = _modalLayer.GetComponent<Button>();
+            btn.onClick.RemoveAllListeners();
+
             for (int i = cnt - 1; i >= 0; i--)
             {
                 var go = canvas.GetChild(i);
                 var name = go.name.Replace("(Clone)", "");
-                this.winCache.TryGetValue(name, out var win);
-                if (win != null && win.modal && go.gameObject.activeInHierarchy)
+                this.cacheList.TryGetValue(name, out var win);
+                if (win != null && win.isModal && go.gameObject.activeInHierarchy)
                 {
+                    if (win.isClickVoidClose)
+                    {
+                        btn.onClick.AddListener(() =>
+                        {
+                            win.Hide();
+                        });
+                    }
                     _modalLayer.SetActive(true);
                     _modalLayer.transform.SetSiblingIndex(i);
                     return;
@@ -121,5 +153,4 @@ namespace UnityFramework
             _modalLayer.SetActive(false);
         }
     }
-
 }

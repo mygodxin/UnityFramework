@@ -25,8 +25,8 @@ public class Collect : ICollect
             return;
         }
 
-        int nameIndex = splits.Length - 1;
-        for (int i = 0; i < nameIndex; i++)
+        int nameIndex = splits.Length;
+        for (int i = 1; i < nameIndex; i++)
         {
             string typeKey = splits[i];
             string typeName;
@@ -43,8 +43,8 @@ public class Collect : ICollect
                 continue;
             }
 
-            string name = splits[nameIndex];
-            name = string.IsNullOrEmpty(fieldNamePrefix) ? LowerFirst(name) : UpperFirst(name);
+            string name = splits[0];
+            name = LowerFirst(name);//string.IsNullOrEmpty(fieldNamePrefix) ? LowerFirst(name) : UpperFirst(name);
             string fieldName = string.Format("{0}{1}{2}", fieldNamePrefix, name, fieldNameByType ? typeName : typeKey);
             if (fieldComponentDict.ContainsKey(fieldName))
             {

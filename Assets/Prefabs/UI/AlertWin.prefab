@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1538153435398200721}
   - component: {fileID: 5079411810467870272}
   m_Layer: 5
-  m_Name: btnClose
+  m_Name: close_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 8895221662569399368}
   - component: {fileID: 1078848113741835622}
   m_Layer: 5
-  m_Name: txtContent
+  m_Name: content_TMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -401,8 +401,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4003999860574033870}
-  - component: {fileID: 7059784345164838919}
-  - component: {fileID: 2461892432181308655}
+  - component: {fileID: 2889986204649774868}
+  - component: {fileID: -3230804217488225138}
   m_Layer: 5
   m_Name: AlertWin
   m_TagString: Untagged
@@ -437,7 +437,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7059784345164838919
+--- !u!114 &2889986204649774868
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -451,19 +451,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _setup: 1
   _collectorTypeName: Collect
-  _fieldNamePrefix: 
+  _fieldNamePrefix: _
   _fieldNameByType: 0
   _fieldNames:
-  - ssdButton
+  - _bgImage
+  - _titleTMP
+  - _contentTMP
+  - _leftButton
+  - _rightButton
+  - _closeButton
   _fieldComponents:
-  - {fileID: 8443185724254134164}
+  - {fileID: 4003999860949102811}
+  - {fileID: 4339092000934353444}
+  - {fileID: 1078848113741835622}
+  - {fileID: 7042106030678047077}
+  - {fileID: 4003999860728617768}
+  - {fileID: 5079411810467870272}
   _generatorTypeName: Generate
-  _nameSpace: UnityFramework
+  _nameSpace: UFO
   _className: AlertWin
-  _codeSavePath: Assets/UICode
+  _codeSavePath: Assets/Scripts/View/Temp
   _components:
-  - {fileID: 8443185724254134164}
---- !u!114 &2461892432181308655
+  - {fileID: 4003999860949102811}
+  - {fileID: 4339092000934353444}
+  - {fileID: 1078848113741835622}
+  - {fileID: 7042106030678047077}
+  - {fileID: 4003999860728617768}
+  - {fileID: 5079411810467870272}
+--- !u!114 &-3230804217488225138
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -472,9 +487,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4003999860574033869}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5b1195d22294af498126e2379fb7837, type: 3}
+  m_Script: {fileID: 11500000, guid: 90221deea8b6ebf4f84dc77a5014967b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isModal: 1
+  isClickVoidClose: 1
 --- !u!1 &4003999860728617774
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,7 +505,7 @@ GameObject:
   - component: {fileID: 4003999860728617769}
   - component: {fileID: 4003999860728617768}
   m_Layer: 5
-  m_Name: btnRight
+  m_Name: right_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -609,7 +626,7 @@ GameObject:
   - component: {fileID: 4003999860949102820}
   - component: {fileID: 4003999860949102811}
   m_Layer: 5
-  m_Name: Image
+  m_Name: bg_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1036,7 +1053,7 @@ GameObject:
   - component: {fileID: 5879504690417844498}
   - component: {fileID: 4339092000934353444}
   m_Layer: 5
-  m_Name: txtTitle
+  m_Name: title_TMP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1172,7 +1189,7 @@ GameObject:
   - component: {fileID: 2839444130350394406}
   - component: {fileID: 7042106030678047077}
   m_Layer: 5
-  m_Name: btnLeft
+  m_Name: left_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

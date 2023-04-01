@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using UnityFramework;
+using UFO;
 
 public class ClientServerInfo : GameServerInfo
 {
@@ -90,7 +90,7 @@ public class LoginManager
                 {
                     server = s;
                 };
-                UIManager.inst.ShowWindow<ServerWin>(action);
+                //UIManager.inst.ShowWindow<ServerWin>(action);
                 return server;
             });
         }

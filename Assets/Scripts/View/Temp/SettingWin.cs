@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace __NAME_SPACE__
+namespace UFO
 {
-    public partial class __CLASS_NAME__ : BaseView
+    public partial class SettingWin : BaseView
     {
-        public static string path = "__CLASS_NAME__";
+        public static string path = "SettingWin";
 
         protected override string[] eventList()
         {
@@ -24,6 +24,14 @@ namespace __NAME_SPACE__
         protected override void OnInit()
         {
             this.BindComponent(this.gameObject);
+            this._closeButton.onClick.AddListener(() =>
+            {
+                this.Hide();
+            });
+            this._openButton.onClick.AddListener(() =>
+            {
+                UIManager.inst.ShowWindow<AlertWin>("从setting打开alert");
+            });
         }
 
         protected override void OnShow()

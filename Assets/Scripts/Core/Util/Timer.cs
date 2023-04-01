@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UnityFramework
+namespace UFO
 {
     public delegate void TimerCallback();
     /// <summary>

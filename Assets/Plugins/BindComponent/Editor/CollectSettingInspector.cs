@@ -24,37 +24,37 @@ public class CollectSettingInspector : Editor
     {
         CollectSetting settings = (CollectSetting)target;
 
-        if (string.IsNullOrEmpty(settings._defaultCodeSavePath))
+        if (string.IsNullOrEmpty(settings._codeSavePath))
         {
             Debug.LogError("Code save path is invalid.");
             return;
         }
 
-        if (!Directory.Exists(settings._defaultCodeSavePath))
+        if (!Directory.Exists(settings._codeSavePath))
         {
-            Directory.CreateDirectory(settings._defaultCodeSavePath);
+            Directory.CreateDirectory(settings._codeSavePath);
         }
 
-        string nameSpace = settings._defaultNameSpace;
+        string nameSpace = settings._namespace;
         if (string.IsNullOrEmpty(nameSpace) || !settings._defaultNameRegex.IsMatch(nameSpace))
         {
             Debug.LogErrorFormat("NameSpace '{0}' is invalid.", nameSpace);
             return;
         }
 
-        if (settings._collectionExtensionCodeTemplate == null)
+        if (settings._collectionExtensionCodeTemp == null)
         {
             Debug.LogError("CollectionExtensionCodeTemplate is null, Please check 'CollectSetting' asset.");
             return;
         }
 
-        string codeFileName = string.Format("{0}/CollectExtension.cs", settings._defaultCodeSavePath);
+        string codeFileName = string.Format("{0}/CollectExtension.cs", settings._codeSavePath);
         if (!CheckGenerateFile(codeFileName))
         {
             return;
         }
 
-        GenerateExtensionCode(codeFileName, settings._collectionExtensionCodeTemplate.text, settings._defaultNameSpace, settings.componentMapDict.Values.ToList());
+        GenerateExtensionCode(codeFileName, settings._collectionExtensionCodeTemp.text, settings._namespace, settings.componentMapDict.Values.ToList());
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }

@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityFramework;
+using UFO;
 
 
 
@@ -109,16 +109,16 @@ public class LoginScene : MonoBehaviour
         //login.InvitationCode = "";
         //LoginManager.inst.Login(login);
 
-        Addressables.LoadSceneAsync("Assets/Scenes/GameScene.unity");
+        //Addressables.LoadSceneAsync("Assets/Scenes/GameScene.unity");
         //var win = GRoot.inst.GetWindow<BagWin>();
-        //GRoot.inst.ShowWindow(win, 123);
+        UIManager.inst.ShowWindow<SettingWin>(123);
 
         //Facade.inst.Emit(Notification.OpenBag, "OpenBag消息");
     }
 
     private void OnClickSetting()
     {
-        UIManager.inst.ShowWindow<SettingWin>();
+        UIManager.inst.ShowWindow<AlertWin>();
         Debug.Log("点击设置1");
     }
 

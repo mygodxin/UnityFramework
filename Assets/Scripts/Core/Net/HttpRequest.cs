@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace UnityFramework
+namespace UFO
 {
     /// <summary>
     /// http«Î«Û
