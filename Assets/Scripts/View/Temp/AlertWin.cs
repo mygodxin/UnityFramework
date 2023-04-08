@@ -4,6 +4,10 @@ using UnityEngine;
 
 namespace UFO
 {
+    public class AlertParam
+    {
+        public string content;
+    }
     public partial class AlertWin : BaseView
     {
         public static string path = "AlertWin";

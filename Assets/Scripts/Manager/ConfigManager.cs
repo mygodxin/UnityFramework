@@ -1,3 +1,7 @@
+using SimpleJSON;
+using UnityEngine;
+using UnityEngine.AddressableAssets;
+
 public class ConfigManager
 {
     public string connectURL = "http://192.168.1.184:88";
@@ -22,5 +26,17 @@ public class ConfigManager
     public void Init()
     {
         //JsonConvert.DeserializeObject<>()
+        var tables = new cfg.Tables(Loader);
+        Debug.Log(tables.TbItem.DataList);
+        foreach(var k in tables.TbItem.DataList)
+        {
+            Debug.Log($"ID:{k.Id},Ãû³Æ:{k.Name},ÃèÊö:{k.Desc}");
+        }
+    }
+
+    private JSONNode Loader(string path)
+    {
+        var json = Addressables.LoadAssetAsync<TextAsset>(ResManager.AssetsPath + "Config/" + path + ".json").WaitForCompletion();
+        return JSON.Parse(json.text);
     }
 }

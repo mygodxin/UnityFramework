@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-public class RunState : StateBase
+public class RunState : BaseState
 {
     public RunState() : base(EState.run)
     {

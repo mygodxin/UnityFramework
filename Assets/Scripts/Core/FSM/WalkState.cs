@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-public class WalkState : StateBase
+public class WalkState : BaseState
 {
     public WalkState() : base(EState.walk)
     {

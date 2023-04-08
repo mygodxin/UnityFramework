@@ -1,12 +1,8 @@
-using DuiChongServerCommon.ClientProtocol;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using TMPro;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UFO;
 
@@ -61,7 +57,7 @@ public class LoginScene : MonoBehaviour
         //{
         //    Debug.Log("timers");
         //});
-
+        ConfigManager.inst.Init();
         var player = new Player();
         player.name = "HelloWorld";
         player.age = 11;
@@ -69,7 +65,7 @@ public class LoginScene : MonoBehaviour
         var p = LocalStorage.Read<Player>("player");
         //Debug.Log(p.name);
         //Debug.Log(p.age);
-        var states = new Dictionary<EState, StateBase>
+        var states = new Dictionary<EState, BaseState>
         {
             { EState.walk, new WalkState() },
             { EState.run, new RunState() }
@@ -111,14 +107,15 @@ public class LoginScene : MonoBehaviour
 
         //Addressables.LoadSceneAsync("Assets/Scenes/GameScene.unity");
         //var win = GRoot.inst.GetWindow<BagWin>();
-        UIManager.inst.ShowWindow<SettingWin>(123);
-
+        //UIManager.inst.ShowWindow<SettingWin>(123);
         //Facade.inst.Emit(Notification.OpenBag, "OpenBag消息");
+        GuideManager.inst.ShowGuide(this.btnSetting.GetComponent<RectTransform>());
     }
 
     private void OnClickSetting()
     {
-        UIManager.inst.ShowWindow<AlertWin>();
+        GuideManager.inst.HideGuide();
+        //UIManager.inst.ShowWindow<AlertWin>();
         Debug.Log("点击设置1");
     }
 

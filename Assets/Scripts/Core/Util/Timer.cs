@@ -10,7 +10,7 @@ namespace UFO
     public class Timer
     {
         GameObject _gameObject;
-        TimerMono timerMono;
+        TimerMono _timerMono;
 
         Dictionary<TimerCallback, TimerNode> curTimers;
         Dictionary<TimerCallback, TimerNode> waitAdd;
@@ -38,7 +38,7 @@ namespace UFO
             _gameObject.SetActive(true);
             Object.DontDestroyOnLoad(_gameObject);
 
-            timerMono = _gameObject.AddComponent<TimerMono>();
+            _timerMono = _gameObject.AddComponent<TimerMono>();
         }
         /// <summary>
         /// Ìí¼Ó
@@ -111,7 +111,6 @@ namespace UFO
             }
         }
 
-        // Update is called once per frame
         public void Update()
         {
             float dt = Time.unscaledDeltaTime;
