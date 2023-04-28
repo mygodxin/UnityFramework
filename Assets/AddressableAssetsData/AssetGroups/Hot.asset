@@ -49,6 +49,10 @@ MonoBehaviour:
     m_Address: Assets/Textures
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 1a33b9a7ea7d4ed458d4c33497d733ab
+    m_Address: Assets/Config
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c8f0f3caeb6c03b43b7db062977b5cf3, type: 2}
   m_SchemaSet:
