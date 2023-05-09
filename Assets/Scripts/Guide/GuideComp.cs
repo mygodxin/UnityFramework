@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.GraphicsBuffer;
 
-namespace UFO
+namespace HS
 {
     public partial class GuideComp : BaseView, ICanvasRaycastFilter
     {

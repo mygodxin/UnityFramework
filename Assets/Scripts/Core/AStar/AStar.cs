@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace UFO
+namespace HS
 {
     /// <summary>
     /// 格子类型

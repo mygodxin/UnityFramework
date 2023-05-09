@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UFO
+namespace HS
 {
     public partial class AlertTip : BaseView
     {

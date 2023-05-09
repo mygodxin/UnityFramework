@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UFO
+namespace HS
 {
     /// <summary>
     /// 四叉树碰撞检测
@@ -27,6 +27,10 @@ namespace UFO
             this.objList = new List<RectTransform>();
             this.childList = new List<QuadTree>();
         }
+        /// <summary>
+        /// 插入矩形
+        /// </summary>
+        /// <param name="rectTran"></param>
         public void Insert(RectTransform rectTran)
         {
             //该节点下有子节点，则检查是否匹配子节点
@@ -61,6 +65,9 @@ namespace UFO
                 }
             }
         }
+        /// <summary>
+        /// 清理
+        /// </summary>
         public void Clear()
         {
             this.objList.Clear();
@@ -110,7 +117,11 @@ namespace UFO
             this.childList.Add(new QuadTree(new Rect(x, y, width, height), level));
             this.childList.Add(new QuadTree(new Rect(cx, y, width, height), level));
         }
-
+        /// <summary>
+        /// 获取碰撞到的目标
+        /// </summary>
+        /// <param name="rectTran"></param>
+        /// <returns></returns>
         public List<RectTransform> Retrieve(RectTransform rectTran)
         {
             var rectTrans = new List<RectTransform>();
@@ -146,6 +157,12 @@ namespace UFO
             }
             return result;
         }
+        /// <summary>
+        /// 矩形碰撞检测
+        /// </summary>
+        /// <param name="rect1"></param>
+        /// <param name="rect2"></param>
+        /// <returns></returns>
         public bool RectCollision(Rect rect1, Rect rect2)
         {
             float minx = Mathf.Max(rect1.x, rect2.x);
@@ -160,6 +177,9 @@ namespace UFO
             var rect = rectTran.rect;
             return new Rect(rectTran.position.x + rect.x, rectTran.position.y + rect.y, rect.width, rect.height);
         }
+        /// <summary>
+        /// 绘制测试线
+        /// </summary>
         public void DrawLine()
         {
             Gizmos.color = Color.green;

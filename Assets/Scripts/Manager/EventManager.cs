@@ -1,12 +1,12 @@
 using System;
-using UFO;
+using HS;
 
 public class EventManager
 {
     private readonly EventTarget _eventTarget = new EventTarget();
 
     private static EventManager _inst = null;
-    public static EventManager inst
+    public static EventManager Inst
     {
         get
         {

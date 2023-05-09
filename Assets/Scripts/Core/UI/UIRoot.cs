@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
-namespace UFO
+namespace HS
 {
     /// <summary>
     /// UI根节点
@@ -15,10 +15,16 @@ namespace UFO
         public readonly float designWidth = 1280;
         public readonly float designHeight = 720;
         public Dictionary<string, UIView> cacheList;
+        /// <summary>
+        /// 已打开节点列表
+        /// </summary>
         public List<UIView> openList;
+        /// <summary>
+        /// modal层
+        /// </summary>
         private GameObject _modalLayer;
         private static UIRoot _inst = null;
-        public static UIRoot inst
+        public static UIRoot Inst
         {
             get
             {

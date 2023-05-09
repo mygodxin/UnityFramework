@@ -1,7 +1,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace UFO
+namespace HS
 {
     //public interface IPath
     //{
@@ -69,6 +69,11 @@ namespace UFO
         protected virtual void OnHide()
         {
 
+        }
+
+        public virtual void Hide()
+        {
+            this.gameObject.SetActive(false);
         }
     }
 }

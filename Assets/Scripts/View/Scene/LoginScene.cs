@@ -4,7 +4,7 @@ using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UFO;
+using HS;
 
 
 
@@ -50,14 +50,14 @@ public class LoginScene : MonoBehaviour
 
         //Addressables.LoadAssetAsync<GameObject>("Assets/Prefab/HotUpdate.prefab");
 
-        EventManager.inst.On("test", onEvent);
+        EventManager.Inst.On("test", onEvent);
         //EventManager.Instance.Off("test", onEvent);
-        EventManager.inst.Emit("test", "你好啊");
+        EventManager.Inst.Emit("test", "你好啊");
         //Timers.inst.Add(1, 2, (dt) =>
         //{
         //    Debug.Log("timers");
         //});
-        ConfigManager.inst.Init();
+        ConfigManager.Inst.Init();
         var player = new Player();
         player.name = "HelloWorld";
         player.age = 11;
@@ -85,7 +85,7 @@ public class LoginScene : MonoBehaviour
 
     public void onEmit()
     {
-        EventManager.inst.Emit(Notifications.UpdateItem, "UpdateItem消息");
+        EventManager.Inst.Emit(Notifications.UpdateItem, "UpdateItem消息");
     }
 
     private void OnClickStart()

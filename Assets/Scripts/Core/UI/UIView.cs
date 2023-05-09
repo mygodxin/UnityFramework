@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UFO
+namespace HS
 {
     /// <summary>
     /// 面板基类，继承自BaseComp，使用必须覆盖path，Show会自动加载
@@ -49,7 +49,7 @@ namespace UFO
         /// <summary>
         /// 关闭
         /// </summary>
-        public void Hide()
+        public override void Hide()
         {
             if (_clickCloseLayer != null)
                 _clickCloseLayer.SetActive(false);
@@ -67,8 +67,8 @@ namespace UFO
         /// </summary>
         public virtual void HideImmediately()
         {
-            this.gameObject.SetActive(false);
-            UIRoot.inst.HideWindowImmediately(this);
+            base.Hide();
+            UIRoot.Inst.HideWindowImmediately(this);
         }
     }
 }

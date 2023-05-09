@@ -5,7 +5,7 @@ public class ResManager
     public static string UIPath = "Assets/Prefabs/UI/";
 
     private static ResManager _inst = null;
-    public static ResManager inst
+    public static ResManager Inst
     {
         get
         {

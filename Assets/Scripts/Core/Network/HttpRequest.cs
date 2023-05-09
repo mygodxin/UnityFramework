@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
-namespace UFO
+namespace HS
 {
     /// <summary>
     /// http请求
@@ -15,7 +15,7 @@ namespace UFO
     public class HttpRequest
     {
         private static HttpRequest _inst = null;
-        public static HttpRequest inst
+        public static HttpRequest Inst
         {
             get
             {
@@ -45,6 +45,11 @@ namespace UFO
                 return ((DownloadHandlerTexture)www.downloadHandler).texture;
             }
         }
+        /// <summary>
+        /// get请求
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         public async Task<string> Get(string url)
         {
             UnityWebRequest www = UnityWebRequest.Get(url);
@@ -61,6 +66,12 @@ namespace UFO
                 return www.downloadHandler.text;
             }
         }
+        /// <summary>
+        /// post请求
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public async Task<byte[]> Post(string url, string data)
         {
             //.net版http请求
@@ -91,6 +102,12 @@ namespace UFO
             //    return wr.downloadHandler.data;
             //}
         }
+        /// <summary>
+        /// put请求
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="bodyData"></param>
+        /// <returns></returns>
         public async Task<bool> Put(string url, byte[] bodyData)
         {
             UnityWebRequest www = UnityWebRequest.Put(url, bodyData);

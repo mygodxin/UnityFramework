@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace UFO
+namespace HS
 {
     /// <summary>
     /// ±¾µØ´æ´¢

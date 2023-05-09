@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using UFO;
+using HS;
 
 public class GameScene : MonoBehaviour
 {
@@ -31,7 +31,7 @@ public class GameScene : MonoBehaviour
         //animator.StartPlayback();
         //animator.transform.position = new Vector3(0, 0, 1);
         //go.transform.SetParent(GameObject.Find("Canvas/Tex").GetComponent<Image>().transform);
-        SpineManager.inst.PlaySpine(skeletonGraphic, "Assets/Textures/Spines/»¯¬˙1/tangsanzang", "", "attack", true, true, 0);
+        SpineManager.Inst.PlaySpine(skeletonGraphic, "Assets/Textures/Spines/»¯¬˙1/tangsanzang", "", "attack", true, true, 0);
         this.btnReturn.onClick.AddListener(() => { Addressables.LoadSceneAsync("Assets/Scenes/LoginScene.unity"); });
         var evt = skeletonGraphic.gameObject.AddComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
@@ -43,11 +43,11 @@ public class GameScene : MonoBehaviour
         evt.triggers.Add(entry);
 
         var aStar = new AStar();
-        UFO.Grid[,] map = new UFO.Grid[10, 10];
+        HS.Grid[,] map = new HS.Grid[10, 10];
         var obstacles = new List<int> { 2, 4, 6, 8, 10, 22, 32, 44 };
         for (int i = 0; i < 100; i++)
         {
-            var grid = new UFO.Grid();
+            var grid = new HS.Grid();
             grid.x = i % 10;
             grid.y = Mathf.FloorToInt(i / 10);
             grid.type = obstacles.IndexOf(i) >= 0 ? GridType.obstacle : GridType.normal;
@@ -114,7 +114,7 @@ public class GameScene : MonoBehaviour
         //Debug.Log("ªÊ÷∆" + index);
         var text = gameObject.transform.Find("Text (TMP)");
         var t = text.GetComponentInChildren<TMP_Text>();
-        var data = list.data as UFO.Grid[,];
+        var data = list.data as HS.Grid[,];
         var img = gameObject.transform.Find("Image").GetComponent<Image>();
         img.color = data[index % 10, Mathf.FloorToInt(index / 10)].type == GridType.obstacle ? Color.red : Color.white;
         t.text = index + "";

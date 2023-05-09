@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UFO
+namespace HS
 {
     public delegate void TimerCallback();
     /// <summary>
@@ -9,15 +9,11 @@ namespace UFO
     /// </summary>
     public class Timer
     {
-        GameObject _gameObject;
-        TimerMono _timerMono;
-
         Dictionary<TimerCallback, TimerNode> curTimers;
         Dictionary<TimerCallback, TimerNode> waitAdd;
         List<TimerNode> waitRemove;
-
         private static Timer _inst = null;
-        public static Timer inst
+        public static Timer Inst
         {
             get
             {
@@ -33,25 +29,30 @@ namespace UFO
             waitAdd = new Dictionary<TimerCallback, TimerNode>();
             waitRemove = new List<TimerNode>();
 
-            _gameObject = new GameObject();
+            var _gameObject = new GameObject();
             _gameObject.hideFlags = HideFlags.HideInHierarchy;
             _gameObject.SetActive(true);
             Object.DontDestroyOnLoad(_gameObject);
-
-            _timerMono = _gameObject.AddComponent<TimerMono>();
+            _gameObject.AddComponent<TimerMono>();
         }
         /// <summary>
         /// 添加
         /// </summary>
-        /// <param name="interval"></param>间隔(s)
-        /// <param name="repeat"></param> 循环次数
-        /// <param name="callback"></param> 回调
+        /// <param name="interval">间隔(s)</param>
+        /// <param name="repeat">循环次数</param>
+        /// <param name="callback">回调函数</param>
         public void Add(float interval, int repeat, TimerCallback callback)
         {
             Add(interval, repeat, callback, null);
         }
-
-        public void Add(float interval, int repeat, TimerCallback callback, object callbackParam)
+        /// <summary>
+        /// 添加计时器
+        /// </summary>
+        /// <param name="interval">间隔(s)</param>
+        /// <param name="repeat">循环次数</param>
+        /// <param name="callback">回调函数</param>
+        /// <param name="objects">回调参数</param>
+        public void Add(float interval, int repeat, TimerCallback callback, params object[] objects)
         {
             if (callback == null)
             {
@@ -62,7 +63,7 @@ namespace UFO
 
             if (curTimers.TryGetValue(callback, out t))
             {
-                t.Set(interval, repeat, callback, callbackParam);
+                t.Set(interval, repeat, callback, objects);
                 t.elapsed = 0;
                 t.deleted = false;
                 return;
@@ -70,7 +71,7 @@ namespace UFO
 
             if (waitAdd.TryGetValue(callback, out t))
             {
-                t.Set(interval, repeat, callback, callbackParam);
+                t.Set(interval, repeat, callback, objects);
                 return;
             }
 
@@ -78,10 +79,14 @@ namespace UFO
             t.interval = interval;
             t.repeat = repeat;
             t.callback = callback;
-            t.param = callbackParam;
+            t.param = objects;
             waitAdd.Add(callback, t);
         }
-
+        /// <summary>
+        /// 是否存在该计时器回调
+        /// </summary>
+        /// <param name="callback"></param>
+        /// <returns></returns>
         public bool IsExist(TimerCallback callback)
         {
             if (waitAdd.ContainsKey(callback))
@@ -96,7 +101,10 @@ namespace UFO
 
             return false;
         }
-
+        /// <summary>
+        /// 移除计时器
+        /// </summary>
+        /// <param name="callback"></param>
         public void Remove(TimerCallback callback)
         {
             TimerNode t;
@@ -110,7 +118,9 @@ namespace UFO
                 t.deleted = true;
             }
         }
-
+        /// <summary>
+        /// 计时器刷新，在monobehaviour的update中调用
+        /// </summary>
         public void Update()
         {
             float dt = Time.unscaledDeltaTime;
@@ -190,14 +200,14 @@ namespace UFO
         public bool deleted;
 
         public TimerCallback callback;
-        public object param;
+        public object[] param;
 
-        public void Set(float interval, int repeat, TimerCallback callback, object param)
+        public void Set(float interval, int repeat, TimerCallback callback, params object[] objects)
         {
             this.interval = interval;
             this.repeat = repeat;
             this.callback = callback;
-            this.param = param;
+            this.param = objects;
         }
     }
 
@@ -205,7 +215,7 @@ namespace UFO
     {
         private void Update()
         {
-            Timer.inst.Update();
+            Timer.Inst.Update();
         }
     }
 

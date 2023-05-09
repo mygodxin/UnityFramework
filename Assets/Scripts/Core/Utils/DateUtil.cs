@@ -1,6 +1,6 @@
 using System;
 
-namespace UFO
+namespace HS
 {
     /// <summary>
     /// 时间相关工具类

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace UFO
+namespace HS
 {
     /// <summary>
     /// 数学工具类

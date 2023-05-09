@@ -9,7 +9,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UFO
+namespace HS
 {
     public partial class btnStart 
     {

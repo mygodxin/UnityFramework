@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using UnityEngine.UI;
 
-namespace UFO
+namespace HS
 {
     public enum ListLayoutType
     {

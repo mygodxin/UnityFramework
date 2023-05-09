@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace UFO
+namespace HS
 {
     public class GuideManager
     {

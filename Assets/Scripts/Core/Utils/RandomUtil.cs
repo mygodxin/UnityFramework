@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace UFO
+namespace HS
 {
     /// <summary>
     /// 随机数工具类

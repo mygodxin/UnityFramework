@@ -13,7 +13,7 @@ public class ConfigManager
            -7878441
        };
     private static ConfigManager _inst = null;
-    public static ConfigManager inst
+    public static ConfigManager Inst
     {
         get
         {

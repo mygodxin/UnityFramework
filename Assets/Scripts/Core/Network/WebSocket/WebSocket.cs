@@ -2,7 +2,7 @@
 using KHCore.Utils;
 using System.Collections;
 using UnityEngine;
-using UFO;
+using HS;
 using UnityWebSocket;
 
 public class WSClient
@@ -34,13 +34,13 @@ public class WSClient
     private void OnOpen(object sender, OpenEventArgs e)
     {
         Debug.Log("websocket open");
-        Timer.inst.Add(0, -1, this.SendMessage);
-        LoginManager.inst.GateHandHake();
+        Timer.Inst.Add(0, -1, this.SendMessage);
+        LoginManager.Inst.GateHandHake();
     }
     private void OnClose(object sender, CloseEventArgs e)
     {
         Debug.Log("websocket close");
-        Timer.inst.Remove(this.SendMessage);
+        Timer.Inst.Remove(this.SendMessage);
     }
     private void OnMessage(object sender, MessageEventArgs e)
     {
@@ -120,10 +120,10 @@ public class WSClient
         switch (code)
         {
             case RequestCode.GateHandShake:
-                LoginManager.inst.OnGateHandShake(responseData);
+                LoginManager.Inst.OnGateHandShake(responseData);
                 break;
             case RequestCode.LoginGame:
-                LoginManager.inst.OnLoginGame(responseData);
+                LoginManager.Inst.OnLoginGame(responseData);
                 break;
         }
     }

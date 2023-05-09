@@ -3,7 +3,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UFO
+namespace HS
 {
     /// <summary>
     /// ´°¿Ú
@@ -54,7 +54,7 @@ namespace UFO
                     {
                         OnEvent(str, data);
                     };
-                    EventManager.inst.On(str, callback);
+                    EventManager.Inst.On(str, callback);
                     callbackDic.Add(str, callback);
                 }
             }
@@ -66,7 +66,7 @@ namespace UFO
             {
                 foreach (var str in callbackDic)
                 {
-                    EventManager.inst.Off(str.Key, str.Value);
+                    EventManager.Inst.Off(str.Key, str.Value);
                 }
             }
         }

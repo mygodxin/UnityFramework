@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using UFO;
+using HS;
 
 public class ClientServerInfo : GameServerInfo
 {
@@ -36,7 +36,8 @@ public class LoginManager
     private List<GameServerInfo> _serverList;
     private ClientServerInfo _curServerInfo;
     private static LoginManager _inst = null;
-    public static LoginManager inst
+
+    public static LoginManager Inst
     {
         get
         {
@@ -134,12 +135,12 @@ public class LoginManager
     private async Task<ResponseData> LoginAccount(LoginAccount data)
     {
         var req = new RequestData(RequestCode.LoginAccount, data);
-        var buffer = EncryptTool.EncryptBinary(req.buffer, ConfigManager.inst.encryptKeys);
+        var buffer = EncryptTool.EncryptBinary(req.buffer, ConfigManager.Inst.encryptKeys);
         var writer = new BufferWriter(buffer.Length + 1);
         writer.Write((byte)RequestCode.LoginAccount);
         writer.Joint(buffer);
         var str = Convert.ToBase64String(writer.GetBuffer);
-        var result = await HttpRequest.inst.Post(ConfigManager.inst.connectURL, str);
+        var result = await HttpRequest.Inst.Post(ConfigManager.Inst.connectURL, str);
         if (result == null)
         {
             var buffer1 = new BufferWriter(128);

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace UFO
+namespace HS
 {
     /// <summary>
     /// 事件
@@ -58,15 +58,6 @@ namespace UFO
                 if (observers.eventcallback == null)
                     EventBridge.Put(observers);
             }
-        }
-
-        /// <summary>
-        /// 响应一次[未实现]
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="eventCallback"></param>
-        public void Once(string name, EventCallback eventCallback)
-        {
         }
 
         public void Clear()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UFO
+namespace HS
 {
     public partial class SettingWin : BaseView
     {
@@ -30,7 +30,7 @@ namespace UFO
             });
             this._openButton.onClick.AddListener(() =>
             {
-                UIManager.inst.ShowWindow<AlertWin>("从setting打开alert");
+                UIManager.Inst.ShowWindow<AlertWin>("从setting打开alert");
             });
         }
 

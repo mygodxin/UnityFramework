@@ -5,7 +5,7 @@ using UnityEngine.AddressableAssets;
 public class SpineManager
 {
     private static SpineManager _inst = null;
-    public static SpineManager inst
+    public static SpineManager Inst
     {
         get
         {

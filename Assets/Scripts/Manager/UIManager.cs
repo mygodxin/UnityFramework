@@ -1,5 +1,5 @@
 using System;
-using UFO;
+using HS;
 
 /// <summary>
 /// UIπ‹¿Ì¿‡
@@ -7,7 +7,7 @@ using UFO;
 public class UIManager
 {
     private static UIManager _inst = null;
-    public static UIManager inst
+    public static UIManager Inst
     {
         get
         {
@@ -29,7 +29,7 @@ public class UIManager
 
     public void ShowWindow(Type type,object data = null)
     {
-        UIRoot.inst.ShowWindow(type, data);
+        UIRoot.Inst.ShowWindow(type, data);
     }
 
     public void ShowAlert(AlertParam param)
