@@ -1,6 +1,6 @@
 ﻿//------------------------------------------------------------
 // 此文件由 BindComponent 自动生成，请勿直接修改。
-// 生成时间：2023-03-31 13:39:01.69
+// 生成时间：2023-05-13 16:47:05.90
 //------------------------------------------------------------
 
 using System;
@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
 
 namespace HS
 {

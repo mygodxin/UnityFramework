@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="True">
+    <ui:TextField picking-mode="Ignore" label="热更DLL目录" value="filler text" name="dllTextField" binding-path="_hotfixDll" />
+    <ui:TextField picking-mode="Ignore" label="资源版本号" value="filler text" name="versionTextField" />
+    <ui:Button text="构建" display-tooltip-when-elided="true" name="buildButton" />
+    <uie:ObjectField label="Object Field" />
+    <uie:ColorField label="Color" value="RGBA(0.000, 1.000, 1.000, 1.000)" />
+</ui:UXML>

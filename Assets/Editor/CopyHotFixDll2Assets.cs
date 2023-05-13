@@ -9,7 +9,7 @@ using HybridCLR.Editor;
 public class CopyHotFixDll2Assets : Editor
 {
     [MenuItem("HybridCLR/CopyHotFixDll2Assets/ActiveBuildTarget")]
-    static void CopeByActive()
+    public static void CopeByActive()
     {
         Copy(EditorUserBuildSettings.activeBuildTarget);
     }
@@ -43,13 +43,13 @@ public class CopyHotFixDll2Assets : Editor
         {
             Directory.CreateDirectory(exportDir);
         }
-        foreach (var copyDll in Launch.HOTAssemblyNames)
+        foreach (var copyDll in Main.HOTAssemblyNames)
         {
             File.Copy($"{outDir}/{copyDll}", $"{exportDir}/{copyDll}.bytes", true);
         }
 
         string aotDllDir = $"{HybridCLRSettings.Instance.strippedAOTDllOutputRootDir}/{target}";
-        foreach (var dll in Launch.AOTMetaAssemblyNames)
+        foreach (var dll in Main.AOTMetaAssemblyNames)
         {
             string dllPath = $"{aotDllDir}/{dll}";
             if (!File.Exists(dllPath))

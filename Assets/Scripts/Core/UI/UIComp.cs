@@ -30,7 +30,7 @@ namespace HS
         /// <summary>
         /// 请使用OnInit，如果必须调用Awake，请使用base.Awake
         /// </summary>
-        private void Awake()
+        private void Start()
         {
             this.OnInit();
         }

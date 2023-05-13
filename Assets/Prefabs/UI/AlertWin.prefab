@@ -402,7 +402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4003999860574033870}
   - component: {fileID: 2889986204649774868}
-  - component: {fileID: -3230804217488225138}
+  - component: {fileID: 4043785726715293211}
   m_Layer: 5
   m_Name: AlertWin
   m_TagString: Untagged
@@ -432,10 +432,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: -1180, y: -312}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2889986204649774868
 MonoBehaviour:
@@ -468,7 +468,7 @@ MonoBehaviour:
   - {fileID: 4003999860728617768}
   - {fileID: 5079411810467870272}
   _generatorTypeName: Generate
-  _nameSpace: UFO
+  _nameSpace: HS
   _className: AlertWin
   _codeSavePath: Assets/Scripts/View/Temp
   _components:
@@ -478,7 +478,7 @@ MonoBehaviour:
   - {fileID: 7042106030678047077}
   - {fileID: 4003999860728617768}
   - {fileID: 5079411810467870272}
---- !u!114 &-3230804217488225138
+--- !u!114 &4043785726715293211
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

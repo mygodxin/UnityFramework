@@ -17,7 +17,7 @@ public class BuildAnimation : Editor
     //ԭʼͼƬ·��
     private static string ImagePath = "Assets/Textures/EffectTextures";
     //Application.dataPath
-    [MenuItem("Build/BuildAnimaiton")]
+    [MenuItem("Tools/BuildAnimaiton")]
     static void BuildAniamtion()
     {
         DirectoryInfo raw = new DirectoryInfo(ImagePath);

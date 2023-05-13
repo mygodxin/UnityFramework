@@ -27,6 +27,13 @@ namespace HS
         /// µ±Ç°³¡¾°
         /// </summary>
         private UIScene _curScene;
+        public UIScene CurScene
+        {
+            get
+            {
+                return this._curScene;
+            }
+        }
 
         private static UIRoot _inst = null;
         public static UIRoot Inst
@@ -78,10 +85,10 @@ namespace HS
                 {
                     this.cacheList.Add(key, view);
                 }
-                view.data = data;
 
                 view.transform.SetParent(GameObject.Find("Canvas").transform, false);
             }
+            view.data = data;
 
             view.gameObject.SetActive(true);
 

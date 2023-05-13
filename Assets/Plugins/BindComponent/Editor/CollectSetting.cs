@@ -67,7 +67,7 @@ public class CollectSetting : ScriptableObject
     [Tooltip("Generate")]
     public string _generatorCodeName = "Generate";
     [Tooltip("默认命名空间")]
-    public string _namespace = "UFO";
+    public string _namespace = "HS";
     [Tooltip("默认代码保存地址")]
     public string _codeSavePath = "Assets/Scripts/View/Temp";
     [Tooltip("组件代码模板")]

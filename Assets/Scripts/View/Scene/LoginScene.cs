@@ -1,111 +1,91 @@
-using System;
+Ôªøusing System;
 using System.Collections.Generic;
-using System.Reflection;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using HS;
 
-
-public class LoginScene : MonoBehaviour
+namespace HS
 {
-    public Button btnStart;
-    public Button btnSetting;
-    public Button btnExit;
-    public TMP_Text txtStart;
-    //private int i = 0;
-    // Start is called before the first frame update
-    void Start()
+    public partial class LoginScene : BaseScene
     {
-        btnStart.onClick.AddListener(this.OnClickStart);
-        btnSetting.onClick.AddListener(OnClickSetting);
-        btnExit.onClick.AddListener(OnClickExit);
+        public static string path = "LoginScene";
 
-        //gameObject.AddComponent<GameScene>();
+        protected override string[] eventList()
+        {
+            return new string[]{
+            };
 
-        //Addressables.LoadAssetAsync<GameObject>("Assets/Prefab/HotUpdate.prefab");
+        }
+        protected override void OnEvent(string eventName, object data)
+        {
+            switch (eventName)
+            {
+            }
+        }
 
-        EventManager.Inst.On("test", onEvent);
-        //EventManager.Instance.Off("test", onEvent);
-        EventManager.Inst.Emit("test", "ƒ„∫√∞°");
-        //Timers.inst.Add(1, 2, (dt) =>
-        //{
-        //    Debug.Log("timers");
-        //});
-        ConfigManager.Inst.Init();
-        var player = new Player();
-        player.name = "HelloWorld";
-        player.age = 11;
-        LocalStorage.Save("player", player);
-        var p = LocalStorage.Read<Player>("player");
-        //Debug.Log(p.name);
-        //Debug.Log(p.age);
-        //var states = new Dictionary<EState, BaseState>
-        //{
-        //    { EState.walk, new WalkState() },
-        //    { EState.run, new RunState() }
-        //};
-        //var fsm = new FSM(EState.walk, states);
-        //while (true)
-        //{
-        //    fsm.Update();
-        //}
-    }
+        protected override void OnInit()
+        {
+            this.BindComponent(this.gameObject);
 
-    public void onEvent(object param)
-    {
-        //Debug.Log("≤‚ ‘ ¬º˛");
-        Debug.Log(param);
-    }
+            this._startButton.onClick.AddListener(this.OnClickStart);
+            this._settingButton.onClick.AddListener(OnClickSetting);
+            this._exitButton.onClick.AddListener(OnClickExit);
+        }
 
-    public void onEmit()
-    {
-        EventManager.Inst.Emit(Notifications.UpdateItem, "UpdateItemœ˚œ¢");
-    }
+        protected override void OnShow()
+        {
+            Debug.Log("ÊâìÂç∞LoginScene-openData" + this.data);
 
-    private void OnClickStart()
-    {
-        //UIManager.inst.ShowAlert("HelloWorld");
-        //var go = Addressables.LoadAssetAsync<GameObject>("Assets/AssetsPackage/UI/SettingWin.prefab").WaitForCompletion();
-        //Instantiate(go);
-        this.txtStart.text = "ø™ º”Œœ∑";
+            var player = new Player();
+            player.name = "HelloWorld";
+            player.age = 11;
+            LocalStorage.Save("player", player);
+            var p = LocalStorage.Read<Player>("player");
+            //Debug.Log(p.name);
+            //Debug.Log(p.age);
+        }
 
-        //var login = new LoginAccount();
-        //login.Account = "ceshi11";
-        //login.Password = "12345678";
-        //login.Platform = Platform.Web;
-        //// login.Platform = GameManager.Instance.Platform;
-        //login.Name = "";
-        //login.AvatarUrl = "";
-        //login.InvitationCode = "";
-        //LoginManager.inst.Login(login);
+        protected override void OnHide()
+        {
+        }
 
-        //Addressables.LoadSceneAsync("Assets/Scenes/GameScene.unity");
-        //var win = GRoot.inst.GetWindow<BagWin>();
-        //UIManager.inst.ShowWindow<SettingWin>(123);
-        //Facade.inst.Emit(Notification.OpenBag, "OpenBagœ˚œ¢");
-        GuideManager.inst.ShowGuide(this.btnSetting.GetComponent<RectTransform>());
-    }
 
-    private void OnClickSetting()
-    {
-        GuideManager.inst.HideGuide();
-        //UIManager.inst.ShowWindow<AlertWin>();
-        Debug.Log("µ„ª˜…Ë÷√1");
-    }
+        private void OnClickStart()
+        {
+            //UIManager.inst.ShowAlert("HelloWorld");
+            //var go = Addressables.LoadAssetAsync<GameObject>("Assets/AssetsPackage/UI/SettingWin.prefab").WaitForCompletion();
+            //Instantiate(go);
+            this._startTMP.text = "ÂºÄÂßãÊ∏∏Êàè";
 
-    private void OnClickExit()
-    {
+            //var login = new LoginAccount();
+            //login.Account = "ceshi11";
+            //login.Password = "12345678";
+            //login.Platform = Platform.Web;
+            //// login.Platform = GameManager.Instance.Platform;
+            //login.Name = "";
+            //login.AvatarUrl = "";
+            //login.InvitationCode = "";
+            //LoginManager.inst.Login(login);
+
+            //Addressables.LoadSceneAsync("Assets/Scenes/GameScene.unity");
+            //var win = GRoot.inst.GetWindow<BagWin>();
+            UIManager.Inst.ShowWindow<SettingWin>(123);
+            //Facade.inst.Emit(Notification.OpenBag, "OpenBagÊ∂àÊÅØ");
+            //GuideManager.inst.ShowGuide(this._settingButton.GetComponent<RectTransform>());
+        }
+
+        private void OnClickSetting()
+        {
+            GuideManager.inst.HideGuide();
+            //UIManager.inst.ShowWindow<AlertWin>();
+            Debug.Log("ÁÇπÂáªËÆæÁΩÆ1");
+        }
+
+        private void OnClickExit()
+        {
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
+            UnityEditor.EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        }
     }
 }

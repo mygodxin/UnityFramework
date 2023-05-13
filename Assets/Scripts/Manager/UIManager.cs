@@ -21,13 +21,21 @@ public class UIManager
     {
 
     }
+    public void ShowScene<T>(object data = null)
+    {
+        this.ShowScene(typeof(T), data);
+    }
+    public void ShowScene(Type type, object data = null)
+    {
+        UIRoot.Inst.ShowScene(type, data);
+    }
 
     public void ShowWindow<T>(object data = null)
     {
-        this.ShowWindow(typeof(T));
+        this.ShowWindow(typeof(T), data);
     }
 
-    public void ShowWindow(Type type,object data = null)
+    public void ShowWindow(Type type, object data = null)
     {
         UIRoot.Inst.ShowWindow(type, data);
     }

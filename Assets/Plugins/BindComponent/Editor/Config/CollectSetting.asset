@@ -63,7 +63,7 @@ MonoBehaviour:
   _fieldNamePrefix: _
   _fieldNameUseType: 0
   _generatorCodeName: Generate
-  _namespace: UFO
+  _namespace: HS
   _codeSavePath: Assets/Scripts/View/Temp
   _componentCodeTemp: {fileID: 4900000, guid: 968fd7c800fec3d4baf9160f97e61dc1, type: 3}
   _behaviourCodeTemp: {fileID: 4900000, guid: 87d428d27da5eb9468fb96d62a01ca10, type: 3}

@@ -36,6 +36,7 @@ namespace HS
 
         protected override void OnShow()
         {
+            Debug.Log("打印SettingWin-openData" + this.data);
         }
 
         protected override void OnHide()

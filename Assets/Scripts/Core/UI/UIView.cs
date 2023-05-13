@@ -19,13 +19,6 @@ namespace HS
         private GameObject _clickCloseLayer;
 
         /// <summary>
-        /// 请使用OnInit，如果必须调用Awake，请使用base.Awake
-        /// </summary>
-        protected virtual void Awake()
-        {
-            this.OnInit();
-        }
-        /// <summary>
         /// 请使用OnShow，如果必须调用OnEnable，请使用base.OnEnable
         /// </summary>
         protected virtual void OnEnable()

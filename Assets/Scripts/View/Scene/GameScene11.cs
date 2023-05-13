@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using HS;
 
-public class GameScene : MonoBehaviour
+public class GameScene11 : MonoBehaviour
 {
     public GList list;
     public SkeletonGraphic skeletonGraphic;

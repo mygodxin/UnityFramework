@@ -9,7 +9,10 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
-public class Launch : MonoBehaviour
+/// <summary>
+/// 游戏主入口
+/// </summary>
+public class Main : MonoBehaviour
 {
     public Text text;
     void Start()
@@ -96,7 +99,7 @@ public class Launch : MonoBehaviour
         Assembly.Load(assemblyData);
         //AssetBundle prefabAb = AssetBundle.LoadFromMemory(GetAssetData("defaultlocalgroup_assets_all_d1990ef8fedf9fe10470645fc4b5d879.bundle"));
         //GameObject testPrefab = Instantiate(prefabAb.LoadAsset<GameObject>("HotUpdatePrefab.prefab"));
-        Addressables.LoadSceneAsync("Assets/Scenes/LoginScene.unity");
+        Addressables.LoadSceneAsync("Assets/Scenes/Launch.unity");
         //Addressables.InstantiateAsync("Assets/Prefab/HotUpdate.prefab");
         Debug.Log("添加到场景中");
         this.text.text = "加载完成";
