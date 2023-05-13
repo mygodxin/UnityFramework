@@ -15,13 +15,13 @@ namespace HS
         /// <summary>
         /// 资源路径，c# 11才有static abstract 等待升级
         /// </summary>
-        public static string path
-        {
-            get
-            {
-                throw new System.Exception("未实现path");
-            }
-        }
+        //public static string path
+        //{
+        //    get
+        //    {
+        //        throw new System.Exception("未实现path");
+        //    }
+        //}
         /// <summary>
         /// 数据
         /// </summary>

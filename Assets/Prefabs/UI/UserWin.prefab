@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8263421414907346179}
   - component: {fileID: 576471109962384086}
   - component: {fileID: 768167043185403880}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: btnClose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 7904367199148497775}
   - component: {fileID: 9019047194523520645}
   - component: {fileID: 1224299148430901573}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,8 +189,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u7528\u6237\u4FE1\u606F\u754C\u9762"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f20a620c6766cd44bbbd595361f18a0e, type: 2}
-  m_sharedMaterial: {fileID: 8785716167568515596, guid: f20a620c6766cd44bbbd595361f18a0e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 8138134091038270143}
   - component: {fileID: 4872994344136176412}
   - component: {fileID: 6455062724596726799}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -370,7 +370,7 @@ GameObject:
   - component: {fileID: 2106969134495334992}
   - component: {fileID: 1349430764425562932}
   - component: {fileID: 319825155484705172}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}

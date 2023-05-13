@@ -5,7 +5,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "c84f575a2ee4d26ac65028463b437604570dcc74"
+      "hash": "fbeeb3d9595cc7f745fb0cdc4551d751f56e1dd1"
     },
     "com.unity.2d.animation": {
       "version": "7.0.9",
@@ -92,12 +92,12 @@
       },
       "url": "https://packages.unity.cn"
     },
-    "com.unity.addressables.cn": {
-      "version": "1.19.16",
+    "com.unity.addressables": {
+      "version": "1.19.19",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "com.unity.scriptablebuildpipeline": "1.19.5",
+        "com.unity.scriptablebuildpipeline": "1.19.6",
         "com.unity.modules.assetbundle": "1.0.0",
         "com.unity.modules.imageconversion": "1.0.0",
         "com.unity.modules.jsonserialize": "1.0.0",
@@ -176,7 +176,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.ide.visualstudio": {
-      "version": "2.0.17",
+      "version": "2.0.18",
       "depth": 0,
       "source": "registry",
       "dependencies": {

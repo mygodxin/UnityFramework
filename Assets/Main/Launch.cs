@@ -53,7 +53,7 @@ public class Launch : MonoBehaviour
                 keys.AddRange(locator.Keys);
                 //获取size信息
                 var sizeHandle = Addressables.GetDownloadSizeAsync(keys.GetEnumerator());
-                yield return sizeHandle;
+                //yield return sizeHandle;
                 if (sizeHandle.Status != AsyncOperationStatus.Succeeded)
                 {
                     yield break;
@@ -73,7 +73,7 @@ public class Launch : MonoBehaviour
 
                         var percentage = downloadHandle.PercentComplete;
                         this.text.text += "已下载:" + percentage;
-                        yield return null;
+                        //yield return null;
                     }
                     if (downloadHandle.Status == AsyncOperationStatus.Succeeded)
                     {
@@ -86,7 +86,7 @@ public class Launch : MonoBehaviour
         {
             this.text.text = "当前已经是最新版本";
         }
-
+        this.text.text = "开始加载dll";
         LoadDllAsset();
     }
 

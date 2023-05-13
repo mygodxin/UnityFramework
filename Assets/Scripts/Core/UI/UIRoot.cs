@@ -23,6 +23,11 @@ namespace HS
         /// modal²ã
         /// </summary>
         private GameObject _modalLayer;
+        /// <summary>
+        /// µ±Ç°³¡¾°
+        /// </summary>
+        private UIScene _curScene;
+
         private static UIRoot _inst = null;
         public static UIRoot Inst
         {
@@ -39,7 +44,16 @@ namespace HS
             openList = new List<UIView>();
         }
 
-        public void ShowWindow(Type type, object data = null)
+        public void ShowScene(Type type, object data = null)
+        {
+            if (this._curScene != null)
+            {
+                this._curScene.Hide();
+            }
+            this._curScene = (UIScene)this.ShowWindow(type, data);
+        }
+
+        public UIView ShowWindow(Type type, object data = null)
         {
             cacheList.TryGetValue(type.Name, out var view);
             if (view == null)
@@ -51,7 +65,7 @@ namespace HS
                 if (go == null)
                 {
                     Debug.LogError("the path not find window:" + path);
-                    return;
+                    return null;
                 }
                 view = (UIView)UnityEngine.Object.Instantiate(go).GetComponent(type);
 
@@ -77,6 +91,8 @@ namespace HS
             openList.Add(view);
 
             AdjustModalLayer();
+
+            return view;
         }
 
         public void HideWindow(UIView view)

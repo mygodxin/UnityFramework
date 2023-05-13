@@ -7,19 +7,8 @@ using UnityEngine.UI;
 using HS;
 
 
-
-public class UnityItem : Attribute
-{
-    public string Path;
-    public UnityItem(string path)
-    {
-        this.Path = path;
-    }
-
-}
 public class LoginScene : MonoBehaviour
 {
-    [UnityItem("xx/xxx")]
     public Button btnStart;
     public Button btnSetting;
     public Button btnExit;
@@ -28,20 +17,6 @@ public class LoginScene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        foreach (var item in this.GetType().GetFields(BindingFlags.Instance|BindingFlags.Public|BindingFlags.NonPublic))
-        {
-            var att = item.GetCustomAttribute<UnityItem>();
-            if (att != null)
-            {
-                var path = att.Path;
-
-
-            }
-
-
-        }
-
         btnStart.onClick.AddListener(this.OnClickStart);
         btnSetting.onClick.AddListener(OnClickSetting);
         btnExit.onClick.AddListener(OnClickExit);
@@ -65,11 +40,11 @@ public class LoginScene : MonoBehaviour
         var p = LocalStorage.Read<Player>("player");
         //Debug.Log(p.name);
         //Debug.Log(p.age);
-        var states = new Dictionary<EState, BaseState>
-        {
-            { EState.walk, new WalkState() },
-            { EState.run, new RunState() }
-        };
+        //var states = new Dictionary<EState, BaseState>
+        //{
+        //    { EState.walk, new WalkState() },
+        //    { EState.run, new RunState() }
+        //};
         //var fsm = new FSM(EState.walk, states);
         //while (true)
         //{
@@ -93,7 +68,7 @@ public class LoginScene : MonoBehaviour
         //UIManager.inst.ShowAlert("HelloWorld");
         //var go = Addressables.LoadAssetAsync<GameObject>("Assets/AssetsPackage/UI/SettingWin.prefab").WaitForCompletion();
         //Instantiate(go);
-        this.txtStart.text = "click2";
+        this.txtStart.text = "¿ªÊ¼ÓÎÏ·";
 
         //var login = new LoginAccount();
         //login.Account = "ceshi11";
