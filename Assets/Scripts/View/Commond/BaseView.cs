@@ -19,15 +19,15 @@ namespace HS
         }
 
 
-        protected override void OnEnable()
+        public override void OnAddedToStage(object obj = null)
         {
             this.RegisterEvent();
-            base.OnEnable();
+            base.OnAddedToStage();
         }
-        protected override void OnDisable()
+        public override void OnRemovedFromStage()
         {
             this.RemoveEvent();
-            base.OnDisable();
+            base.OnRemovedFromStage();
         }
 
         protected override void DoHideAnimation()

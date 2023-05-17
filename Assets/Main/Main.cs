@@ -56,7 +56,7 @@ public class Main : MonoBehaviour
                 keys.AddRange(locator.Keys);
                 //获取size信息
                 var sizeHandle = Addressables.GetDownloadSizeAsync(keys.GetEnumerator());
-                //yield return sizeHandle;
+                yield return sizeHandle;
                 if (sizeHandle.Status != AsyncOperationStatus.Succeeded)
                 {
                     yield break;

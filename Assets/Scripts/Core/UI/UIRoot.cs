@@ -12,9 +12,18 @@ namespace HS
     /// </summary>
     public class UIRoot
     {
-        public readonly float designWidth = 1280;
-        public readonly float designHeight = 720;
-        public Dictionary<string, UIView> cacheList;
+        /// <summary>
+        /// 设计宽度
+        /// </summary>
+        public static float designWidth = 1280;
+        /// <summary>
+        /// 设计高度
+        /// </summary>
+        public static float designHeight = 720;
+        /// <summary>
+        /// UI缓存字典
+        /// </summary>
+        public Dictionary<string, UIView> cacheDict;
         /// <summary>
         /// 已打开节点列表
         /// </summary>
@@ -27,6 +36,9 @@ namespace HS
         /// 当前场景
         /// </summary>
         private UIScene _curScene;
+        /// <summary>
+        /// 当前场景
+        /// </summary>
         public UIScene CurScene
         {
             get
@@ -47,7 +59,7 @@ namespace HS
         }
         public UIRoot()
         {
-            cacheList = new Dictionary<string, UIView>();
+            cacheDict = new Dictionary<string, UIView>();
             openList = new List<UIView>();
         }
 
@@ -62,13 +74,13 @@ namespace HS
 
         public UIView ShowWindow(Type type, object data = null)
         {
-            cacheList.TryGetValue(type.Name, out var view);
+            cacheDict.TryGetValue(type.Name, out var view);
             if (view == null)
             {
                 //加载
                 //var act = Activator.CreateInstance(type);
                 var path = ResManager.UIPath + type.GetFields().FirstOrDefault(field => field.Name == "path").GetValue(null) + ".prefab";
-                var go = Addressables.LoadAssetAsync<GameObject>(path).WaitForCompletion();
+                var go = Loader.LoadAssetAsync<GameObject>(path);
                 if (go == null)
                 {
                     Debug.LogError("the path not find window:" + path);
@@ -77,20 +89,20 @@ namespace HS
                 view = (UIView)UnityEngine.Object.Instantiate(go).GetComponent(type);
 
                 var key = type.Name;
-                if (this.cacheList.ContainsKey(key))
+                if (this.cacheDict.ContainsKey(key))
                 {
-                    this.cacheList[key] = view;
+                    this.cacheDict[key] = view;
                 }
                 else
                 {
-                    this.cacheList.Add(key, view);
+                    this.cacheDict.Add(key, view);
                 }
 
                 view.transform.SetParent(GameObject.Find("Canvas").transform, false);
             }
-            view.data = data;
-
             view.gameObject.SetActive(true);
+
+            view.OnAddedToStage(data);
 
             //新开启面板放最上面
             view.transform.SetAsLastSibling();
@@ -114,8 +126,8 @@ namespace HS
 
         public void ScreenUISelfAdptation(Transform scaleUI)
         {
-            float widthrate = this.designWidth / Screen.width;
-            float heightrate = this.designHeight / Screen.height;
+            float widthrate = UIRoot.designWidth / Screen.width;
+            float heightrate = UIRoot.designHeight / Screen.height;
             float postion_x = scaleUI.GetComponent<RectTransform>().anchoredPosition.x * widthrate;
             float postion_y = scaleUI.GetComponent<RectTransform>().anchoredPosition.y * heightrate;
             scaleUI.localScale = new Vector3(widthrate, heightrate, 1);
@@ -164,7 +176,7 @@ namespace HS
             {
                 var go = canvas.GetChild(i);
                 var name = go.name.Replace("(Clone)", "");
-                this.cacheList.TryGetValue(name, out var win);
+                this.cacheDict.TryGetValue(name, out var win);
                 if (win != null && win.isModal && go.gameObject.activeInHierarchy)
                 {
                     if (win.isClickVoidClose)

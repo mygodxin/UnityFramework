@@ -19,10 +19,11 @@ namespace HS
         private GameObject _clickCloseLayer;
 
         /// <summary>
-        /// 请使用OnShow，如果必须调用OnEnable，请使用base.OnEnable
+        /// 添加到舞台时调用
         /// </summary>
-        protected virtual void OnEnable()
+        public override void OnAddedToStage(object obj = null)
         {
+            this.data = obj;
             this.DoShowAnimation();
         }
         /// <summary>
@@ -35,7 +36,7 @@ namespace HS
         /// <summary>
         /// 请使用OnHide，如果必须调用OnDisable，请使用base.OnDisable
         /// </summary>
-        protected virtual void OnDisable()
+        public override void OnRemovedFromStage()
         {
             this.OnHide();
         }

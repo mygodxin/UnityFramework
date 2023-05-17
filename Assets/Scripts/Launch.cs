@@ -1,4 +1,5 @@
 using HS;
+using PureMVC.Patterns.Facade;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,8 @@ public class Launch : MonoBehaviour
 {
     void Start()
     {
+        //∆Ù∂ØpureMVC
+
         //≥ı ºªØ≈‰÷√
         ConfigManager.Inst.Init();
 

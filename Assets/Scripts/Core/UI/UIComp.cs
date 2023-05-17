@@ -1,5 +1,6 @@
 using System.IO;
 using UnityEngine;
+using UnityEngine.ResourceManagement.ResourceProviders.Simulation;
 
 namespace HS
 {
@@ -27,6 +28,10 @@ namespace HS
         /// </summary>
         public object data;
 
+        private void Awake()
+        {
+        }
+
         /// <summary>
         /// 请使用OnInit，如果必须调用Awake，请使用base.Awake
         /// </summary>
@@ -34,17 +39,16 @@ namespace HS
         {
             this.OnInit();
         }
-        /// <summary>
-        /// 请使用OnShow，如果必须调用OnEnable，请使用base.OnEnable
-        /// </summary>
-        private void OnEnable()
+
+        public virtual void OnAddedToStage(object obj = null)
         {
+            this.data = obj;
             this.OnShow();
         }
         /// <summary>
         /// 请使用OnHide，如果必须调用OnDisable，请使用base.OnDisable
         /// </summary>
-        private void OnDisable()
+        public virtual void OnRemovedFromStage()
         {
             this.OnHide();
         }
@@ -73,6 +77,7 @@ namespace HS
 
         public virtual void Hide()
         {
+            this.OnRemovedFromStage();
             this.gameObject.SetActive(false);
         }
     }
