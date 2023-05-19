@@ -1,7 +1,5 @@
 using HS;
-using PureMVC.Patterns.Facade;
 using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
 /// Æô¶¯³¡¾°

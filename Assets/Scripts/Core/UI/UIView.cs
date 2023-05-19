@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace HS
 {
@@ -16,14 +16,9 @@ namespace HS
         /// 是否点击空白处关闭
         /// </summary>
         public bool isClickVoidClose = true;
-        private GameObject _clickCloseLayer;
 
-        /// <summary>
-        /// 添加到舞台时调用
-        /// </summary>
-        public override void OnAddedToStage(object obj = null)
+        internal override void OnAddedToStage()
         {
-            this.data = obj;
             this.DoShowAnimation();
         }
         /// <summary>
@@ -33,10 +28,8 @@ namespace HS
         {
             this.OnShow();
         }
-        /// <summary>
-        /// 请使用OnHide，如果必须调用OnDisable，请使用base.OnDisable
-        /// </summary>
-        public override void OnRemovedFromStage()
+
+        internal override void OnRemovedFromStage()
         {
             this.OnHide();
         }
@@ -45,8 +38,6 @@ namespace HS
         /// </summary>
         public override void Hide()
         {
-            if (_clickCloseLayer != null)
-                _clickCloseLayer.SetActive(false);
             this.DoHideAnimation();
         }
         /// <summary>
@@ -61,7 +52,6 @@ namespace HS
         /// </summary>
         public virtual void HideImmediately()
         {
-            base.Hide();
             UIRoot.Inst.HideWindowImmediately(this);
         }
     }

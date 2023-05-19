@@ -609,7 +609,9 @@ public class CollectInspector : Editor
             return;
         }
 
-        generate.GenerateBehaviourCode(codeFileName, _settings._behaviourCodeTemp.text, _nameSpace.stringValue, _className.stringValue);
+        var path = AssetDatabase.GetAssetPath(target);
+
+        generate.GenerateBehaviourCode(codeFileName, _settings._behaviourCodeTemp.text, _nameSpace.stringValue, _className.stringValue, path);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
     }

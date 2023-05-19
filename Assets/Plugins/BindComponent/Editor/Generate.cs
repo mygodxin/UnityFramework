@@ -27,7 +27,7 @@ public class Generate : IGenerate
         SaveFile(filePath, stringBuilder.ToString());
     }
 
-    public void GenerateBehaviourCode(string filePath, string codeTemplate, string nameSpace, string className)
+    public void GenerateBehaviourCode(string filePath, string codeTemplate, string nameSpace, string className, string path)
     {
         if (string.IsNullOrEmpty(codeTemplate))
         {
@@ -39,6 +39,7 @@ public class Generate : IGenerate
 
         stringBuilder.Replace("__NAME_SPACE__", nameSpace);
         stringBuilder.Replace("__CLASS_NAME__", className);
+        stringBuilder.Replace("__PATH__", path);
 
         SaveFile(filePath, stringBuilder.ToString());
     }

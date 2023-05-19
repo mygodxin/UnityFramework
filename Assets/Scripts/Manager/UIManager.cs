@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using HS;
 
 /// <summary>
@@ -6,6 +7,7 @@ using HS;
 /// </summary>
 public class UIManager
 {
+    private BaseScene _curScene;
     private static UIManager _inst = null;
     public static UIManager Inst
     {
@@ -25,19 +27,23 @@ public class UIManager
     {
         this.ShowScene(typeof(T), data);
     }
-    public void ShowScene(Type type, object data = null)
+    public async void ShowScene(Type type, object data = null)
     {
-        UIRoot.Inst.ShowScene(type, data);
+        if (this._curScene != null)
+        {
+            this._curScene.Hide();
+        }
+        this._curScene = (BaseScene)(await this.ShowWindow(type, data));
     }
 
-    public void ShowWindow<T>(object data = null)
+    public async void ShowWindow<T>(object data = null)
     {
-        this.ShowWindow(typeof(T), data);
+       await this.ShowWindow(typeof(T), data);
     }
 
-    public void ShowWindow(Type type, object data = null)
+    public async Task<BaseView> ShowWindow(Type type, object data = null)
     {
-        UIRoot.Inst.ShowWindow(type, data);
+        return (BaseView)(await UIRoot.Inst.ShowWindow(type, data));
     }
 
     public void ShowAlert(AlertParam param)

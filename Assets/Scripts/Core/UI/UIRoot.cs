@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
@@ -25,27 +26,13 @@ namespace HS
         /// </summary>
         public Dictionary<string, UIView> cacheDict;
         /// <summary>
-        /// 已打开节点列表
+        /// 已打开窗口列表
         /// </summary>
         public List<UIView> openList;
         /// <summary>
         /// modal层
         /// </summary>
         private GameObject _modalLayer;
-        /// <summary>
-        /// 当前场景
-        /// </summary>
-        private UIScene _curScene;
-        /// <summary>
-        /// 当前场景
-        /// </summary>
-        public UIScene CurScene
-        {
-            get
-            {
-                return this._curScene;
-            }
-        }
 
         private static UIRoot _inst = null;
         public static UIRoot Inst
@@ -62,25 +49,20 @@ namespace HS
             cacheDict = new Dictionary<string, UIView>();
             openList = new List<UIView>();
         }
-
-        public void ShowScene(Type type, object data = null)
-        {
-            if (this._curScene != null)
-            {
-                this._curScene.Hide();
-            }
-            this._curScene = (UIScene)this.ShowWindow(type, data);
-        }
-
-        public UIView ShowWindow(Type type, object data = null)
+        /// <summary>
+        /// 打开窗口
+        /// </summary>
+        /// <param name="type">类名</param>
+        /// <param name="data">传递的数据</param>
+        /// <returns></returns>
+        public async Task<UIView> ShowWindow(Type type, object data = null)
         {
             cacheDict.TryGetValue(type.Name, out var view);
             if (view == null)
             {
                 //加载
-                //var act = Activator.CreateInstance(type);
                 var path = ResManager.UIPath + type.GetFields().FirstOrDefault(field => field.Name == "path").GetValue(null) + ".prefab";
-                var go = Loader.LoadAssetAsync<GameObject>(path);
+                var go = await Loader.LoadAssetAsync<GameObject>(path);
                 if (go == null)
                 {
                     Debug.LogError("the path not find window:" + path);
@@ -102,7 +84,9 @@ namespace HS
             }
             view.gameObject.SetActive(true);
 
-            view.OnAddedToStage(data);
+            view.data = data;
+
+            view.OnAddedToStage();
 
             //新开启面板放最上面
             view.transform.SetAsLastSibling();
@@ -113,17 +97,30 @@ namespace HS
 
             return view;
         }
-
+        /// <summary>
+        /// 隐藏窗口
+        /// </summary>
+        /// <param name="view"></param>
         public void HideWindow(UIView view)
         {
             view.Hide();
         }
+        /// <summary>
+        /// 立即隐藏窗口
+        /// </summary>
+        /// <param name="view"></param>
+        /// <param name="dispose"></param>
         public void HideWindowImmediately(UIView view, bool dispose = false)
         {
             openList.Remove(view);
+            view.gameObject.SetActive(false);
+
             AdjustModalLayer();
         }
-
+        /// <summary>
+        /// UI屏幕尺寸适配
+        /// </summary>
+        /// <param name="scaleUI">要适配UI的Transform</param>
         public void ScreenUISelfAdptation(Transform scaleUI)
         {
             float widthrate = UIRoot.designWidth / Screen.width;
@@ -168,10 +165,11 @@ namespace HS
                 CreateModalLayer();
             var canvas = GameObject.Find("Canvas").transform;
             int cnt = canvas.childCount;
+            //modalLayer默认放最上面
             _modalLayer.transform.SetSiblingIndex(cnt - 1);
             var btn = _modalLayer.GetComponent<Button>();
             btn.onClick.RemoveAllListeners();
-
+            //有需要modalLayer时改变层级
             for (int i = cnt - 1; i >= 0; i--)
             {
                 var go = canvas.GetChild(i);

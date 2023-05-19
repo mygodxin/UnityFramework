@@ -6,7 +6,7 @@ namespace __NAME_SPACE__
 {
     public partial class __CLASS_NAME__ : BaseView
     {
-        public static string path = "__CLASS_NAME__";
+        public static string path = "__PATH__";
 
         protected override string[] eventList()
         {
@@ -16,9 +16,6 @@ namespace __NAME_SPACE__
         }
         protected override void OnEvent(string eventName, object data)
         {
-            switch (eventName)
-            {
-            }
         }
 
         protected override void OnInit()
