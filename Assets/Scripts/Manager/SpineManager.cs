@@ -18,7 +18,16 @@ public class SpineManager
     public void Init()
     {
     }
-
+    /// <summary>
+    /// ²¥·Åspine¶¯»­
+    /// </summary>
+    /// <param name="skeletonGraphic"></param>
+    /// <param name="name"></param>
+    /// <param name="skinName"></param>
+    /// <param name="_animationName"></param>
+    /// <param name="_loop"></param>
+    /// <param name="_playing"></param>
+    /// <param name="_frame"></param>
     public void PlaySpine(SkeletonGraphic skeletonGraphic,string name, string skinName, string _animationName, bool _loop, bool _playing, int _frame)
     {
         SkeletonDataAsset asset = Addressables.LoadAssetAsync<SkeletonDataAsset>(name + "_SkeletonData.asset").WaitForCompletion();

@@ -5,6 +5,9 @@ using System;
 
 namespace HS
 {
+    /// <summary>
+    /// 压缩工具
+    /// </summary>
     class ZipUtil
     {
         /// <summary>

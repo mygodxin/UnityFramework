@@ -2,6 +2,9 @@ using SimpleJSON;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
+/// <summary>
+/// 配置管理类，使用了luban
+/// </summary>
 public class ConfigManager
 {
     public string connectURL = "http://192.168.1.184:88";

@@ -12,50 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
   m_Name: Hot
   m_EditorClassIdentifier: 
-  m_GroupName: Hot
+  m_GroupName: 24282d1fa3f4243409d7ff03f6dff4d6
   m_Data:
     m_SerializedData: []
-  m_GUID: 314a7338015c6ac478c783c06b27a99d
-  m_SerializeEntries:
-  - m_GUID: 91007953bc7bb7840900181b116df711
-    m_Address: Assets/Hotfix
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 6ea315d0fd7389c41b19996891e99ae3
-    m_Address: Assets/Scenes
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 9f24f9d2d99506d4c953c77a6271f3d7
-    m_Address: Assets/Main
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: e2cdc3d6c360d93489c73110e91cd3c4
-    m_Address: Assets/Audios
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: ffc1dcaa4ad3d294a839ff2238f24616
-    m_Address: Assets/Fonts
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 8b7d93a9946e9724db2970158634705a
-    m_Address: Assets/Prefabs
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 016799ab7e881954ab1b3ba5f0e82320
-    m_Address: Assets/Shaders
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 766d1f95473966941896d9a079172a62
-    m_Address: Assets/Textures
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 1a33b9a7ea7d4ed458d4c33497d733ab
-    m_Address: Assets/Config
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_GUID: 24282d1fa3f4243409d7ff03f6dff4d6
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: c8f0f3caeb6c03b43b7db062977b5cf3, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: e9fa6874715c1f34eaf6588c57f2285e, type: 2}
-    - {fileID: 11400000, guid: 049691f0c2a678e479e2307cb0455afc, type: 2}
+    - {fileID: 11400000, guid: 1a92a8e34f4b8b14d8e6fd1778890b15, type: 2}

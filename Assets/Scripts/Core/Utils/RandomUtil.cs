@@ -4,7 +4,7 @@ using UnityEngine;
 namespace HS
 {
     /// <summary>
-    /// 随机数工具类
+    /// 随机数工具
     /// </summary>
     public class RandomUtil
     {

@@ -27,36 +27,46 @@ public class UIManager
     {
         this.ShowScene(typeof(T), data);
     }
-    public async void ShowScene(Type type, object data = null)
+    public void ShowScene(Type type, object data = null)
     {
         if (this._curScene != null)
         {
             this._curScene.Hide();
         }
-        this._curScene = (BaseScene)(await this.ShowWindow(type, data));
+        this._curScene = this.ShowWindow(type, data);
     }
 
-    public async void ShowWindow<T>(object data = null)
+    public void ShowWindow<T>(object data = null)
     {
-       await this.ShowWindow(typeof(T), data);
+       this.ShowWindow(typeof(T), data);
     }
 
-    public async Task<BaseView> ShowWindow(Type type, object data = null)
+    public void ShowWindow(Type type, object data = null)
     {
-        return (BaseView)(await UIRoot.Inst.ShowWindow(type, data));
+        UIRoot.Inst.ShowWindow(type, data);
     }
-
+    /// <summary>
+    /// 打开弹窗
+    /// </summary>
+    /// <param name="param"></param>
     public void ShowAlert(AlertParam param)
     {
         this.ShowWindow<AlertWin>(param);
     }
+    /// <summary>
+    /// 打开弹窗
+    /// </summary>
+    /// <param name="content">弹窗内容</param>
     public void ShowAlert(string content)
     {
         var alertParam = new AlertParam();
         alertParam.content = content;
         this.ShowWindow<AlertWin>(alertParam);
     }
-
+    /// <summary>
+    /// 打开提示界面
+    /// </summary>
+    /// <param name="content">提示文本</param>
     public void ShowTip(string content)
     {
         this.ShowWindow<AlertTip>(content);

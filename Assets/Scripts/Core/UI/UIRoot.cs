@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
 
 namespace HS
@@ -50,38 +51,56 @@ namespace HS
             openList = new List<UIView>();
         }
         /// <summary>
+        /// 获取当前场景画布对象
+        /// </summary>
+        public Transform Canvas
+        {
+            get
+            {
+                return GameObject.Find("Canvas").transform;
+            }
+        }
+        /// <summary>
         /// 打开窗口
         /// </summary>
         /// <param name="type">类名</param>
         /// <param name="data">传递的数据</param>
         /// <returns></returns>
-        public async Task<UIView> ShowWindow(Type type, object data = null)
+        public void ShowWindow(Type type, object data = null)
         {
             cacheDict.TryGetValue(type.Name, out var view);
             if (view == null)
             {
-                //加载
+                //加载并实例化
+                //由于wait在微信小游戏等平台调用报错的缘故，改为目前的异步回调
                 var path = ResManager.UIPath + type.GetFields().FirstOrDefault(field => field.Name == "path").GetValue(null) + ".prefab";
-                var go = await Loader.LoadAssetAsync<GameObject>(path);
-                if (go == null)
+                Addressables.LoadAssetAsync<GameObject>(path).Completed += (AsyncOperationHandle<GameObject> handle) =>
                 {
-                    Debug.LogError("the path not find window:" + path);
-                    return null;
-                }
-                view = (UIView)UnityEngine.Object.Instantiate(go).GetComponent(type);
+                    if (handle.Status != AsyncOperationStatus.Succeeded) return;
+                    var go = handle.Result;
+                    var view = (UIView)UnityEngine.Object.Instantiate(go).GetComponent(type);
+                    var key = type.Name;
+                    if (this.cacheDict.ContainsKey(key))
+                    {
+                        this.cacheDict[key] = view;
+                    }
+                    else
+                    {
+                        this.cacheDict.Add(key, view);
+                    }
 
-                var key = type.Name;
-                if (this.cacheDict.ContainsKey(key))
-                {
-                    this.cacheDict[key] = view;
-                }
-                else
-                {
-                    this.cacheDict.Add(key, view);
-                }
+                    view.transform.SetParent(this.Canvas, false);
 
-                view.transform.SetParent(GameObject.Find("Canvas").transform, false);
+                    this.InitWindow(view, data);
+                };
             }
+            else
+            {
+                this.InitWindow(view, data);
+            }
+        }
+        private void InitWindow(UIView view, object data)
+        {
             view.gameObject.SetActive(true);
 
             view.data = data;
@@ -94,8 +113,6 @@ namespace HS
             openList.Add(view);
 
             AdjustModalLayer();
-
-            return view;
         }
         /// <summary>
         /// 隐藏窗口
@@ -131,7 +148,9 @@ namespace HS
 
             scaleUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(postion_x, postion_y);
         }
-
+        /// <summary>
+        /// modal层
+        /// </summary>
         public GameObject modalLayer
         {
             get
