@@ -66,7 +66,7 @@ namespace HS
         /// <param name="type">类名</param>
         /// <param name="data">传递的数据</param>
         /// <returns></returns>
-        public void ShowWindow(Type type, object data = null)
+        public async void ShowWindow(Type type, object data = null)
         {
             cacheDict.TryGetValue(type.Name, out var view);
             if (view == null)
@@ -74,30 +74,23 @@ namespace HS
                 //加载并实例化
                 //由于wait在微信小游戏等平台调用报错的缘故，改为目前的异步回调
                 var path = ResManager.UIPath + type.GetFields().FirstOrDefault(field => field.Name == "path").GetValue(null) + ".prefab";
-                Addressables.LoadAssetAsync<GameObject>(path).Completed += (AsyncOperationHandle<GameObject> handle) =>
+                var go = await Loader.LoadAssetAsync<GameObject>(path);
+
+                view = (UIView)UnityEngine.Object.Instantiate(go).GetComponent(type);
+                var key = type.Name;
+                if (this.cacheDict.ContainsKey(key))
                 {
-                    if (handle.Status != AsyncOperationStatus.Succeeded) return;
-                    var go = handle.Result;
-                    var view = (UIView)UnityEngine.Object.Instantiate(go).GetComponent(type);
-                    var key = type.Name;
-                    if (this.cacheDict.ContainsKey(key))
-                    {
-                        this.cacheDict[key] = view;
-                    }
-                    else
-                    {
-                        this.cacheDict.Add(key, view);
-                    }
-
-                    view.transform.SetParent(this.Canvas, false);
-
-                    this.InitWindow(view, data);
-                };
+                    this.cacheDict[key] = view;
+                }
+                else
+                {
+                    this.cacheDict.Add(key, view);
+                }
             }
-            else
-            {
-                this.InitWindow(view, data);
-            }
+
+            view.transform.SetParent(this.Canvas, false);
+
+            this.InitWindow(view, data);
         }
         private void InitWindow(UIView view, object data)
         {
