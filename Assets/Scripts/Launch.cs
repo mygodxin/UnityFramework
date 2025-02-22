@@ -1,17 +1,20 @@
+using DG.Tweening;
+using GameFramework;
 using HS;
 using UnityEngine;
 
 /// <summary>
-/// Æô¶¯³¡¾°
+/// å¯åŠ¨åœºæ™¯
 /// </summary>
 public class Launch : MonoBehaviour
 {
     void Start()
     {
-        //³õÊ¼»¯ÅäÖÃ
+        transform.DOKill();
+        //åˆå§‹åŒ–é…ç½®
         ConfigManager.Inst.Init();
 
-        //Æô¶¯¿ªÊ¼³¡¾°
-        UIManager.Inst.ShowScene<LoginScene>("´ò¿ªloginScene");
+        //å¯åŠ¨å¼€å§‹åœºæ™¯
+        //UIManager.Inst.ShowScene<LoginScene>("æ‰“å¼€loginScene");
     }
 }

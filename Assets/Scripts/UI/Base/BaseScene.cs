@@ -1,22 +1,25 @@
-
-using DG.Tweening;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace HS
+namespace GameFramework
 {
     /// <summary>
-    /// ³¡¾°
+    /// åœºæ™¯
     /// </summary>
-    public class BaseScene : BaseView
+    public class BaseScene : BaseWindow
     {
+        protected override UILayer Layer => UILayer.Scene;
+        protected override void OnInit()
+        {
+            base.OnInit();
+            this.IsClickVoidClose = false;
+        }
         protected override void DoShowAnimation()
         {
+            RegisterEvent();
             this.OnShow();
         }
 
         protected override void DoHideAnimation()
         {
+            RemoveEvent();
             this.HideImmediately();
         }
     }

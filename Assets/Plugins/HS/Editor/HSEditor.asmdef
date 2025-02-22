@@ -1,0 +1,25 @@
+{
+    "name": "HSEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:4d879c99bf142dc4d85800bd11adfbc4",
+        "GUID:2373f786d14518f44b0f475db77ba4de",
+        "GUID:50192710d4447fb4c90c8eca2541e06f",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:2c573e6b271651846a79655161004c5b",
+        "GUID:6546d7765b4165b40850b3667f981c26",
+        "GUID:68765d262e2128e4ab49c983f3411946",
+        "GUID:8b65d8710c3b04373a41cbf6b777ee65"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

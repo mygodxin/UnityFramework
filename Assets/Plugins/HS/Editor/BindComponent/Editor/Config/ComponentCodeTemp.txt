@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using Spine.Unity;
+using EnhancedUI.EnhancedScroller;
+
+namespace __NAME_SPACE__
+{
+    public class __CLASS_NAME__ : BaseComponent
+    {
+        public static string Path = "__PATH__";
+
+        //由 BindComponent 自动生成，请勿直接修改。
+        //__FIELD_BEGIN__
+        //__FIELD_END__
+
+        protected override void OnInit()
+        {
+        }
+
+        protected override void OnShow()
+        {
+        }
+
+        protected override void OnHide()
+        {
+        }
+    }
+}

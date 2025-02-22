@@ -1,10 +1,10 @@
+using DuiChongServerCommon.ClientProtocol;
+using HS;
 using KHCore.Utils;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
-using HS;
-using DuiChongServerCommon.ClientProtocol;
 
 public class ClientServerInfo : GameServerInfo
 {
@@ -21,7 +21,7 @@ public class ClientServerInfo : GameServerInfo
     }
 }
 /// <summary>
-/// µÇÂ¼¹ÜÀí
+/// ç™»å½•ç®¡ç†
 /// </summary>
 public class LoginManager
 {
@@ -52,22 +52,22 @@ public class LoginManager
         this._loginAccount = data;
         if (this._serverList == null)
         {
-            //Ğ£ÑésdkµÇÂ¼ÕËºÅ
+            //æ ¡éªŒsdkç™»å½•è´¦å·
             var loginResult = await this.LoginAccount(data);
             if (loginResult.returnCode == ReturnCode.Scuess)
             {
                 var login = loginResult.bufferReader.ReadSerializable<AccountLoginResponse>();
-                //ĞÂÍæ¼Ò
+                //æ–°ç©å®¶
                 if (login.HsitoryLoginCount == 1)
                 {
-                    //·¢ËÍÂñµã
+                    //å‘é€åŸ‹ç‚¹
                 }
 
                 this._serverList = login.GameServers;
             }
             else
             {
-                //return "»ñÈ¡·şÎñÆ÷ÁĞ±íÊ§°Ü£¡";
+                //return "è·å–æœåŠ¡å™¨åˆ—è¡¨å¤±è´¥ï¼";
             }
         }
         var info = await this.GetLoginServer(switchServer);
@@ -77,13 +77,13 @@ public class LoginManager
             ConnectToGate(info.GateIp);
         }
     }
-    //»ñÈ¡µÇÂ¼·şÎñÆ÷
+    //è·å–ç™»å½•æœåŠ¡å™¨
     private async Task<ClientServerInfo> GetLoginServer(bool switchServer)
     {
         ClientServerInfo info = null;
         if (switchServer)
         {
-            //µÈ´ıÓÃ»§UIÑ¡Ôñ·şÎñÆ÷
+            //ç­‰å¾…ç”¨æˆ·UIé€‰æ‹©æœåŠ¡å™¨
             info = await Task.Run(() =>
             {
                 ClientServerInfo server = null;
@@ -105,7 +105,7 @@ public class LoginManager
                     var cur = this._serverList[i];
                     if (cur.ServerID == lastServer.ServerID)
                     {
-                        if (cur.ServerState != ServerStatus.¹Ø±Õ && cur.ServerState != ServerStatus.¾Ü¾ø·şÎñ)
+                        if (cur.ServerState != ServerStatus.å…³é—­ && cur.ServerState != ServerStatus.æ‹’ç»æœåŠ¡)
                             info = new ClientServerInfo(cur);
                         break;
                     }
@@ -120,7 +120,7 @@ public class LoginManager
                 for (int i = 0; i < this._serverList.Count; i++)
                 {
                     var s = this._serverList[i];
-                    if (s.ServerState != ServerStatus.¹Ø±Õ && s.ServerState != ServerStatus.¾Ü¾ø·şÎñ)
+                    if (s.ServerState != ServerStatus.å…³é—­ && s.ServerState != ServerStatus.æ‹’ç»æœåŠ¡)
                     {
                         info = new ClientServerInfo(s);
                         break;
@@ -144,7 +144,7 @@ public class LoginManager
         if (result == null)
         {
             var buffer1 = new BufferWriter(128);
-            buffer1.Write("·şÎñÆ÷Î¬»¤ÖĞ£¬ÇëÉÔºóÔÙÊÔ£¡");
+            buffer1.Write("æœåŠ¡å™¨ç»´æŠ¤ä¸­ï¼Œè¯·ç¨åå†è¯•ï¼");
             var reader = new BufferReader(buffer1.GetBuffer);
             return new ResponseData(ReturnCode.Filed, reader, req.code);
         }
@@ -157,16 +157,16 @@ public class LoginManager
             return new ResponseData(returnCode, reader, requestCode);
         }
     }
-    //Á¬½ÓÍø¹Ø
+    //è¿æ¥ç½‘å…³
     private void ConnectToGate(string ip)
     {
-        WSClient.inst.Connect(ip);
+        //WSClient.inst.Connect(ip);
     }
 
     public void GateHandHake()
     {
-        var req = new RequestData(RequestCode.GateHandShake);
-        WSClient.inst.SendPackage(req);
+        //var req = new RequestData(RequestCode.GateHandShake);
+        //WSClient.inst.SendPackage(req);
     }
     public void OnGateHandShake(ResponseData responseData)
     {
@@ -189,7 +189,7 @@ public class LoginManager
         req.BufferWriter.Write(0);
         req.BufferWriter.Write("test");
         req.BufferWriter.Write("test");
-        WSClient.inst.SendPackage(req);
+        WSClient.Inst.SendMessage();
     }
     public void OnLoginGame(ResponseData responseData)
     {

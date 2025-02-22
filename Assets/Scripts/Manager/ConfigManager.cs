@@ -1,9 +1,10 @@
+using HS;
 using SimpleJSON;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
+
 
 /// <summary>
-/// 配置管理类，使用了luban
+/// 閰嶇疆绠＄悊绫伙紝浣跨敤浜唋uban
 /// </summary>
 public class ConfigManager
 {
@@ -31,15 +32,16 @@ public class ConfigManager
         //JsonConvert.DeserializeObject<>()
         var tables = new cfg.Tables(Loader);
         Debug.Log(tables.TbItem.DataList);
-        foreach(var k in tables.TbItem.DataList)
+        foreach (var k in tables.TbItem.DataList)
         {
-            Debug.Log($"ID:{k.Id},名称:{k.Name},描述:{k.Desc}");
+            Debug.Log($"ID:{k.Id},鍚嶇О:{k.Name},鎻忚堪:{k.Desc}");
         }
     }
 
     private JSONNode Loader(string path)
     {
-        var json = Addressables.LoadAssetAsync<TextAsset>(ResManager.AssetsPath + "Config/" + path + ".json").WaitForCompletion();
-        return JSON.Parse(json.text);
+        var json = ResLoader.LoadAssetAsync<TextAsset>(ResManager.AssetsPath + "Config/" + path + ".json");
+        json.Wait();
+        return JSON.Parse(json.Result.text);
     }
 }

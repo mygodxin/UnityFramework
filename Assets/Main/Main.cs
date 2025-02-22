@@ -5,164 +5,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.UI;
+using YooAsset;
 
 /// <summary>
-/// ÓÎÏ·Ö÷Èë¿Ú
+/// æ¸¸æˆä¸»å…¥å£
 /// </summary>
 public class Main : MonoBehaviour
 {
-    public Text text;
-    void Start()
-    {
-        //Ö´ĞĞ¸üĞÂ²Ù×÷
-        //Addressable Asset SettingÖĞDisable Catalog Update on StartupËµÃ÷
-        //Î´¹´Ñ¡Ê±£¬µ÷ÓÃAddressables.LoadAssetAsync»á×Ô¶¯Ö´ĞĞÎŞ¸Ğ¸üĞÂ
-        //¹´Ñ¡Ê±£¬±ØĞëÖ´ĞĞÒÔÏÂÄÚÈİºó£¬µ÷ÓÃAddressables.LoadAssetAsync²ÅÄÜÕı³£¼ÓÔØµ½ĞèÒª¸üĞÂµÄÄÚÈİ
-        StartCoroutine(DoUpdateAddressables());
-    }
-   
-    IEnumerator DoUpdateAddressables()
-    {
-        //³õÊ¼»¯addressables
-        var initHandle = Addressables.InitializeAsync();
-        yield return initHandle;
-
-        //¼ì²éÊÇ·ñĞèÒª¸üĞÂ
-        var checkHandle = Addressables.CheckForCatalogUpdates(false);
-        yield return checkHandle;
-        if (checkHandle.Status != AsyncOperationStatus.Succeeded)
-        {
-            yield break;
-        }
-
-        if (checkHandle.Result.Count > 0)
-        {
-            //»ñÈ¡¸üĞÂÄ¿Â¼
-            var updateHandle = Addressables.UpdateCatalogs(checkHandle.Result, false);
-            yield return updateHandle;
-
-            if (updateHandle.Status != AsyncOperationStatus.Succeeded)
-            {
-                yield break;
-            }
-
-            var locators = updateHandle.Result;
-            foreach (var locator in locators)
-            {
-                var keys = new List<object>();
-                keys.AddRange(locator.Keys);
-                //»ñÈ¡sizeĞÅÏ¢
-                var sizeHandle = Addressables.GetDownloadSizeAsync(keys.GetEnumerator());
-                yield return sizeHandle;
-                if (sizeHandle.Status != AsyncOperationStatus.Succeeded)
-                {
-                    yield break;
-                }
-                var downloadSize = sizeHandle.Result;
-                this.text.text = "downloadSize:" + downloadSize;
-                if (downloadSize > 0)
-                {
-                    //ÏÂÔØ
-                    var downloadHandle = Addressables.DownloadDependenciesAsync(keys);
-                    while (!downloadHandle.IsDone)
-                    {
-                        if (downloadHandle.Status == AsyncOperationStatus.Failed)
-                        {
-                            yield break;
-                        }
-
-                        var percentage = downloadHandle.PercentComplete;
-                        this.text.text += "ÒÑÏÂÔØ:" + percentage;
-                        //yield return null;
-                    }
-                    if (downloadHandle.Status == AsyncOperationStatus.Succeeded)
-                    {
-                        this.text.text += "ÏÂÔØÍê³É";
-                    }
-                }
-            }
-        }
-        else
-        {
-            this.text.text = "µ±Ç°ÒÑ¾­ÊÇ×îĞÂ°æ±¾";
-        }
-        this.text.text = "¿ªÊ¼¼ÓÔØdll";
-        LoadDllAsset();
-    }
-
-    void StartGame()
-    {
-        byte[] assemblyData = GetAssetData("Assembly-CSharp.dll");
-        Assembly.Load(assemblyData);
-        //AssetBundle prefabAb = AssetBundle.LoadFromMemory(GetAssetData("defaultlocalgroup_assets_all_d1990ef8fedf9fe10470645fc4b5d879.bundle"));
-        //GameObject testPrefab = Instantiate(prefabAb.LoadAsset<GameObject>("HotUpdatePrefab.prefab"));
-        Addressables.LoadSceneAsync("Assets/Scenes/Launch.unity");
-        //Addressables.InstantiateAsync("Assets/Prefab/HotUpdate.prefab");
-        Debug.Log("Ìí¼Óµ½³¡¾°ÖĞ");
-        this.text.text = "¼ÓÔØÍê³É";
-    }
-
-    private static readonly string AssemblyFile = "Assets/Hotfix/";
-    public static List<string> HOTAssemblyNames { get; } = new List<string>()
-    {
-        "Assembly-CSharp.dll"
-    };
-    public static List<string> AOTMetaAssemblyNames { get; } = new List<string>()
-    {
-        "mscorlib.dll",
-        "System.dll",
-        "System.Core.dll",
-    };
-    private static Dictionary<string, byte[]> s_assetDatas = new Dictionary<string, byte[]>();
-
-    public static byte[] GetAssetData(string dllName)
-    {
-        return s_assetDatas[dllName];
-    }
-
-    private void LoadDllAsset()
-    {
-        var assets = HOTAssemblyNames.Concat(AOTMetaAssemblyNames);
-        foreach (var asset in assets)
-        {
-            var handle = Addressables.LoadAssetAsync<TextAsset>(AssemblyFile + asset + ".bytes");
-            handle.Completed += DownloadComplete;
-        }
-    }
-
-    private void DownloadComplete(AsyncOperationHandle<TextAsset> obj)
-    {
-        byte[] assetData = obj.Result.bytes;
-        Debug.Log($"dll:{obj.Result.name}  size:{assetData.Length}");
-        s_assetDatas[obj.Result.name] = assetData;
-
-        if (s_assetDatas.Count == 4)
-        {
-            LoadMetadataForAOTAssemblies();
-
-            StartGame();
-        }
-    }
-
     /// <summary>
-    /// Îªaot assembly¼ÓÔØÔ­Ê¼metadata£¬ Õâ¸ö´úÂë·Åaot»òÕßÈÈ¸üĞÂ¶¼ĞĞ¡£
-    /// Ò»µ©¼ÓÔØºó£¬Èç¹ûAOT·ºĞÍº¯Êı¶ÔÓ¦nativeÊµÏÖ²»´æÔÚ£¬Ôò×Ô¶¯Ìæ»»Îª½âÊÍÄ£Ê½Ö´ĞĞ
+    /// èµ„æºç³»ç»Ÿè¿è¡Œæ¨¡å¼
     /// </summary>
-    private static void LoadMetadataForAOTAssemblies()
+    public EPlayMode PlayMode = EPlayMode.EditorSimulateMode;
+
+    private async void Awake()
     {
-        /// ×¢Òâ£¬²¹³äÔªÊı¾İÊÇ¸øAOT dll²¹³äÔªÊı¾İ£¬¶ø²»ÊÇ¸øÈÈ¸üĞÂdll²¹³äÔªÊı¾İ¡£
-        /// ÈÈ¸üĞÂdll²»È±ÔªÊı¾İ£¬²»ĞèÒª²¹³ä£¬Èç¹ûµ÷ÓÃLoadMetadataForAOTAssembly»á·µ»Ø´íÎó
-        /// 
-        HomologousImageMode mode = HomologousImageMode.SuperSet;
-        foreach (var aotDllName in AOTMetaAssemblyNames)
-        {
-            byte[] dllBytes = GetAssetData(aotDllName);
-            // ¼ÓÔØassembly¶ÔÓ¦µÄdll£¬»á×Ô¶¯ÎªËühook¡£Ò»µ©aot·ºĞÍº¯ÊıµÄnativeº¯Êı²»´æÔÚ£¬ÓÃ½âÊÍÆ÷°æ±¾´úÂë
-            LoadImageErrorCode err = RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, mode);
-            Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. mode:{mode} ret:{err}");
-        }
+        //èµ„æºæ›´æ–°
+        await ResUpdate.Start(PlayMode);
+
+        //åŠ è½½DLL
+        await LoadDll.Start();
+
+        //æ›´æ–°å®Œæˆè·³è½¬è‡³å¯åŠ¨åœºæ™¯
+        YooAssets.LoadSceneAsync("HotfixPackage/Launch.scene");
     }
 }
