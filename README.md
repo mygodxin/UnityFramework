@@ -7,7 +7,7 @@
 比如新增LoginWindow.cs界面文件，生成的UI代码定义有预制体的路径，支持"UIRoot.Inst.ShowWindow<LoginWindow>(自定义参数);"这种快捷打开UI的方式，
 自动加载，同时也会处理ModalLayer这种放在UI下面的半透明黑色背景的层级
 
-二、部分文件说明：
+二、部分文件说明：<br>
 1.GList.cs 一个支持列表项不等宽或高无限循环滚动的列表组件，同时使用对象池优化超大数量列表项 <br>
 2.GProgresBar.cs 简化版Slider，更方便使用 <br>
 3.AlignTool.cs UI对齐工具，方便拼UI使用 <br>
