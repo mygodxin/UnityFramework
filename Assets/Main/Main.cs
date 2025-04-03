@@ -27,6 +27,6 @@ public class Main : MonoBehaviour
         await LoadDll.Start();
 
         //更新完成跳转至启动场景
-        YooAssets.LoadSceneAsync("HotfixPackage/Launch.scene");
+        YooAssets.LoadSceneAsync("Assets/HotfixPackage/Scenes/Launch.unity");
     }
 }

@@ -8,7 +8,7 @@
     "BuildPipeline": "EditorSimulateBuildPipeline",
     "PackageName": "DefaultPackage",
     "PackageVersion": "Simulate",
-    "PackageNote": "2025/2/21 19:13:01",
+    "PackageNote": "2025/4/3 13:55:28",
     "AssetList": [
         {
             "Address": "",
@@ -75,87 +75,171 @@
         },
         {
             "Address": "",
-            "AssetPath": "Assets/HotfixPackage/Materials/ReverseMask/Mask1.mat",
+            "AssetPath": "Assets/HotfixPackage/HotfixDll/Assembly-CSharp.dll.bytes",
             "AssetGUID": "",
             "AssetTags": [],
             "BundleID": 2
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/HotfixPackage/HotfixDll/DOTween.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/HotfixPackage/HotfixDll/HS.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/HotfixPackage/HotfixDll/mscorlib.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/HotfixPackage/HotfixDll/Newtonsoft.Json.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/HotfixPackage/HotfixDll/spine-unity.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/HotfixPackage/HotfixDll/System.Core.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/HotfixPackage/HotfixDll/System.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/HotfixPackage/HotfixDll/UnityEngine.CoreModule.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/HotfixPackage/HotfixDll/UnityEngine.UI.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/HotfixPackage/HotfixDll/UnityWebSocket.Runtime.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/HotfixPackage/HotfixDll/YooAsset.dll.bytes",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 2
+        },
+        {
+            "Address": "",
+            "AssetPath": "Assets/HotfixPackage/Materials/ReverseMask/Mask1.mat",
+            "AssetGUID": "",
+            "AssetTags": [],
+            "BundleID": 3
         },
         {
             "Address": "",
             "AssetPath": "Assets/HotfixPackage/Materials/ReverseMask/Mask2.mat",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 2
+            "BundleID": 3
         },
         {
             "Address": "",
             "AssetPath": "Assets/HotfixPackage/Prefabs/UI/AlertTip.prefab",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 3
+            "BundleID": 4
         },
         {
             "Address": "",
             "AssetPath": "Assets/HotfixPackage/Prefabs/UI/AlertWin.prefab",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 3
+            "BundleID": 4
         },
         {
             "Address": "",
             "AssetPath": "Assets/HotfixPackage/Prefabs/UI/GuideComp.prefab",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 3
+            "BundleID": 4
         },
         {
             "Address": "",
             "AssetPath": "Assets/HotfixPackage/Prefabs/UI/ListRender.prefab",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 3
+            "BundleID": 4
         },
         {
             "Address": "",
             "AssetPath": "Assets/HotfixPackage/Prefabs/UI/LoginScene.prefab",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 3
+            "BundleID": 4
         },
         {
             "Address": "",
             "AssetPath": "Assets/HotfixPackage/Prefabs/UI/SettingWin.prefab",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 3
+            "BundleID": 4
         },
         {
             "Address": "",
             "AssetPath": "Assets/HotfixPackage/Scenes/GameScene.unity",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 4
+            "BundleID": 5
         },
         {
             "Address": "",
             "AssetPath": "Assets/HotfixPackage/Scenes/Launch.unity",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 4
+            "BundleID": 5
         },
         {
             "Address": "",
             "AssetPath": "Assets/HotfixPackage/Scenes/Main.unity",
             "AssetGUID": "",
             "AssetTags": [],
-            "BundleID": 4
+            "BundleID": 5
         }
     ],
     "BundleList": [
         {
             "BundleName": "assets_hotfixpackage_audios.bundle",
             "UnityCRC": 0,
-            "FileHash": "c50dc0f9a0c81514a212dc73524d42d9",
+            "FileHash": "0639264fb8e848b3402a2f3dc58b3f17",
             "FileCRC": "00000000",
             "FileSize": 2004994,
             "Encrypted": false,
@@ -165,7 +249,7 @@
         {
             "BundleName": "assets_hotfixpackage_audios_sound.bundle",
             "UnityCRC": 0,
-            "FileHash": "25a6969c775d90498e176be15f2d7be6",
+            "FileHash": "27b5ad568a6c10864239f709f6a6e02b",
             "FileCRC": "00000000",
             "FileSize": 144756,
             "Encrypted": false,
@@ -173,9 +257,19 @@
             "DependIDs": []
         },
         {
+            "BundleName": "assets_hotfixpackage_hotfixdll.bundle",
+            "UnityCRC": 0,
+            "FileHash": "f118cf57eb5d055ddaa1b0646f2a6805",
+            "FileCRC": "00000000",
+            "FileSize": 6210048,
+            "Encrypted": false,
+            "Tags": [],
+            "DependIDs": []
+        },
+        {
             "BundleName": "assets_hotfixpackage_materials_reversemask.bundle",
             "UnityCRC": 0,
-            "FileHash": "4faba5d8bdc3ffc5049c7245cdaa8289",
+            "FileHash": "4a015d95b58c0df3adcbc24fa696d65e",
             "FileCRC": "00000000",
             "FileSize": 4714,
             "Encrypted": false,
@@ -185,7 +279,7 @@
         {
             "BundleName": "assets_hotfixpackage_prefabs_ui.bundle",
             "UnityCRC": 0,
-            "FileHash": "fd8bdc9e3215a26c92049d618d304385",
+            "FileHash": "3ebde9c773f71a57b1499dd65aa5409c",
             "FileCRC": "00000000",
             "FileSize": 121771,
             "Encrypted": false,
@@ -195,9 +289,9 @@
         {
             "BundleName": "assets_hotfixpackage_scenes.bundle",
             "UnityCRC": 0,
-            "FileHash": "4ffc6736d03f07355fb2079e8035a5ec",
+            "FileHash": "ffaeb33fd35f9b605979422afefc4873",
             "FileCRC": "00000000",
-            "FileSize": 83574,
+            "FileSize": 83588,
             "Encrypted": false,
             "Tags": [],
             "DependIDs": []

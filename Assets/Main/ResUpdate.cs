@@ -98,6 +98,7 @@ public class ResUpdate
         var package = YooAssets.TryGetPackage(PackageName);
         if (package == null)
             package = YooAssets.CreatePackage(PackageName);
+        YooAssets.SetDefaultPackage(package);
 
         // 编辑器下的模拟模式
         InitializationOperation initializationOperation = null;

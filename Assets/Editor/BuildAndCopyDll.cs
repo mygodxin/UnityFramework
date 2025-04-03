@@ -1,20 +1,20 @@
 using HybridCLR.Editor;
-using HybridCLR.Editor.Commands;
 using System;
 using System.IO;
-using System.IO.Compression;
 using UnityEditor;
 using UnityEngine;
 
-public static class BuildAndCopyDll
+public class BuildAndCopyDll
 {
-    public static string CopyAssetsDir => Application.dataPath + "/HotfixPackage/HotfiixDll";
+    public static string CopyAssetsDir => Application.dataPath + "/HotfixPackage/HotfixDll";
 
-    public static void CopyABAOTHotUpdateDlls(BuildTarget target)
+    [MenuItem("HybridCLR/CopyABAOTHotUpdateDlls")]
+    public static void CopyABAOTHotUpdateDlls()
     {
         MakeFolder(CopyAssetsDir);
         CopyAOTAssembliesToAssetsPath();
         CopyHotUpdateAssembliesToAssetsPath();
+        AssetDatabase.Refresh();
     }
 
     private static void CopyAOTAssembliesToAssetsPath()
@@ -43,8 +43,8 @@ public static class BuildAndCopyDll
         string hotfixDllSrcDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
         foreach (var dll in SettingsUtil.HotUpdateAssemblyFilesExcludePreserved)
         {
-            string dllPath = $"{hotfixDllSrcDir}/{dll}.dll";
-            string dllBytesPath = $"{CopyAssetsDir}/{dll}.dll.bytes";
+            string dllPath = $"{hotfixDllSrcDir}/{dll}";
+            string dllBytesPath = $"{CopyAssetsDir}/{dll}.bytes";
             File.Copy(dllPath, dllBytesPath, true);
             Debug.Log($"[CopyHotUpdateAssembliesToStreamingAssets] copy hotfix dll {dllPath} -> {dllBytesPath}");
         }

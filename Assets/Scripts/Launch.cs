@@ -10,7 +10,7 @@ public class Launch : MonoBehaviour
 {
     void Start()
     {
-        transform.DOKill();
+        Debug.Log("Launch Start");
         //初始化配置
         ConfigManager.Inst.Init();
 

@@ -1,8 +1,6 @@
-﻿
+
 
 using DuiChongServerCommon.ClientProtocol;
-using KHCore.Utils;
-using System;
 using System.Collections.Generic;
 
 public class RequestData

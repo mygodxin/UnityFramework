@@ -30,12 +30,12 @@ public class ConfigManager
     public void Init()
     {
         //JsonConvert.DeserializeObject<>()
-        var tables = new cfg.Tables(Loader);
-        Debug.Log(tables.TbItem.DataList);
-        foreach (var k in tables.TbItem.DataList)
-        {
-            Debug.Log($"ID:{k.Id},名称:{k.Name},描述:{k.Desc}");
-        }
+        //var tables = new cfg.Tables(Loader);
+        //Debug.Log(tables.TbItem.DataList);
+        //foreach (var k in tables.TbItem.DataList)
+        //{
+        //    Debug.Log($"ID:{k.Id},名称:{k.Name},描述:{k.Desc}");
+        //}
     }
 
     private JSONNode Loader(string path)

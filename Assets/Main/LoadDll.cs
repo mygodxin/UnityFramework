@@ -11,7 +11,7 @@ using YooAsset;
 /// </summary>
 public class LoadDll
 {
-    private static readonly string AssemblyFile = "Assets/HotfixDll/";
+    private static readonly string AssemblyFile = "Assets/HotfixPackage/HotfixDll/";
     //必须按照依赖顺序加载
     public static List<string> HOTAssemblyNames { get; } = new List<string>()
     {
