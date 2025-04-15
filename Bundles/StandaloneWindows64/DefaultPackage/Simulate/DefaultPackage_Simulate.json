@@ -8,7 +8,7 @@
     "BuildPipeline": "EditorSimulateBuildPipeline",
     "PackageName": "DefaultPackage",
     "PackageVersion": "Simulate",
-    "PackageNote": "2025/4/3 13:55:28",
+    "PackageNote": "2025/4/15 18:37:36",
     "AssetList": [
         {
             "Address": "",
@@ -226,13 +226,6 @@
             "AssetGUID": "",
             "AssetTags": [],
             "BundleID": 5
-        },
-        {
-            "Address": "",
-            "AssetPath": "Assets/HotfixPackage/Scenes/Main.unity",
-            "AssetGUID": "",
-            "AssetTags": [],
-            "BundleID": 5
         }
     ],
     "BundleList": [
@@ -291,7 +284,7 @@
             "UnityCRC": 0,
             "FileHash": "ffaeb33fd35f9b605979422afefc4873",
             "FileCRC": "00000000",
-            "FileSize": 83588,
+            "FileSize": 67190,
             "Encrypted": false,
             "Tags": [],
             "DependIDs": []
