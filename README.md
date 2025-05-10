@@ -1,4 +1,4 @@
-# UnityFramework
+# HSClient
 
 简易Unity框架，方便开发。由HybridCLR热更Code+YooAsset热更Bundle+Luban配置工具
 
